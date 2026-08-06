@@ -1,0 +1,16 @@
+# 作業系統與編輯器暫存檔
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log
+
+# 本地工具輸出
+dist/
+coverage/
+.cache/
+*.local
+
+# 可能包含敏感資訊的本地設定
+.env
+.env.*
+!.env.example
