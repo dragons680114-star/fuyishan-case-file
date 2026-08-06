@@ -22,7 +22,7 @@
     />
 
     <!-- CSS 入口會依序匯入 token、版面、元件與工具模組。 -->
-    <link rel="stylesheet" href="./css/main.css?v=20260806-interaction" />
+    <link rel="stylesheet" href="./css/main.css?v=20260807-deck" />
 
     <!-- 固定版本的互動依賴；若 CDN 暫時不可用，網站仍維持可閱讀狀態。 -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
@@ -67,6 +67,17 @@
             aria-pressed="false"
           >
             <i class="fa-solid fa-moon" data-theme-icon aria-hidden="true"></i>
+          </button>
+
+          <button
+            class="presentation-toggle"
+            type="button"
+            data-presentation-toggle
+            aria-label="進入簡報展示模式"
+            aria-pressed="false"
+          >
+            <i class="fa-solid fa-expand" data-presentation-icon aria-hidden="true"></i>
+            <span data-presentation-label>展示模式</span>
           </button>
         </div>
       </header>
@@ -469,6 +480,6 @@
     </div>
 
     <!-- ES Module 入口只負責組裝各個獨立 section component。 -->
-    <script type="module" src="./js/app.js?v=20260806-interaction"></script>
+    <script type="module" src="./js/app.js?v=20260807-deck"></script>
   </body>
 </html>
