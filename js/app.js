@@ -7,6 +7,7 @@ import { publishDependencyStatus } from "./core/dependencies.js";
 import { initScrollEffects } from "./features/scroll-effects.js";
 import { initScrollSnap } from "./features/scroll-snap.js";
 import { initSmoothScroll } from "./features/smooth-scroll.js";
+import { initPresentationMode } from "./features/presentation-mode.js";
 
 function updateRuntimeStatus(scrollMode, sections) {
   const status = document.querySelector("[data-runtime-status]");
@@ -27,6 +28,7 @@ function bootstrap() {
   const smoothScroll = initSmoothScroll();
   const sections = initSectionComponents();
   const scrollEffects = initScrollEffects();
+  const presentation = initPresentationMode();
   updateRuntimeStatus(scrollEffects.mode, sections);
 
   window.InteractiveWebFramework = Object.freeze({
@@ -34,6 +36,7 @@ function bootstrap() {
     sections,
     scrollEffects,
     smoothScroll,
+    presentation,
   });
 }
 
