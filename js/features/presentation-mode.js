@@ -151,6 +151,7 @@ export function initPresentationMode() {
   const setInitialSlide = (index) => {
     currentIndex = Math.min(Math.max(index, 0), sections.length - 1);
     clearSectionState(sections, gsap);
+    sections[currentIndex].scrollTop = 0;
     sections[currentIndex].classList.add("is-presentation-active");
     revealSectionContent(sections[currentIndex], gsap);
     updateControls();
@@ -167,6 +168,8 @@ export function initPresentationMode() {
     currentIndex = nextIndex;
     updateControls();
 
+    // 每張展示頁皆從頂部開始，避免上一輪閱讀位置殘留。
+    nextSection.scrollTop = 0;
     previousSection.classList.add("is-presentation-leaving");
     nextSection.classList.add("is-presentation-active");
     animating = true;
@@ -243,6 +246,15 @@ export function initPresentationMode() {
 
   const handleWheel = (event) => {
     if (!enabled || Math.abs(event.deltaY) < 18) return;
+
+    const activeSection = sections[currentIndex];
+    const isScrollable = activeSection.scrollHeight > activeSection.clientHeight + 4;
+    const atTop = activeSection.scrollTop <= 1;
+    const atBottom = activeSection.scrollTop + activeSection.clientHeight >= activeSection.scrollHeight - 1;
+
+    // 內容超出 16:9 舞台時，先讓使用者閱讀完整內容；滑到頁首／頁尾才切換章節。
+    if (isScrollable && ((event.deltaY > 0 && !atBottom) || (event.deltaY < 0 && !atTop))) return;
+
     event.preventDefault();
     goToSlide(currentIndex + (event.deltaY > 0 ? 1 : -1), event.deltaY > 0 ? 1 : -1);
   };
@@ -317,7 +329,8 @@ export function initPresentationMode() {
   updateFullscreenButton(fullscreenButton, fullscreenIcon);
   updateToggle(toggle, label, icon, false);
   const storedMode = readStoredMode();
-  const shouldStartInDeck = (storedMode === "on" || storedMode === null) && (mediaQuery?.matches ?? false);
+  // 一般開啟時維持長頁閱讀；使用者主動選擇後才在桌機恢復 16:9 展示模式。
+  const shouldStartInDeck = storedMode === "on" && (mediaQuery?.matches ?? false);
   applyMode(shouldStartInDeck, { index: 0, persist: false });
 
   return {
