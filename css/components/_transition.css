@@ -1,0 +1,16 @@
+/* 頁面轉場：由 JavaScript 在同源導覽時套用。 */
+.page-transition {
+  position: fixed;
+  z-index: var(--z-transition);
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+}
+
+body.is-transitioning .page-transition {
+  opacity: 1;
+  transform: scaleY(1);
+}

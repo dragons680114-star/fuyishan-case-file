@@ -1,0 +1,105 @@
+/* Timeline 以一條垂直路徑串起三個可執行階段。 */
+.timeline-section {
+  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg) 100%);
+}
+
+.action-timeline {
+  position: relative;
+  display: grid;
+  gap: clamp(3rem, 8vw, 7rem);
+  margin-top: clamp(4rem, 9vw, 8rem);
+  padding-left: 4rem;
+}
+
+.action-timeline::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.95rem;
+  width: 1px;
+  background: linear-gradient(var(--color-accent), var(--color-border), transparent);
+  content: "";
+}
+
+.action-timeline__progress {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 0.95rem;
+  width: 1px;
+  background: var(--color-accent);
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+.timeline-item {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 7vw, 7rem);
+}
+
+.timeline-item__marker {
+  position: absolute;
+  top: 0;
+  left: -4rem;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+}
+
+.timeline-item--active .timeline-item__marker {
+  border-color: var(--color-accent);
+  background: var(--gradient-accent);
+  color: var(--color-accent-contrast);
+}
+
+.timeline-item__body h3 {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+}
+
+.timeline-item__body > p:not(.eyebrow) {
+  max-width: 42rem;
+  margin-top: var(--space-5);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.85;
+}
+
+.timeline-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.timeline-item__tags span {
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 47.99rem) {
+  .action-timeline {
+    padding-left: 2.5rem;
+  }
+
+  .timeline-item {
+    display: block;
+  }
+
+  .timeline-item__marker {
+    left: -2.5rem;
+  }
+}

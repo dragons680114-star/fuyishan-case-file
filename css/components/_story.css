@@ -1,0 +1,100 @@
+/* Story 使用大留白與直線節拍，讓讀者感覺像在逐步拆解案件。 */
+.story-section {
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+}
+
+.story-section__sequence {
+  width: min(100% - 2rem, 58rem);
+  margin: clamp(4rem, 10vw, 9rem) auto 0;
+  border-left: 1px solid var(--color-border-strong);
+}
+
+.story-beat {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: var(--space-6);
+  padding: 0 0 clamp(4rem, 9vw, 8rem) 2rem;
+}
+
+.story-beat:last-child {
+  padding-bottom: 0;
+}
+
+.story-beat::before {
+  position: absolute;
+  top: 0.45rem;
+  left: -0.3rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  background: var(--color-bg-elevated);
+  box-shadow: 0 0 0 0.45rem var(--color-bg-elevated);
+  content: "";
+}
+
+.story-beat__index {
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.story-beat__label {
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+}
+
+.story-beat h3 {
+  max-width: 39rem;
+  font-size: clamp(1.75rem, 4vw, 3.25rem);
+}
+
+.story-beat p:last-child {
+  max-width: 34rem;
+  margin-top: var(--space-4);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.story-beat--tension h3 {
+  color: var(--color-accent-strong);
+}
+
+.story-beat--question h3 {
+  max-width: 42rem;
+}
+
+.story-beat__stat {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.story-beat__stat strong {
+  color: var(--color-accent-strong);
+  font-size: 1.5rem;
+}
+
+.story-beat__stat span {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 47.99rem) {
+  .story-section__sequence {
+    width: calc(100% - 2rem);
+  }
+
+  .story-beat {
+    grid-template-columns: 2.5rem 1fr;
+    gap: var(--space-4);
+    padding-left: 1.25rem;
+  }
+}
