@@ -64,7 +64,10 @@ html[data-presentation-mode="deck"] .case-section {
   height: 100%;
   min-height: 100%;
   padding: clamp(5.25rem, 11vh, 7rem) 0 clamp(2rem, 5vh, 3.5rem);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   opacity: 0;
   visibility: hidden;
   transform: translate3d(3rem, 0, 0) scale(0.985);
@@ -294,23 +297,11 @@ html[data-presentation-mode="deck"] .progress-navigation {
 
 @media (max-width: 47.99rem) {
   .site-header__inner {
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .presentation-toggle {
-    width: 2.5rem;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  .presentation-toggle span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    white-space: nowrap;
+    display: none;
   }
 
   .presentation-controls {
