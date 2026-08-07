@@ -1,21 +1,20 @@
 import { getDependencies } from "../../core/dependencies.js";
 import { qs, qsa, prefersReducedMotion } from "../../core/dom.js";
 
-function animateCounter(element, gsap, ScrollTrigger) {
+function animateCounter(element, gsap) {
   const target = Number(element.dataset.target);
   const decimals = Number(element.dataset.decimals ?? 0);
   const state = { value: 0 };
 
-  gsap.to(state, {
+  element._dashboardCounterTween?.kill();
+  element.textContent = (0).toFixed(decimals);
+  element._dashboardCounterTween = gsap.to(state, {
     value: target,
-    duration: 1.8,
-    ease: "power2.out",
+    duration: 2.6,
+    ease: "power1.out",
     onUpdate: () => {
       element.textContent = state.value.toFixed(decimals);
     },
-    scrollTrigger: ScrollTrigger
-      ? { trigger: element, start: "top 84%", once: true }
-      : undefined,
   });
 }
 
@@ -40,7 +39,29 @@ export function initDashboardSection() {
     );
   });
 
-  qsa("[data-counter]", root).forEach((counter) => animateCounter(counter, gsap, ScrollTrigger));
+  const counters = qsa("[data-counter]", root);
+  let hasPlayedOnScroll = false;
+  const playCounters = () => counters.forEach((counter) => animateCounter(counter, gsap));
+
+  // 捲動閱讀時第一次進入頁面才播放；16:9 模式則每次跳到本頁重新從零開始。
+  if (ScrollTrigger) {
+    ScrollTrigger.create({
+      trigger: root,
+      start: "top 72%",
+      onEnter: () => {
+        if (hasPlayedOnScroll) return;
+        hasPlayedOnScroll = true;
+        playCounters();
+      },
+    });
+  } else {
+    playCounters();
+  }
+
+  window.addEventListener("app:presentation-change", () => {
+    if (root.classList.contains("is-presentation-active")) playCounters();
+  });
+
   if (ScrollTrigger) ScrollTrigger.refresh();
   return { name: "dashboard", mode: "gsap" };
 }
