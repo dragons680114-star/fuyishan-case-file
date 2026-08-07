@@ -1,5 +1,5 @@
 import { initCompareSection } from "./compare.js";
-import { initDashboardSection } from "./dashboard.js?v=20260807-counterbounce";
+import { initDashboardSection } from "./dashboard.js?v=20260807-counterpulse";
 import { initEndingSection } from "./ending.js";
 import { initEvidenceSection } from "./evidence.js?v=20260807-finalinteract";
 import { initHeroSection } from "./hero.js";
