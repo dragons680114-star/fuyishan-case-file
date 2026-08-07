@@ -1512,3 +1512,67 @@ html[data-presentation-mode="deck"] .timeline-section .timeline-item__marker {
     font-size: clamp(4rem, 6.65vw, 7rem);
   }
 }
+
+/* 行動頁的展開內容改為左側大舞台：控制鈕與內容卡同寬，保留右側工廠人物。 */
+@media (min-width: 48rem) {
+  .timeline-section .timeline-controls,
+  html[data-presentation-mode="deck"] .timeline-section .timeline-controls {
+    width: min(76vw, 64rem);
+    max-width: 64rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .timeline-section .action-timeline,
+  html[data-presentation-mode="deck"] .timeline-section .action-timeline {
+    width: min(72vw, 60rem);
+    max-width: 60rem;
+    margin-top: clamp(1.5rem, 3.5vh, 2.75rem);
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .timeline-section[data-timeline-state="active"] .action-timeline,
+  html[data-presentation-mode="deck"] .timeline-section[data-timeline-state="active"] .action-timeline {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .timeline-section .timeline-item,
+  html[data-presentation-mode="deck"] .timeline-section .timeline-item {
+    width: 100%;
+    min-height: clamp(20rem, 50vh, 28rem);
+    padding: clamp(2rem, 3.6vw, 3.7rem);
+    border-radius: clamp(1.5rem, 2vw, 2.2rem);
+  }
+
+  .timeline-section .timeline-item__body {
+    display: grid;
+    min-height: 100%;
+    align-content: center;
+    justify-items: start;
+  }
+
+  .timeline-section .timeline-item__marker {
+    margin-bottom: 1.25rem;
+  }
+
+  .timeline-section .timeline-item__body h3 {
+    max-width: 48rem;
+    font-size: clamp(2.25rem, 3.8vw, 3.75rem);
+  }
+
+  .timeline-section .timeline-item__body > p:not(.eyebrow) {
+    max-width: 49rem;
+    font-size: clamp(1.18rem, 1.5vw, 1.4rem);
+    line-height: 1.82;
+  }
+
+  .timeline-section .timeline-item__tags {
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+  }
+
+  .timeline-section .timeline-item__tags span {
+    padding: 0.7rem 1.05rem;
+    font-size: clamp(1rem, 1.15vw, 1.14rem);
+  }
+}
