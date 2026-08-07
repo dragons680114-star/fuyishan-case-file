@@ -22,7 +22,7 @@
     />
 
     <!-- CSS 入口會依序匯入 token、版面、元件與工具模組。 -->
-    <link rel="stylesheet" href="./css/main.css?v=20260807-endingfullframe" />
+    <link rel="stylesheet" href="./css/main.css?v=20260807-timelinefocus" />
 
     <!-- 固定版本的互動依賴；若 CDN 暫時不可用，網站仍維持可閱讀狀態。 -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
@@ -349,7 +349,7 @@
         </section>
 
         <!-- Timeline：三階段作戰計畫，以時間線取代投影片逐頁排列。 -->
-        <section id="timeline" class="case-section timeline-section" data-section="timeline" data-timeline data-scene-interactive>
+        <section id="timeline" class="case-section timeline-section" data-section="timeline" data-timeline data-timeline-state="idle" data-scene-interactive>
           <div class="layout-container section-intro section-intro--split">
             <div>
               <p class="eyebrow" data-scroll-reveal>04／奪還行動</p>
@@ -377,7 +377,7 @@
           </figure>
 
           <div class="layout-container timeline-controls" role="tablist" aria-label="三階段行動導覽">
-            <button class="timeline-controls__button" type="button" role="tab" data-timeline-control data-target="#phase-one" aria-selected="true">
+            <button class="timeline-controls__button" type="button" role="tab" data-timeline-control data-target="#phase-one" aria-selected="false">
               01 / 止血與清理
             </button>
             <button class="timeline-controls__button" type="button" role="tab" data-timeline-control data-target="#phase-two" aria-selected="false">
@@ -389,7 +389,7 @@
           </div>
 
           <div class="layout-container action-timeline">
-            <article id="phase-one" class="timeline-item timeline-item--active" data-timeline-item>
+            <article id="phase-one" class="timeline-item" data-timeline-item>
               <div class="timeline-item__marker"><span>01</span></div>
               <div class="timeline-item__body">
                 <p class="eyebrow">立即行動</p>
@@ -492,6 +492,6 @@
     </div>
 
     <!-- ES Module 入口只負責組裝各個獨立 section component。 -->
-    <script type="module" src="./js/app.js?v=20260807-counterloop2"></script>
+    <script type="module" src="./js/app.js?v=20260807-timelinefocus"></script>
   </body>
 </html>
