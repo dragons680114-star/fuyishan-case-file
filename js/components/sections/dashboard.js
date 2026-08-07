@@ -4,16 +4,9 @@ import { qs, qsa, prefersReducedMotion } from "../../core/dom.js";
 function startCounterPulse(element, gsap, delay) {
   element._dashboardPulseTween?.kill();
   // 數字完成後保留低頻率的微彈跳，晚進入這一頁也能感受到互動，不會干擾閱讀。
-  element._dashboardPulseTween = gsap.to(element, {
-    y: "-0.07em",
-    scale: 1.035,
-    duration: 0.26,
-    delay,
-    ease: "sine.out",
-    yoyo: true,
-    repeat: -1,
-    repeatDelay: 2.7,
-  });
+  element._dashboardPulseTween = gsap.timeline({ repeat: -1, repeatDelay: 2.7, delay })
+    .to(element, { y: "-0.07em", scale: 1.035, duration: 0.24, ease: "sine.out" })
+    .to(element, { y: 0, scale: 1, duration: 0.34, ease: "sine.in" });
 }
 
 function animateCounter(element, gsap, onComplete, delay = 0) {
