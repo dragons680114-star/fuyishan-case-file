@@ -798,6 +798,82 @@ html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
   margin-top: 1rem;
 }
 
+/* 故事卡不再保留舊時間軸的空欄；編號改為正文上方的閱讀提示。 */
+.story-section__sequence {
+  border-left: 0;
+}
+
+.story-beat {
+  display: block;
+  padding: clamp(1.25rem, 2vw, 1.9rem);
+}
+
+.story-beat:last-child {
+  padding-bottom: clamp(1.25rem, 2vw, 1.9rem);
+}
+
+.story-beat::before {
+  display: none;
+}
+
+.story-beat__index {
+  display: inline-grid;
+  min-width: 2.1rem;
+  min-height: 2.1rem;
+  place-items: center;
+  margin-bottom: 0.85rem;
+  border: 1px solid rgba(255, 216, 137, 0.35);
+  border-radius: 50%;
+  background: rgba(243, 184, 77, 0.1);
+}
+
+.story-beat__label {
+  margin-bottom: 0.55rem;
+}
+
+/* 戰果維持清楚大字，但縮小到不壓住右側工廠角色。 */
+.dashboard-section .dashboard-grid {
+  max-width: 64rem;
+  grid-template-columns: 0.95fr 1fr 1.08fr;
+}
+
+.dashboard-section .dashboard-stat__value {
+  font-size: clamp(3.25rem, 5.45vw, 5.9rem);
+}
+
+/* 桌面版改以左側開始鋪陳文字，讓標題、內容與工廠畫面共同填滿全螢幕。 */
+@media (min-width: 48rem) {
+  .story-section .section-intro,
+  .compare-section .section-intro,
+  .timeline-section .section-intro,
+  .dashboard-section .section-intro {
+    width: min(calc(100% - 4rem), 62rem);
+    max-width: 62rem;
+    margin-right: 0;
+    margin-left: max(2rem, calc((100% - 76rem) / 2));
+  }
+
+  .story-section .section-title,
+  .compare-section .section-title,
+  .timeline-section .section-title,
+  .dashboard-section .section-title {
+    max-width: 54rem;
+  }
+
+  .story-section .section-intro__copy,
+  .compare-section .section-intro__copy,
+  .timeline-section .section-intro__copy,
+  .dashboard-section .section-intro__copy {
+    max-width: 46rem;
+  }
+
+  .story-section .story-section__sequence {
+    width: min(calc(100% - 4rem), 72rem);
+    max-width: 72rem;
+    margin-left: max(2rem, calc((100% - 76rem) / 2));
+  }
+}
+
 /* 首尾兩張全螢幕圖統一視覺方向。 */
 .hero-section__background {
   background-position: center;
@@ -981,5 +1057,15 @@ html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
   .hero-section__veil,
   .ending-section__veil {
     background: linear-gradient(180deg, rgba(7, 16, 30, 0.8), rgba(7, 16, 30, 0.25) 45%, #07101e 100%);
+  }
+
+  .story-beat,
+  .story-beat:last-child {
+    display: block;
+    padding: 1.3rem;
+  }
+
+  .story-beat__index {
+    margin-bottom: 0.7rem;
   }
 }
