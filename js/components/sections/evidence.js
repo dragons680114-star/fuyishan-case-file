@@ -5,9 +5,51 @@ import { qs, qsa, prefersReducedMotion } from "../../core/dom.js";
 export function initEvidenceSection() {
   const root = qs("[data-evidence]");
   const { gsap, scrollTrigger: ScrollTrigger } = getDependencies();
-  if (!root || !gsap || prefersReducedMotion()) return { name: "evidence", mode: "static" };
+  if (!root) return { name: "evidence", mode: "static" };
 
-  qsa("[data-evidence-card]", root).forEach((card, index) => {
+  const cards = qsa("[data-evidence-card]", root);
+  const focusButtons = qsa("[data-evidence-focus]", root);
+
+  // 線索切換器：一次聚焦一張卡，讓使用者先看圖像與關鍵判讀，再自行展開資料。
+  const focusEvidence = (requestedIndex, animate = true) => {
+    const activeIndex = Math.min(Math.max(requestedIndex, 0), cards.length - 1);
+    root.dataset.focusedEvidence = String(activeIndex);
+
+    cards.forEach((card, index) => {
+      const isFocused = index === activeIndex;
+      card.classList.toggle("is-focused", isFocused);
+      card.classList.toggle("is-muted", !isFocused);
+      if (animate && gsap) {
+        gsap.to(card, {
+          autoAlpha: isFocused ? 1 : 0.58,
+          y: isFocused ? -10 : 0,
+          duration: 0.42,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    });
+
+    focusButtons.forEach((button, index) => button.setAttribute("aria-selected", String(index === activeIndex)));
+  };
+
+  focusButtons.forEach((button, index) => {
+    button.addEventListener("click", () => focusEvidence(index));
+    button.addEventListener("keydown", (event) => {
+      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? focusButtons.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + focusButtons.length) % focusButtons.length;
+      focusButtons[nextIndex]?.focus();
+      focusEvidence(nextIndex);
+    });
+  });
+
+  focusEvidence(0, false);
+
+  // 即使外部動畫資源暫時不可用，線索切換器仍保持可操作。
+  if (!gsap || prefersReducedMotion()) return { name: "evidence", mode: "static" };
+
+  cards.forEach((card, index) => {
     const visual = qs(".evidence-card__visual", card);
     const content = qs(".evidence-card__content", card);
 
@@ -75,6 +117,7 @@ export function initEvidenceSection() {
     });
 
     if (window.matchMedia?.("(pointer: fine)").matches) {
+      card.addEventListener("pointerenter", () => focusEvidence(index, false));
       card.addEventListener("pointermove", (event) => {
         const bounds = card.getBoundingClientRect();
         const x = (event.clientX - bounds.left) / bounds.width - 0.5;

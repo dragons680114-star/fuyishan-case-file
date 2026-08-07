@@ -1,7 +1,7 @@
 import { initCompareSection } from "./compare.js";
 import { initDashboardSection } from "./dashboard.js";
 import { initEndingSection } from "./ending.js";
-import { initEvidenceSection } from "./evidence.js";
+import { initEvidenceSection } from "./evidence.js?v=20260807-refine";
 import { initHeroSection } from "./hero.js";
 import { initStorySection } from "./story.js";
 import { initTimelineSection } from "./timeline.js";
