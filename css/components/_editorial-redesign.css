@@ -460,6 +460,121 @@ body {
   font-size: clamp(3.1rem, 5vw, 5.4rem);
 }
 
+/* 第 2 頁：左側是可聚焦的案件清單，右側完整保留倉庫偵探視覺。 */
+@media (min-width: 48rem) {
+  .evidence-section .section-intro,
+  .evidence-section .evidence-lens,
+  .evidence-section .evidence-stack {
+    width: min(calc(100% - 2rem), 38rem);
+    margin-right: 0;
+    margin-left: max(1rem, calc((100% - 76rem) / 2));
+  }
+
+  .evidence-section .section-intro {
+    max-width: 38rem;
+  }
+
+  .evidence-section .evidence-lens {
+    margin-top: clamp(1.75rem, 3vh, 2.35rem);
+  }
+
+  .evidence-section .evidence-stack {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .evidence-section .evidence-card__content {
+    min-height: 0;
+    padding: 1.15rem 1.35rem 1.1rem;
+  }
+
+  .evidence-section .evidence-card h3 {
+    max-width: 28rem;
+    font-size: clamp(1.16rem, 1.45vw, 1.42rem);
+  }
+
+  .evidence-section .evidence-card__description {
+    max-width: 34rem;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.58;
+  }
+
+  .evidence-section .evidence-card__toggle {
+    min-height: 2.6rem;
+    margin-top: 0.55rem;
+    border-top-color: rgba(255, 238, 198, 0.14);
+    font-size: 0.92rem;
+  }
+
+  .evidence-section .evidence-card.is-focused {
+    background: linear-gradient(100deg, rgba(8, 19, 34, 0.78), rgba(8, 19, 34, 0.3));
+  }
+}
+
+/* 第 5 頁：去除厚重儀表板外框，改讓戰果數字漂浮在出貨場景上。 */
+.dashboard-section .section-intro {
+  max-width: 48rem;
+}
+
+.dashboard-section .dashboard-grid {
+  display: grid;
+  max-width: 68rem;
+  gap: 0;
+  margin-top: clamp(2.6rem, 5vh, 4rem);
+  border: 0;
+  background: transparent;
+}
+
+.dashboard-section .dashboard-stat {
+  min-height: 0;
+  padding: clamp(1rem, 2vw, 1.7rem) clamp(1.25rem, 2.4vw, 2.3rem);
+  border: 0;
+  border-left: 1px solid rgba(255, 238, 198, 0.28);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.dashboard-section .dashboard-stat:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.dashboard-section .dashboard-stat--primary {
+  background: transparent;
+}
+
+.dashboard-section .dashboard-stat__label {
+  color: rgba(255, 249, 239, 0.84);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-section .dashboard-stat__value {
+  margin-top: clamp(0.7rem, 1.6vw, 1.25rem);
+  color: var(--editorial-gold-soft);
+  font-size: clamp(3.6rem, 6.2vw, 6.6rem);
+  text-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.28);
+}
+
+.dashboard-section .dashboard-stat--primary .dashboard-stat__value {
+  color: #e8b84f;
+}
+
+.dashboard-section .dashboard-stat__description {
+  max-width: 16rem;
+  margin-top: 1rem;
+  color: rgba(255, 249, 239, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.62;
+  text-shadow: 0 0.15rem 0.85rem rgba(0, 0, 0, 0.5);
+}
+
 /* 首尾兩張全螢幕圖統一視覺方向。 */
 .hero-section__background {
   background-position: center;
@@ -571,6 +686,25 @@ body {
 
   .evidence-card.is-muted {
     filter: none;
+  }
+
+  .dashboard-section .dashboard-grid {
+    width: calc(100% - 2rem);
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .dashboard-section .dashboard-stat,
+  .dashboard-section .dashboard-stat:first-child {
+    padding: 1.45rem 0;
+    border-top: 1px solid rgba(255, 238, 198, 0.22);
+    border-left: 0;
+  }
+
+  .dashboard-section .dashboard-stat:first-child {
+    border-top: 0;
   }
 
   .story-section__sequence,
