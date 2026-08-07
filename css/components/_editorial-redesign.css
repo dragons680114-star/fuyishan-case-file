@@ -1,0 +1,538 @@
+/* 第二版視覺系統：以食品工廠場景做章節舞台，資料以易讀浮卡呈現。 */
+:root {
+  --editorial-ink: #07101e;
+  --editorial-paper: #fff9ef;
+  --editorial-gold: #f3b84d;
+  --editorial-gold-soft: #ffd889;
+  --editorial-blue: #10243f;
+  --content-max-width: 76rem;
+}
+
+body {
+  background: #091322;
+}
+
+.site-header {
+  width: min(100% - 2rem, 76rem);
+  border-color: rgba(255, 222, 160, 0.18);
+  background: rgba(7, 16, 30, 0.76);
+  box-shadow: 0 1rem 2.75rem rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(1.25rem) saturate(130%);
+  backdrop-filter: blur(1.25rem) saturate(130%);
+}
+
+.brand-mark__symbol {
+  border-color: rgba(255, 226, 167, 0.48);
+  background: linear-gradient(135deg, #ffd880, #dc8d2e);
+  color: #172339;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: var(--editorial-gold-soft);
+}
+
+/* 每個章節使用完整情境，避免「標題 + 框框圖片」造成的冗長感。 */
+.story-section,
+.evidence-section,
+.compare-section,
+.timeline-section,
+.dashboard-section {
+  isolation: isolate;
+  min-height: max(49rem, 100svh);
+  padding: clamp(7rem, 11vh, 9rem) 0 clamp(5rem, 8vh, 7rem);
+  background: #091322;
+}
+
+.story-section::before,
+.evidence-section::before,
+.compare-section::before,
+.timeline-section::before,
+.dashboard-section::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  content: "";
+  transform: scale(1.015);
+}
+
+.story-section::after,
+.evidence-section::after,
+.compare-section::after,
+.timeline-section::after,
+.dashboard-section::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 16, 30, 0.98) 0%, rgba(7, 16, 30, 0.88) 30%, rgba(7, 16, 30, 0.36) 72%, rgba(7, 16, 30, 0.2) 100%),
+    linear-gradient(0deg, rgba(7, 16, 30, 0.92), transparent 48%, rgba(7, 16, 30, 0.46));
+  content: "";
+}
+
+.story-section::before {
+  background-image: url("../../assets/background/story-eggroll-cookie-2p5d-v2.png");
+}
+
+.evidence-section::before {
+  background-image: url("../../assets/background/evidence-warehouse-2p5d-v2.png");
+}
+
+.compare-section::before {
+  background-image: url("../../assets/background/compare-flow-2p5d-v2.png");
+}
+
+.timeline-section::before {
+  background-image: url("../../assets/background/timeline-action-2p5d-v2.png");
+}
+
+.dashboard-section::before {
+  background-image: url("../../assets/background/dashboard-outcome-2p5d-v2.png");
+}
+
+.story-section > *,
+.evidence-section > *,
+.compare-section > *,
+.timeline-section > *,
+.dashboard-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.story-section .section-scene,
+.compare-section .section-scene,
+.timeline-section .section-scene,
+.dashboard-section .section-scene {
+  display: none;
+}
+
+.section-intro {
+  max-width: 44rem;
+}
+
+.section-intro--split {
+  display: block;
+  max-width: 46rem;
+}
+
+.section-intro--split .section-intro__copy {
+  margin-top: 1.25rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid rgba(255, 216, 137, 0.32);
+  border-radius: 999px;
+  background: rgba(243, 184, 77, 0.1);
+  color: var(--editorial-gold-soft);
+  font-size: 0.7rem;
+  letter-spacing: 0.11em;
+}
+
+.section-title {
+  max-width: 41rem;
+  color: var(--editorial-paper);
+  font-size: clamp(2.55rem, 5.2vw, 5.4rem);
+  font-weight: 740;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.section-intro__copy {
+  max-width: 36rem;
+  margin-top: 1.4rem;
+  color: rgba(255, 249, 239, 0.78);
+  font-size: clamp(1.05rem, 1.4vw, 1.24rem);
+  line-height: 1.85;
+}
+
+/* Story：用三張簡短論點卡取代資訊密集的長條。 */
+.story-section__sequence {
+  display: grid;
+  max-width: 60rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: clamp(3rem, 6vh, 4.5rem) 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+.story-beat {
+  min-height: 15.5rem;
+  border: 1px solid rgba(255, 238, 198, 0.16);
+  border-radius: 1.25rem;
+  background: rgba(8, 19, 34, 0.75);
+  box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.18);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+}
+
+.story-beat__index {
+  color: var(--editorial-gold);
+  font-size: 1.2rem;
+}
+
+.story-beat h3,
+.evidence-card h3,
+.timeline-item__body h3 {
+  color: var(--editorial-paper);
+  font-size: clamp(1.24rem, 1.7vw, 1.62rem);
+  line-height: 1.35;
+}
+
+.story-beat p:not(.story-beat__label),
+.evidence-card__description,
+.timeline-item__body > p:not(.eyebrow) {
+  color: rgba(255, 249, 239, 0.73);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+
+.story-beat__stat {
+  border-top-color: rgba(255, 238, 198, 0.18);
+}
+
+.story-beat__stat strong {
+  color: var(--editorial-gold-soft);
+}
+
+/* Evidence：大圖先建立氛圍，三條線索採可展開的清楚卡片。 */
+.evidence-stack {
+  display: grid;
+  max-width: 72rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: clamp(3rem, 6vh, 4.5rem) auto 0;
+}
+
+.evidence-card {
+  display: block;
+  min-height: 0;
+  grid-template-columns: none;
+  border: 1px solid rgba(255, 238, 198, 0.16);
+  border-radius: 1.25rem;
+  background: rgba(8, 19, 34, 0.82);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+}
+
+.evidence-card:nth-child(even) {
+  grid-template-columns: none;
+}
+
+.evidence-card:nth-child(even) .evidence-card__visual {
+  order: initial;
+}
+
+.evidence-card__visual {
+  display: none;
+}
+
+.evidence-card__content {
+  display: flex;
+  min-height: 22rem;
+  flex-direction: column;
+  padding: clamp(1.35rem, 2.1vw, 2rem);
+}
+
+.evidence-card .eyebrow {
+  font-size: 0.6rem;
+}
+
+.evidence-card__description {
+  margin-top: 1rem;
+}
+
+.evidence-card__details {
+  margin-top: auto;
+}
+
+.evidence-card__toggle {
+  color: var(--editorial-gold-soft);
+}
+
+/* Compare：資料本身成為主角，對比集中、數字清楚。 */
+.compare-board {
+  max-width: 57rem;
+  margin: clamp(3rem, 7vh, 5rem) 0 0 max(1rem, calc((100% - 76rem) / 2));
+  padding: clamp(1.35rem, 3vw, 2.75rem);
+  border: 1px solid rgba(255, 238, 198, 0.2);
+  border-radius: 1.5rem;
+  background: rgba(7, 16, 30, 0.79);
+  box-shadow: 0 1.75rem 4rem rgba(0, 0, 0, 0.24);
+  -webkit-backdrop-filter: blur(1.25rem);
+  backdrop-filter: blur(1.25rem);
+}
+
+.compare-board__axis,
+.comparison-column__label,
+.comparison-column__detail,
+.compare-board__conclusion {
+  color: rgba(255, 249, 239, 0.7);
+}
+
+.comparison-column__value {
+  color: var(--editorial-paper);
+  font-size: clamp(3.25rem, 6vw, 5.5rem);
+}
+
+.comparison-column--cost .comparison-column__value {
+  color: #9ee6c3;
+}
+
+.comparison-column--inventory .comparison-column__value {
+  color: var(--editorial-gold-soft);
+}
+
+.compare-board__conclusion {
+  margin-top: 1.65rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid var(--editorial-gold);
+  background: rgba(243, 184, 77, 0.08);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+/* Timeline：一眼看懂現在該先做哪一步。 */
+.timeline-controls {
+  width: min(100% - 2rem, 61rem);
+  margin: clamp(2.7rem, 6vh, 4rem) auto 0;
+  padding: 0;
+}
+
+.timeline-controls__button {
+  border-color: rgba(255, 238, 198, 0.2);
+  background: rgba(7, 16, 30, 0.7);
+  color: rgba(255, 249, 239, 0.68);
+  font-size: 0.93rem;
+  -webkit-backdrop-filter: blur(0.75rem);
+  backdrop-filter: blur(0.75rem);
+}
+
+.timeline-controls__button[aria-selected="true"] {
+  background: linear-gradient(135deg, #f0b24c, #cc7e2b);
+  color: #152038;
+}
+
+.action-timeline {
+  max-width: 61rem;
+  display: grid;
+  gap: 1rem;
+  margin: 1.35rem auto 0;
+  padding-left: 0;
+}
+
+.action-timeline::before,
+.action-timeline__progress {
+  display: none;
+}
+
+.timeline-item {
+  display: block;
+  border-color: rgba(255, 238, 198, 0.16);
+  border-radius: 1.4rem;
+  background: rgba(7, 16, 30, 0.84);
+  box-shadow: 0 1.25rem 2.8rem rgba(0, 0, 0, 0.2);
+  padding: clamp(1.5rem, 2.6vw, 2.4rem) clamp(1.5rem, 3.2vw, 3rem) clamp(1.5rem, 2.6vw, 2.4rem) clamp(4.5rem, 7vw, 6.25rem);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+}
+
+.timeline-item__marker {
+  top: clamp(1.6rem, 2.7vw, 2.5rem);
+  left: clamp(1.45rem, 2.6vw, 2.5rem);
+  background: transparent;
+}
+
+.timeline-item__marker span {
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  background: linear-gradient(135deg, #ffd988, #da8b32);
+  color: #192338;
+}
+
+.timeline-item__tags span {
+  border-color: rgba(255, 215, 135, 0.3);
+  color: var(--editorial-gold-soft);
+}
+
+/* Dashboard：三個成果卡保持大字、高對比，讓經營者不用尋找資訊。 */
+.dashboard-grid {
+  max-width: 65rem;
+  margin: clamp(3rem, 7vh, 5rem) 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+.dashboard-stat {
+  border-color: rgba(255, 238, 198, 0.17);
+  border-radius: 1.35rem;
+  background: rgba(7, 16, 30, 0.82);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+}
+
+.dashboard-stat--primary {
+  background: linear-gradient(135deg, rgba(241, 180, 71, 0.23), rgba(7, 16, 30, 0.86));
+}
+
+.dashboard-stat__label,
+.dashboard-stat__description {
+  color: rgba(255, 249, 239, 0.72);
+}
+
+.dashboard-stat__value {
+  color: var(--editorial-gold-soft);
+  font-size: clamp(3.1rem, 5vw, 5.4rem);
+}
+
+/* 首尾兩張全螢幕圖統一視覺方向。 */
+.hero-section__background {
+  background-position: center;
+}
+
+.hero-section__title {
+  max-width: 47rem;
+  font-size: clamp(3.25rem, 7.5vw, 7.8rem);
+  letter-spacing: -0.065em;
+}
+
+.hero-section__lead {
+  max-width: 34rem;
+  color: rgba(255, 249, 239, 0.8);
+  font-size: clamp(1.08rem, 1.55vw, 1.35rem);
+}
+
+.hero-section__veil,
+.ending-section__veil {
+  background: linear-gradient(90deg, rgba(7, 16, 30, 0.96) 0%, rgba(7, 16, 30, 0.74) 38%, rgba(7, 16, 30, 0.18) 78%), linear-gradient(0deg, #07101e 0%, transparent 46%);
+}
+
+.ending-section__background {
+  background-position: center;
+}
+
+.ending-section__title {
+  max-width: 44rem;
+  color: var(--editorial-paper);
+  font-size: clamp(2.8rem, 6.2vw, 6.4rem);
+  letter-spacing: -0.06em;
+}
+
+.ending-section__copy {
+  max-width: 36rem;
+  color: rgba(255, 249, 239, 0.78);
+  font-size: 1.13rem;
+  line-height: 1.85;
+}
+
+@media (max-width: 74rem) {
+  .story-section__sequence,
+  .compare-board,
+  .dashboard-grid {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .site-header {
+    width: calc(100% - 1rem);
+  }
+
+  .story-section,
+  .evidence-section,
+  .compare-section,
+  .timeline-section,
+  .dashboard-section {
+    min-height: auto;
+    padding: 6.5rem 0 5rem;
+  }
+
+  .story-section::before,
+  .evidence-section::before,
+  .compare-section::before,
+  .timeline-section::before,
+  .dashboard-section::before {
+    background-position: 68% center;
+  }
+
+  .story-section::after,
+  .evidence-section::after,
+  .compare-section::after,
+  .timeline-section::after,
+  .dashboard-section::after {
+    background: linear-gradient(180deg, rgba(7, 16, 30, 0.94), rgba(7, 16, 30, 0.76) 48%, rgba(7, 16, 30, 0.92));
+  }
+
+  .section-title {
+    font-size: clamp(2.45rem, 12vw, 4.4rem);
+  }
+
+  .story-section__sequence,
+  .evidence-stack,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    width: calc(100% - 2rem);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .story-section__sequence,
+  .evidence-stack {
+    margin-top: 2.5rem;
+  }
+
+  .story-beat,
+  .evidence-card__content {
+    min-height: auto;
+  }
+
+  .compare-board {
+    width: calc(100% - 2rem);
+    margin: 2.5rem auto 0;
+  }
+
+  .timeline-controls {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .timeline-controls__button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .action-timeline {
+    width: calc(100% - 2rem);
+    padding-left: 0;
+  }
+
+  .timeline-item {
+    padding: 1.35rem 1.35rem 1.5rem 4.2rem;
+  }
+
+  .timeline-item__marker {
+    top: 1.35rem;
+    left: 1.2rem;
+  }
+
+  .dashboard-grid {
+    margin-top: 2.5rem;
+  }
+
+  .hero-section__title,
+  .ending-section__title {
+    font-size: clamp(3rem, 14vw, 5.1rem);
+  }
+
+  .hero-section__veil,
+  .ending-section__veil {
+    background: linear-gradient(180deg, rgba(7, 16, 30, 0.8), rgba(7, 16, 30, 0.25) 45%, #07101e 100%);
+  }
+}
