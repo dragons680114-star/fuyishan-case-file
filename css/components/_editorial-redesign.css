@@ -841,6 +841,15 @@ html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
   font-size: clamp(3.25rem, 5.45vw, 5.9rem);
 }
 
+/* 戰果數字固定字寬，計數時不擠壓版面；每個數字可獨立彈跳。 */
+.dashboard-section .dashboard-stat__value [data-counter] {
+  display: inline-block;
+  min-width: 1ch;
+  font-variant-numeric: tabular-nums;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+
 /* 桌面版改以左側開始鋪陳文字，讓標題、內容與工廠畫面共同填滿全螢幕。 */
 @media (min-width: 48rem) {
   .story-section .section-intro,
@@ -929,6 +938,54 @@ html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
   color: rgba(255, 249, 239, 0.78);
   font-size: 1.13rem;
   line-height: 1.85;
+}
+
+/* 結案頁：以左側文字、右側角色與出貨場景完成真正的全版收尾。 */
+.ending-section {
+  min-height: 100svh;
+  height: 100svh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ending-section .ending-section__content {
+  width: min(calc(100% - 4rem), 45rem);
+  max-width: 45rem;
+  margin-right: 0;
+  margin-left: clamp(2rem, 8vw, 9rem);
+  padding: clamp(6rem, 12vh, 9rem) 0 clamp(3rem, 8vh, 6rem);
+}
+
+.ending-section__title {
+  max-width: 43rem;
+  font-size: clamp(3rem, 5.55vw, 6.1rem);
+  line-height: 1.04;
+}
+
+.ending-section__copy {
+  max-width: 38rem;
+  font-size: clamp(1.08rem, 1.35vw, 1.28rem);
+}
+
+/* 最後一張展示頁移除懸浮頁首，讓舞台從第一個像素到最後一個像素都屬於結案畫面。 */
+html[data-presentation-mode="deck"]:has(.ending-section.is-presentation-active) .site-header {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -1.5rem);
+}
+
+html[data-presentation-mode="deck"] .ending-section {
+  display: flex;
+  min-height: 100svh;
+  height: 100svh;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+html[data-presentation-mode="deck"] .ending-section .ending-section__content {
+  align-self: center;
+  padding: clamp(4rem, 9vh, 6.5rem) 0;
 }
 
 @media (max-width: 74rem) {

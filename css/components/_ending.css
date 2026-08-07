@@ -1,7 +1,7 @@
 /* Ending 回應 Hero 的疑問，保持文字與未來背景影像分離。 */
 .ending-section {
   display: flex;
-  min-height: 90svh;
+  min-height: 100svh;
   align-items: center;
   isolation: isolate;
 }
