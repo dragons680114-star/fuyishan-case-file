@@ -416,6 +416,11 @@ body {
   background: transparent;
 }
 
+.timeline-item--active .timeline-item__marker {
+  border: 0;
+  background: transparent;
+}
+
 .timeline-item__marker span {
   display: grid;
   width: 2.1rem;
@@ -573,6 +578,224 @@ body {
   font-size: 0.95rem;
   line-height: 1.62;
   text-shadow: 0 0.15rem 0.85rem rgba(0, 0, 0, 0.5);
+}
+
+/* 16:9 展示模式：讓操作鈕與資料卡保留更多畫面呼吸感。 */
+html[data-presentation-mode="deck"] .timeline-controls {
+  width: min(calc(100% - 2rem), 61rem);
+  margin-top: 0;
+}
+
+html[data-presentation-mode="deck"] .timeline-controls__button {
+  min-height: 2.45rem;
+  padding: 0.48rem 0.82rem;
+  border-color: rgba(255, 238, 198, 0.22);
+  background: rgba(7, 16, 30, 0.64);
+  color: rgba(255, 249, 239, 0.76);
+}
+
+/* 選取狀態改為金色描邊，不用整塊亮黃色搶走焦點。 */
+html[data-presentation-mode="deck"] .timeline-controls__button[aria-selected="true"] {
+  border-color: rgba(255, 211, 119, 0.82);
+  background: rgba(243, 184, 77, 0.12);
+  box-shadow: inset 0 -0.18rem 0 rgba(243, 184, 77, 0.86);
+  color: var(--editorial-gold-soft);
+}
+
+/* 線索頁一次只顯示選中的一張卡，展開資料時可完整閱讀。 */
+html[data-presentation-mode="deck"] .evidence-section .evidence-stack {
+  display: block;
+  width: min(calc(100% - 2rem), 39rem);
+  margin: 0 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card {
+  display: none;
+  min-height: 0;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card.is-focused {
+  display: block;
+  width: 100%;
+  filter: none;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card__content {
+  min-height: 0;
+  padding: clamp(1.3rem, 2.25vw, 2rem);
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card__details-body {
+  padding: 1rem 0 0.35rem;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-inline-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(255, 238, 198, 0.14);
+  border-bottom: 1px solid rgba(255, 238, 198, 0.14);
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-inline-data span {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.35;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-metric-row {
+  gap: 0.85rem;
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* 行動卡的編號改放進卡內，文字從左緣開始，不再浪費左側空白。 */
+html[data-presentation-mode="deck"] .timeline-section .action-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(calc(100% - 2rem), 68rem);
+  margin: 1.25rem 0 0 max(1rem, calc((100% - 76rem) / 2));
+  padding-left: 0;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item {
+  display: block;
+  min-height: 0;
+  padding: clamp(1.15rem, 1.8vw, 1.65rem);
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__marker {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__marker span {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__body > p:not(.eyebrow) {
+  margin-top: 0.75rem;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
+  margin-top: 1rem;
+}
+
+/* 一般閱讀模式同步採用同一套資訊層級，避免兩種模式看起來像兩個網站。 */
+.timeline-controls__button[aria-selected="true"] {
+  border-color: rgba(255, 211, 119, 0.82);
+  background: rgba(243, 184, 77, 0.12);
+  box-shadow: inset 0 -0.18rem 0 rgba(243, 184, 77, 0.86);
+  color: var(--editorial-gold-soft);
+}
+
+.evidence-section .evidence-stack {
+  display: block;
+  width: min(calc(100% - 2rem), 39rem);
+  margin: 1rem 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+.evidence-section .evidence-card {
+  display: none;
+}
+
+.evidence-section .evidence-card.is-focused {
+  display: block;
+  width: 100%;
+  filter: none;
+}
+
+.evidence-section .evidence-card:has(.evidence-card__details[open]) {
+  background: linear-gradient(135deg, rgba(7, 16, 30, 0.96), rgba(7, 16, 30, 0.82));
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.26);
+}
+
+.evidence-section .evidence-card__details-body {
+  padding: 1rem 0 0.45rem;
+}
+
+.evidence-section .evidence-inline-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(255, 238, 198, 0.16);
+  border-bottom: 1px solid rgba(255, 238, 198, 0.16);
+  color: rgba(255, 249, 239, 0.78);
+}
+
+.evidence-section .evidence-inline-data span {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.35;
+}
+
+.evidence-section .evidence-inline-data strong,
+.evidence-section .evidence-metric strong {
+  color: var(--editorial-paper);
+}
+
+.evidence-section .evidence-metric-row {
+  gap: 0.85rem;
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.action-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(calc(100% - 2rem), 68rem);
+  max-width: none;
+  margin: 1.25rem 0 0 max(1rem, calc((100% - 76rem) / 2));
+  padding-left: 0;
+}
+
+.timeline-item {
+  display: block;
+  min-height: 0;
+  padding: clamp(1.15rem, 1.8vw, 1.65rem);
+}
+
+.timeline-item__marker {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.timeline-item__marker span {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.timeline-item__body > p:not(.eyebrow) {
+  margin-top: 0.75rem;
+}
+
+.timeline-item__tags {
+  margin-top: 1rem;
 }
 
 /* 首尾兩張全螢幕圖統一視覺方向。 */
