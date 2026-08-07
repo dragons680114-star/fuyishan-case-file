@@ -1,7 +1,7 @@
 import { getDependencies } from "../../core/dependencies.js";
 import { qs, qsa, prefersReducedMotion } from "../../core/dom.js";
 
-function animateCounter(element, gsap) {
+function animateCounter(element, gsap, onComplete) {
   const target = Number(element.dataset.target);
   const decimals = Number(element.dataset.decimals ?? 0);
   const state = { value: 0 };
@@ -15,6 +15,7 @@ function animateCounter(element, gsap) {
     onUpdate: () => {
       element.textContent = state.value.toFixed(decimals);
     },
+    onComplete,
   });
 }
 
@@ -41,7 +42,18 @@ export function initDashboardSection() {
 
   const counters = qsa("[data-counter]", root);
   let hasPlayedOnScroll = false;
-  const playCounters = () => counters.forEach((counter) => animateCounter(counter, gsap));
+  const playCounters = ({ replay = false } = {}) => {
+    const state = root.dataset.counterState;
+    if (state === "running" || (!replay && state === "complete")) return;
+
+    root.dataset.counterState = "running";
+    let completed = 0;
+    const finish = () => {
+      completed += 1;
+      if (completed === counters.length) root.dataset.counterState = "complete";
+    };
+    counters.forEach((counter) => animateCounter(counter, gsap, finish));
+  };
 
   // 捲動閱讀時第一次進入頁面才播放；16:9 模式則每次跳到本頁重新從零開始。
   if (ScrollTrigger) {
@@ -59,7 +71,7 @@ export function initDashboardSection() {
   }
 
   window.addEventListener("app:presentation-change", () => {
-    if (root.classList.contains("is-presentation-active")) playCounters();
+    if (root.classList.contains("is-presentation-active")) playCounters({ replay: true });
   });
 
   if (ScrollTrigger) ScrollTrigger.refresh();
