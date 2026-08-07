@@ -870,7 +870,24 @@ html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
   .story-section .story-section__sequence {
     width: min(calc(100% - 4rem), 72rem);
     max-width: 72rem;
-    margin-left: max(2rem, calc((100% - 76rem) / 2));
+    margin-left: clamp(2rem, 6vw, 7rem);
+  }
+
+  /* 大螢幕不再把內容鎖在中央窄欄，左側與背景一起延展使用。 */
+  .story-section .section-intro,
+  .compare-section .section-intro,
+  .timeline-section .section-intro,
+  .dashboard-section .section-intro,
+  .evidence-section .section-intro,
+  .evidence-section .evidence-lens,
+  .evidence-section .evidence-stack {
+    margin-left: clamp(2rem, 6vw, 7rem);
+  }
+
+  .compare-board,
+  .dashboard-grid,
+  .action-timeline {
+    margin-left: clamp(2rem, 6vw, 7rem);
   }
 }
 
