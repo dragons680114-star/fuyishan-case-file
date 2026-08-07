@@ -4,7 +4,7 @@ import { initEndingSection } from "./ending.js";
 import { initEvidenceSection } from "./evidence.js?v=20260807-finalinteract";
 import { initHeroSection } from "./hero.js";
 import { initStorySection } from "./story.js";
-import { initTimelineSection } from "./timeline.js";
+import { initTimelineSection } from "./timeline.js?v=20260807-selective";
 
 // Section registry 讓每個章節可獨立測試、替換與重用。
 export function initSectionComponents() {
