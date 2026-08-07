@@ -19,6 +19,13 @@ export function initEvidenceSection() {
       const isFocused = index === activeIndex;
       card.classList.toggle("is-focused", isFocused);
       card.classList.toggle("is-muted", !isFocused);
+
+      // 被切換回畫面的線索，需解除先前進場動畫留下的隱藏樣式。
+      if (isFocused && gsap) {
+        const content = qs(".evidence-card__content", card);
+        gsap.set(card, { clearProps: "opacity,visibility,transform" });
+        if (content) gsap.set(content, { clearProps: "opacity,visibility,transform" });
+      }
       if (animate && gsap) {
         gsap.to(card, {
           autoAlpha: isFocused ? 1 : 0.58,
