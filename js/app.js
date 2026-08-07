@@ -1,7 +1,7 @@
 import { initLoading } from "./components/loading.js";
 import { initPageTransition } from "./components/page-transition.js";
 import { initProgressNavigation } from "./components/progress-navigation.js";
-import { initSectionComponents } from "./components/sections/index.js?v=20260807-refine";
+import { initSectionComponents } from "./components/sections/index.js?v=20260807-layout-fix";
 import { initTheme } from "./components/theme.js";
 import { publishDependencyStatus } from "./core/dependencies.js";
 import { initScrollEffects } from "./features/scroll-effects.js";
