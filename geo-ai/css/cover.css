@@ -1,0 +1,127 @@
+:root {
+  --navy: #061426;
+  --ink: #fff7e7;
+  --muted: rgba(255, 247, 231, 0.78);
+  --gold: #ffc95f;
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-width: 20rem; min-height: 100%; margin: 0; }
+
+body {
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+
+/* 封面採左文右景，文字保持在 HTML，背景圖不含任何文字。 */
+.cover {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cover__image, .cover__veil { position: absolute; inset: 0; }
+
+.cover__image {
+  z-index: -2;
+  background: center / cover no-repeat url("../assets/images/geo-cover-ai-search.png");
+  animation: cover-breathe 9s ease-in-out infinite alternate;
+}
+
+.cover__veil {
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(3, 15, 31, 0.98) 0%, rgba(3, 15, 31, 0.92) 37%, rgba(3, 15, 31, 0.47) 67%, rgba(3, 15, 31, 0.08) 100%);
+}
+
+.cover__content {
+  width: min(64rem, 62vw);
+  padding: clamp(4rem, 9vh, 7rem) 0 clamp(4rem, 9vh, 7rem) clamp(2rem, 8vw, 10rem);
+}
+
+.cover__eyebrow {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0 0 1.4rem;
+  color: var(--gold);
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.cover__eyebrow::before { width: 2.8rem; height: 0.25rem; background: currentColor; content: ""; }
+.cover__eyebrow span, .cover__lead span { font-family: ui-monospace, Consolas, monospace; font-size: 0.75em; }
+
+h1 {
+  max-width: 55rem;
+  margin: 0;
+  font-size: clamp(4rem, 6.4vw, 7.7rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.cover__subtitle {
+  margin: 1.5rem 0 0;
+  color: var(--gold);
+  font-size: clamp(1.55rem, 2.3vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.cover__lead {
+  max-width: 40rem;
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.2rem, 1.55vw, 1.5rem);
+  font-weight: 650;
+  line-height: 1.8;
+}
+
+.cover__company {
+  margin: 3.3rem 0 0;
+  color: rgba(255, 247, 231, 0.63);
+  font-size: clamp(1rem, 1.1vw, 1.18rem);
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.cover__hint {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 4rem);
+  bottom: clamp(1.5rem, 3vw, 3rem);
+  margin: 0;
+  color: rgba(255, 247, 231, 0.8);
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.95rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.cover__hint span { margin: 0 0.45rem; color: var(--gold); }
+
+@keyframes cover-breathe { from { transform: scale(1.02); } to { transform: scale(1.065); } }
+
+@media (max-width: 62rem) {
+  body { overflow: auto; }
+  .cover { align-items: end; }
+  .cover__veil { background: linear-gradient(180deg, rgba(3, 15, 31, 0.74), rgba(3, 15, 31, 0.94) 58%, rgba(3, 15, 31, 0.99)); }
+  .cover__content { width: 100%; padding: 5rem 1.5rem 5.5rem; }
+}
+
+@media (max-width: 38rem) {
+  h1 { font-size: clamp(3rem, 13.5vw, 4.5rem); }
+  .cover__subtitle { font-size: 1.5rem; }
+  .cover__lead { font-size: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover__image { animation: none; }
+}
