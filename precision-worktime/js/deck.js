@@ -1,6 +1,7 @@
 const slides = [...document.querySelectorAll("[data-slide]")];
 const indexLabel = document.querySelector("[data-index]");
 const dots = document.querySelector("[data-dots]");
+const fullscreenButton = document.querySelector("[data-fullscreen]");
 let activeIndex = 0;
 
 // 以可重複使用的中文資料控制各頁互動，不把現場資料與文案硬寫在事件裡。
@@ -62,6 +63,24 @@ function goTo(index) {
   renderDots();
 }
 
+// 報告時可一鍵把簡報放大到整個螢幕，離開後按鈕文案也會同步更新。
+function updateFullscreenButton() {
+  const isFullscreen = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+  fullscreenButton.setAttribute("aria-label", isFullscreen ? "離開全螢幕" : "進入全螢幕");
+  fullscreenButton.setAttribute("title", isFullscreen ? "離開全螢幕" : "全螢幕播放");
+  fullscreenButton.querySelector("span").textContent = isFullscreen ? "×" : "⛶";
+}
+
+function toggleFullscreen() {
+  const isFullscreen = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+  if (isFullscreen) {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    return;
+  }
+  const page = document.documentElement;
+  (page.requestFullscreen || page.webkitRequestFullscreen).call(page);
+}
+
 function selectChoice(button) {
   const group = button.dataset.choiceGroup;
   const content = choiceContent[group]?.[button.dataset.choice];
@@ -113,6 +132,9 @@ document.querySelector("[data-check]").addEventListener("click", (event) => {
 document.querySelectorAll("[data-next]").forEach((button) => button.addEventListener("click", () => goTo(activeIndex + 1)));
 document.querySelectorAll("[data-prev]").forEach((button) => button.addEventListener("click", () => goTo(activeIndex - 1)));
 document.querySelector("[data-restart]").addEventListener("click", () => goTo(0));
+fullscreenButton.addEventListener("click", toggleFullscreen);
+document.addEventListener("fullscreenchange", updateFullscreenButton);
+document.addEventListener("webkitfullscreenchange", updateFullscreenButton);
 document.addEventListener("keydown", (event) => {
   if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); goTo(activeIndex + 1); }
   if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); goTo(activeIndex - 1); }
