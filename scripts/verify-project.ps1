@@ -85,6 +85,11 @@ foreach ($file in $htmlFiles) {
   if ($content -notmatch '<link\s+[^>]*rel=["'']canonical["''][^>]*href=["'']https://[^"'']+["'']') {
     Add-Failure "$relativeFile is missing an absolute canonical URL"
   }
+  foreach ($button in [regex]::Matches($content, '<button\b[^>]*>')) {
+    if ($button.Value -notmatch '\btype=["'']button["'']') {
+      Add-Failure "$relativeFile has a button without type=button: $($button.Value)"
+    }
+  }
 }
 
 # sitemap.xml 只列出專案內實際存在的頁面，避免搜尋引擎收到失效網址。
