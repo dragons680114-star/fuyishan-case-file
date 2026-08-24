@@ -1,0 +1,74 @@
+/* Dashboard 是戰果段落的資料儀表板，數值由來源簡報提供。 */
+.dashboard-section {
+  background: var(--gradient-page);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: clamp(4rem, 9vw, 8rem);
+  border: 1px solid var(--color-border);
+  background: var(--color-border);
+}
+
+.dashboard-stat {
+  min-height: 26rem;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  background: var(--color-bg);
+}
+
+.dashboard-stat--primary {
+  background: linear-gradient(145deg, rgba(138, 164, 255, 0.14), var(--color-bg));
+}
+
+.dashboard-stat__label {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+}
+
+.dashboard-stat__value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-top: clamp(4rem, 7vw, 7rem);
+  color: var(--color-text);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 600;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}
+
+.dashboard-stat--primary .dashboard-stat__value {
+  color: var(--color-accent-strong);
+}
+
+.dashboard-stat__value small {
+  color: var(--color-text-muted);
+  font-size: 0.25em;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.dashboard-stat__description {
+  max-width: 17rem;
+  margin-top: var(--space-6);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 47.99rem) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-stat {
+    min-height: 20rem;
+  }
+
+  .dashboard-stat__value {
+    margin-top: 4rem;
+  }
+}

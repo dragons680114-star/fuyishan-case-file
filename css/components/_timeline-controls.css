@@ -1,0 +1,29 @@
+/* Timeline 控制列：把三個行動階段變成可點擊的導覽。 */
+.timeline-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: clamp(2rem, 4vw, 4rem);
+}
+
+.timeline-controls__button {
+  min-height: 3.25rem;
+  padding: 0.7rem 1.05rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.timeline-controls__button[aria-selected="true"],
+.timeline-controls__button:hover,
+.timeline-controls__button:focus-visible {
+  border-color: var(--color-accent-strong);
+  background: rgba(138, 164, 255, 0.12);
+  color: var(--color-text);
+}

@@ -1,0 +1,30 @@
+/* 提供全站 motion preference 與可重用的滾動狀態 class。 */
+[data-scroll-reveal] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+[data-scroll-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-parallax] {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  [data-scroll-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

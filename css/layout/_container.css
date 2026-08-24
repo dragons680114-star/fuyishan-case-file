@@ -1,0 +1,11 @@
+/* 內容寬度與橫向內距統一由 container 管理。 */
+.layout-container {
+  width: min(100% - 2rem, var(--content-max-width));
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .layout-container {
+    width: min(100% - 4rem, var(--content-max-width));
+  }
+}

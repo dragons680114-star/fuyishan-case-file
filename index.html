@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="績效謎案：福義軒資金失蹤事件簿。以資料、線索與行動計畫重新拆解供應鏈資金流。"
+    />
+    <meta name="theme-color" content="#080b14" />
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+    <title>績效謎案｜福義軒資金失蹤事件簿</title>
+
+    <!-- 預先建立第三方資源連線，降低首屏載入延遲。 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <!-- Font Awesome 只提供圖示，不承載任何內容文字。 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- CSS 入口會依序匯入 token、版面、元件與工具模組。 -->
+    <link rel="stylesheet" href="./css/main.css?v=20260807-timelinestage2" />
+
+    <!-- 固定版本的互動依賴；若 CDN 暫時不可用，網站仍維持可閱讀狀態。 -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
+  </head>
+
+  <body class="is-loading">
+    <!-- 鍵盤與螢幕閱讀器使用者可略過導覽。 -->
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+
+    <!-- 初始載入遮罩由 loading component 使用 GSAP 關閉。 -->
+    <div class="app-loader" data-loader aria-live="polite" aria-label="頁面載入中">
+      <span class="app-loader__mark" aria-hidden="true"></span>
+      <span class="app-loader__label">案件檔案載入中</span>
+    </div>
+
+    <!-- 同源頁面轉場遮罩由 page-transition component 使用 GSAP 控制。 -->
+    <div class="page-transition" data-page-transition aria-hidden="true"></div>
+
+    <div class="case-shell" data-site-shell>
+      <header class="site-header glass-panel" data-header>
+        <div class="site-header__inner layout-container">
+          <a class="brand-mark" href="#hero" aria-label="回到案件首頁">
+            <span class="brand-mark__symbol" aria-hidden="true">◈</span>
+            <span class="brand-mark__name">福義軒／案件 01</span>
+          </a>
+
+          <nav class="site-nav" aria-label="案件章節導覽">
+            <a class="site-nav__link" href="#story">故事起點</a>
+            <a class="site-nav__link" href="#evidence">三條線索</a>
+            <a class="site-nav__link" href="#timeline">奪還行動</a>
+            <a class="site-nav__link" href="#dashboard">預期戰果</a>
+          </nav>
+
+          <button
+            class="icon-button"
+            type="button"
+            data-theme-toggle
+            aria-label="切換至亮色模式"
+            aria-pressed="false"
+          >
+            <i class="fa-solid fa-moon" data-theme-icon aria-hidden="true"></i>
+          </button>
+
+          <button
+            class="presentation-toggle"
+            type="button"
+            data-presentation-toggle
+            aria-label="進入簡報展示模式"
+            aria-pressed="false"
+          >
+            <i class="fa-solid fa-expand" data-presentation-icon aria-hidden="true"></i>
+            <span data-presentation-label>展示模式</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" class="site-main" data-scroll-container tabindex="-1">
+        <!-- Hero：背景影像只提供掛載位，所有可讀文字均由 HTML 控制。 -->
+        <section id="hero" class="case-section hero-section" data-section="hero" data-hero>
+          <div
+            class="hero-section__background ai-background-slot"
+            data-ai-background
+            style="background-image: url('./assets/background/hero-eggroll-cookie-2p5d-v2.png')"
+            aria-hidden="true"
+          ></div>
+          <div class="hero-section__veil" aria-hidden="true"></div>
+          <div class="layout-container hero-section__content">
+            <p class="eyebrow hero-section__eyebrow" data-hero-reveal>績效案件檔案／2026</p>
+            <h1 class="hero-section__title" data-hero-reveal>
+              績效謎案<span class="hero-section__colon">：</span><br />
+              福義軒資金失蹤事件簿
+            </h1>
+            <p class="hero-section__lead" data-hero-reveal>
+              芝麻蛋捲與烘焙餅乾持續出爐；但有一筆資金，沒有跟著產品一起流動。
+            </p>
+            <div class="hero-section__actions" data-hero-reveal>
+              <a class="button button--primary" href="#story">
+                <span>開始調查</span>
+                <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+              </a>
+              <span class="hero-section__source-note">內容依據：千萬資金奪還作戰計畫</span>
+            </div>
+          </div>
+          <div class="hero-section__scroll-hint" aria-hidden="true">
+            <span>向下捲動，開始調查</span>
+            <span class="hero-section__scroll-line"></span>
+          </div>
+        </section>
+
+        <!-- Story：將簡報的背景、反差與核心問題重組為滾動敘事。 -->
+        <section id="story" class="case-section story-section" data-section="story" data-story data-scene-interactive>
+          <div class="layout-container section-intro">
+            <p class="eyebrow" data-scroll-reveal>01／故事起點</p>
+            <h2 class="section-title" data-scroll-reveal>表面上，生產線是一部印鈔機。</h2>
+            <p class="section-intro__copy" data-scroll-reveal>
+              核心大宗物料以 JIT 管理，芝麻蛋捲與烘焙餅乾的生產節奏依然穩定；條碼管理、PDA 與智能倉儲也正逐步上線。
+            </p>
+          </div>
+
+          <figure class="section-scene" data-scroll-reveal>
+            <div
+              class="section-scene__image"
+              data-parallax="6"
+              style="background-image: url('./assets/background/story-eggroll-cookie-line-2p5d.png')"
+              aria-hidden="true"
+            ></div>
+            <div class="section-scene__shade" aria-hidden="true"></div>
+            <figcaption class="section-scene__caption">
+              <p class="eyebrow">工廠現場／生產線</p>
+              <strong>從蛋捲出爐到餅乾冷卻，生產線順暢；問題藏在資金流速。</strong>
+              <p>先看見福義軒食品廠的生產實力，再把調查鏡頭轉向庫存與資金。</p>
+              <span class="section-scene__source">簡報來源／02–06</span>
+            </figcaption>
+          </figure>
+
+          <div class="story-section__sequence">
+            <article class="story-beat story-beat--positive" data-story-step>
+              <span class="story-beat__index">01</span>
+              <div>
+                <p class="story-beat__label">表面上的景象</p>
+                <h3>生產效率沒有先亮紅燈。</h3>
+                <p>原料管理快速、產品需求穩固，工廠的表面績效仍然成立。</p>
+                <div class="story-beat__stat"><strong>0.7–5</strong><span>核心大宗物料庫存天數</span></div>
+              </div>
+            </article>
+            <article class="story-beat story-beat--tension" data-story-step>
+              <span class="story-beat__index">02</span>
+              <div>
+                <p class="story-beat__label">第一個異常</p>
+                <h3>但每一塊錢，比去年多待了 4.9 天。</h3>
+                <p>問題不是貨沒有動，而是資金的流速與生產效率開始背離。</p>
+              </div>
+            </article>
+            <article class="story-beat story-beat--question" data-story-step>
+              <span class="story-beat__index">03</span>
+              <div>
+                <p class="story-beat__label">關鍵問題</p>
+                <h3>既然生產得又快又好，錢怎麼越轉越慢？</h3>
+                <p>接下來，我們不從感覺找答案，改從庫存、週轉與流程的交界處找線索。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Evidence：三個線索均來自來源簡報，沒有補入來源之外的案件資料。 -->
+        <section id="evidence" class="case-section evidence-section" data-section="evidence" data-evidence data-scene-interactive>
+          <div class="layout-container section-intro section-intro--split">
+            <div>
+              <p class="eyebrow" data-scroll-reveal>02／三條線索</p>
+              <h2 class="section-title" data-scroll-reveal>三條線索，指向同一種凍結。</h2>
+            </div>
+            <p class="section-intro__copy" data-scroll-reveal>
+              資金不是消失，而是變成了太慢、太多、太難同步的庫存。
+            </p>
+          </div>
+
+          <div class="layout-container evidence-lens" role="tablist" aria-label="切換要聚焦的線索">
+            <button class="evidence-lens__button" type="button" role="tab" data-evidence-focus="0" aria-selected="true">
+              <span>01</span> 奶油悖論
+            </button>
+            <button class="evidence-lens__button" type="button" role="tab" data-evidence-focus="1" aria-selected="false">
+              <span>02</span> 快箱慢袋
+            </button>
+            <button class="evidence-lens__button" type="button" role="tab" data-evidence-focus="2" aria-selected="false">
+              <span>03</span> 幽靈庫存
+            </button>
+          </div>
+
+          <div class="layout-container evidence-stack">
+            <article class="evidence-card evidence-card--butter" data-evidence-card>
+              <div
+                class="evidence-card__visual evidence-visual evidence-visual--butter evidence-visual--character"
+                data-parallax="8"
+                style="background-image: linear-gradient(135deg, rgba(244, 186, 90, 0.24), transparent 54%), url('./assets/background/character-butter-detective.png')"
+                aria-hidden="true"
+              ></div>
+              <div class="evidence-card__content">
+                <p class="eyebrow">線索 01／奶油悖論</p>
+                <h3>昂貴又遲緩的「奶油悖論」</h3>
+                <p class="evidence-card__description">消耗成本最高的單品，週轉率僅 4.58 次／年，庫存約停留 80 天。</p>
+                <details class="evidence-card__details" data-evidence-details>
+                  <summary class="evidence-card__toggle">
+                    <span>展開線索資料</span>
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  </summary>
+                  <div class="evidence-card__details-body">
+                    <div class="evidence-inline-data" aria-label="來源簡報中的奶油數據">
+                      <span>銷貨成本 <strong>−0.88%</strong></span>
+                      <span>平均庫存總額 <strong>−33.48%</strong></span>
+                      <span>平均存額 <strong>1,345 萬</strong></span>
+                    </div>
+                    <div class="evidence-metric-row">
+                      <div class="evidence-metric">
+                        <strong data-source-number="1350">1,350 萬</strong>
+                        <span>資金凍結</span>
+                      </div>
+                      <div class="evidence-metric">
+                        <strong>4.58</strong>
+                        <span>次／年週轉率</span>
+                      </div>
+                      <div class="evidence-metric">
+                        <strong>80</strong>
+                        <span>庫存天數</span>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="evidence-card evidence-card--packaging" data-evidence-card>
+              <div
+                class="evidence-card__visual evidence-visual evidence-visual--packaging evidence-visual--character"
+                data-parallax="-7"
+                style="background-image: linear-gradient(135deg, rgba(110, 207, 176, 0.2), transparent 54%), url('./assets/background/character-packaging-race.png')"
+                aria-hidden="true"
+              ></div>
+              <div class="evidence-card__content">
+                <p class="eyebrow">線索 02／快箱慢袋</p>
+                <h3>跑道上的「快箱慢袋」</h3>
+                <p class="evidence-card__description">外箱 11.5 天用完一次庫存，內袋卻要 60.2 天；採購與生產需求失去同步。</p>
+                <details class="evidence-card__details" data-evidence-details>
+                  <summary class="evidence-card__toggle">
+                    <span>展開速度比較</span>
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  </summary>
+                  <div class="evidence-card__details-body">
+                    <div class="compare-strip compare-strip--compact">
+                      <div class="compare-strip__item">
+                        <span>內袋 / 慢跑者</span>
+                        <strong>6.06 <small>次／年</small></strong>
+                        <i style="--bar-scale: 19%"></i>
+                      </div>
+                      <div class="compare-strip__item compare-strip__item--accent">
+                        <span>外箱 / 快跑者</span>
+                        <strong>31.76 <small>次／年</small></strong>
+                        <i style="--bar-scale: 100%"></i>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="evidence-card evidence-card--ghost" data-evidence-card>
+              <div
+                class="evidence-card__visual evidence-visual evidence-visual--ghost evidence-visual--character"
+                data-parallax="10"
+                style="background-image: linear-gradient(135deg, rgba(190, 137, 255, 0.24), transparent 54%), url('./assets/background/character-ghost-inventory.png')"
+                aria-hidden="true"
+              ></div>
+              <div class="evidence-card__content">
+                <p class="eyebrow">線索 03／幽靈庫存</p>
+                <h3>倉庫深處的「幽靈庫存」</h3>
+                <p class="evidence-card__description">舊款禮盒包材與特殊節慶產品留下長尾，庫存天數超過 10,000 天。</p>
+                <details class="evidence-card__details" data-evidence-details>
+                  <summary class="evidence-card__toggle">
+                    <span>查看空間代價</span>
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  </summary>
+                  <div class="evidence-card__details-body">
+                    <div class="evidence-card__warning">
+                      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                      <span>空間、棧板位與管理成本，都被同一批死庫存佔住。</span>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Compare：把來源中的負向背離與快慢包材轉成可讀的比較視圖。 -->
+        <section id="compare" class="case-section compare-section" data-section="compare" data-compare data-scene-interactive>
+          <div class="layout-container section-intro">
+            <p class="eyebrow" data-scroll-reveal>03／資金對照</p>
+            <h2 class="section-title" data-scroll-reveal>成本下降，不代表資金回來了。</h2>
+            <p class="section-intro__copy" data-scroll-reveal>
+              同一組數字裡，物料銷貨成本下滑，平均庫存卻上升；這就是簡報指出的「負向背離」。
+            </p>
+          </div>
+
+          <figure class="section-scene" data-scroll-reveal>
+            <div
+              class="section-scene__image"
+              data-parallax="-5"
+              style="background-image: url('./assets/background/compare-eggroll-cookie-inventory-2p5d.png')"
+              aria-hidden="true"
+            ></div>
+            <div class="section-scene__shade" aria-hidden="true"></div>
+            <figcaption class="section-scene__caption">
+              <p class="eyebrow">工廠現場／物料流</p>
+              <strong>蛋捲與餅乾持續往前，包材卻在倉庫裡分化。</strong>
+              <p>把簡報裡的負向背離，轉成現場看得懂的兩條物料路徑。</p>
+              <span class="section-scene__source">簡報來源／04–05、08</span>
+            </figcaption>
+          </figure>
+
+          <div class="layout-container compare-board" data-scroll-reveal>
+            <div class="compare-board__axis">
+              <span>來源比較／2024 → 2025</span>
+              <span>數值依來源簡報呈現</span>
+            </div>
+            <div class="compare-board__grid">
+              <article class="comparison-column comparison-column--cost">
+                <p class="comparison-column__label">物料銷貨成本</p>
+                <strong class="comparison-column__value">−1.76<span>%</span></strong>
+                <p class="comparison-column__detail">總額 5,852 萬元<br />下降 106.2 萬元</p>
+                <div class="comparison-bar" aria-hidden="true"><i style="--bar-scale: 72%"></i></div>
+              </article>
+              <div class="comparison-divider" aria-hidden="true"><span>對照</span></div>
+              <article class="comparison-column comparison-column--inventory">
+                <p class="comparison-column__label">平均庫存總額</p>
+                <strong class="comparison-column__value">＋5.48<span>%</span></strong>
+                <p class="comparison-column__detail">平均存額 1,149 萬元<br />增加 58.3 萬元</p>
+                <div class="comparison-bar" aria-hidden="true"><i style="--bar-scale: 100%"></i></div>
+              </article>
+            </div>
+            <p class="compare-board__conclusion">少用了料，卻囤了更多貨；約 58.3 萬元成為超額庫存資金積壓。</p>
+          </div>
+        </section>
+
+        <!-- Timeline：三階段作戰計畫，以時間線取代投影片逐頁排列。 -->
+        <section id="timeline" class="case-section timeline-section" data-section="timeline" data-timeline data-timeline-state="idle" data-scene-interactive>
+          <div class="layout-container section-intro section-intro--split">
+            <div>
+              <p class="eyebrow" data-scroll-reveal>04／奪還行動</p>
+              <h2 class="section-title" data-scroll-reveal>三步，把供應鏈主動權拿回來。</h2>
+            </div>
+            <p class="section-intro__copy" data-scroll-reveal>
+              先止血，再同步，最後把經驗法則改成資料驅動的預測。
+            </p>
+          </div>
+
+          <figure class="section-scene" data-scroll-reveal>
+            <div
+              class="section-scene__image"
+              data-parallax="7"
+              style="background-image: url('./assets/background/timeline-eggroll-cookie-packaging-2p5d.png')"
+              aria-hidden="true"
+            ></div>
+            <div class="section-scene__shade" aria-hidden="true"></div>
+            <figcaption class="section-scene__caption">
+              <p class="eyebrow">工廠現場／現場交接</p>
+              <strong>讓蛋捲、餅乾、包材與單據走在同一條線上。</strong>
+              <p>三階段行動不是抽象口號，而是現場每天都能執行的管理節點。</p>
+              <span class="section-scene__source">簡報來源／11–14</span>
+            </figcaption>
+          </figure>
+
+          <div class="layout-container timeline-controls" role="tablist" aria-label="三階段行動導覽">
+            <button class="timeline-controls__button" type="button" role="tab" data-timeline-control data-target="#phase-one" aria-selected="false">
+              01 / 止血與清理
+            </button>
+            <button class="timeline-controls__button" type="button" role="tab" data-timeline-control data-target="#phase-two" aria-selected="false">
+              02 / 流程同步
+            </button>
+            <button class="timeline-controls__button" type="button" role="tab" data-timeline-control data-target="#phase-three" aria-selected="false">
+              03 / 結構預測
+            </button>
+          </div>
+
+          <div class="layout-container action-timeline">
+            <article id="phase-one" class="timeline-item" data-timeline-item>
+              <div class="timeline-item__marker"><span>01</span></div>
+              <div class="timeline-item__body">
+                <p class="eyebrow">立即行動</p>
+                <h3>止血與清理</h3>
+                <p>針對 DSI ＞ 365 天的項目進行物理隔離，啟動報廢／變賣程序；同時重新評估奶油採購，讓庫存金額降至 30 天安全線以下。</p>
+                <div class="timeline-item__tags"><span>紅標行動</span><span>奶油採購評估</span></div>
+              </div>
+            </article>
+            <article id="phase-two" class="timeline-item" data-timeline-item>
+              <div class="timeline-item__marker"><span>02</span></div>
+              <div class="timeline-item__body">
+                <p class="eyebrow">流程／數位化</p>
+                <h3>流程同步與數位化</h3>
+                <p>針對軟包材要求分批交貨，落實「貨動單到」；用採購進貨模組掌握未進、驗收中、完成三種狀態，並導入轉撥模組。</p>
+                <div class="timeline-item__tags"><span>分批交貨</span><span>即時進貨狀態</span><span>預估節省 25% 轉倉時間</span></div>
+              </div>
+            </article>
+            <article id="phase-three" class="timeline-item" data-timeline-item>
+              <div class="timeline-item__marker"><span>03</span></div>
+              <div class="timeline-item__body">
+                <p class="eyebrow">結構／預測</p>
+                <h3>結構調整與預測</h3>
+                <p>從 SKU 合理化開始，考慮「通用母箱＋差異化貼紙」；再以 2024–2025 累積資料設定動態 EOQ，處理季節性與節慶需求。</p>
+                <div class="timeline-item__tags"><span>SKU 合理化</span><span>動態 EOQ</span><span>季節性預測</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Dashboard：只呈現來源簡報的預期戰果，不擴寫成未驗證的承諾。 -->
+        <section id="dashboard" class="case-section dashboard-section" data-section="dashboard" data-dashboard data-scene-interactive>
+          <div class="layout-container section-intro">
+            <p class="eyebrow" data-scroll-reveal>05／預期戰果</p>
+            <h2 class="section-title" data-scroll-reveal>預期戰果：一次成功的千萬資金奪還行動。</h2>
+            <p class="section-intro__copy" data-scroll-reveal>以下數值是來源簡報的預期目標，並非網站自行推估。</p>
+          </div>
+
+          <figure class="section-scene" data-scroll-reveal>
+            <div
+              class="section-scene__image"
+              data-parallax="-6"
+              style="background-image: url('./assets/background/dashboard-eggroll-cookie-factory-2p5d.png')"
+              aria-hidden="true"
+            ></div>
+            <div class="section-scene__shade" aria-hidden="true"></div>
+            <figcaption class="section-scene__caption">
+              <p class="eyebrow">工廠現場／營運觀察室</p>
+              <strong>當蛋捲與餅乾穩定出貨，資金也要恢復流動。</strong>
+              <p>Dashboard 只呈現來源簡報的預期戰果，數值不額外推估。</p>
+              <span class="section-scene__source">簡報來源／15</span>
+            </figcaption>
+          </figure>
+
+          <div class="layout-container dashboard-grid">
+            <article class="dashboard-stat dashboard-stat--primary" data-dashboard-stat>
+              <p class="dashboard-stat__label">釋放營運資金</p>
+              <strong class="dashboard-stat__value"><span data-counter data-target="1000">0</span><small>萬+</small></strong>
+              <p class="dashboard-stat__description">釋放營運資金，讓資金從呆滯的奶油與包材中解套。</p>
+            </article>
+            <article class="dashboard-stat" data-dashboard-stat>
+              <p class="dashboard-stat__label">降低持有成本</p>
+              <strong class="dashboard-stat__value"><span data-counter data-target="15">0</span><small>–</small><span data-counter data-target="20">0</span><small>%</small></strong>
+              <p class="dashboard-stat__description">降低庫存持有成本，包含倉儲、報廢與資金機會成本。</p>
+            </article>
+            <article class="dashboard-stat" data-dashboard-stat>
+              <p class="dashboard-stat__label">恢復週轉效率</p>
+              <strong class="dashboard-stat__value">＞<span data-counter data-target="5.45" data-decimals="2">0</span><small>次</small></strong>
+              <p class="dashboard-stat__description">將整體庫存週轉率拉回來源簡報標示的黃金標準以上。</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Ending：回應 Hero 的疑問，留下可執行的主張與回到開頭的出口。 -->
+        <section id="ending" class="case-section ending-section" data-section="ending" data-ending>
+          <div
+            class="ending-section__background ai-background-slot"
+            data-ai-background
+            style="background-image: url('./assets/background/ending-dispatch-2p5d-v2.png')"
+            aria-hidden="true"
+          ></div>
+          <div class="ending-section__veil" aria-hidden="true"></div>
+          <div class="layout-container ending-section__content">
+            <p class="eyebrow" data-ending-reveal>案件檔案／結案</p>
+            <h2 class="ending-section__title" data-ending-reveal>別讓呆滯料，繼續佔據儲位與資金。</h2>
+            <p class="ending-section__copy" data-ending-reveal>讓芝麻蛋捲與烘焙餅乾繼續出廠，不讓呆滯料佔據儲位與資金；下一步，是讓每一次採購、進貨與轉撥都回到同一條資金流上。</p>
+            <a class="button button--secondary" href="#hero" data-ending-reveal>
+              <span>重新檢視案件</span>
+              <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="layout-container site-footer__inner">
+          <span>福義軒 / 績效謎案</span>
+          <span class="site-footer__status" data-runtime-status>案件準備中</span>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ES Module 入口只負責組裝各個獨立 section component。 -->
+    <script type="module" src="./js/app.js?v=20260807-timelinefocus"></script>
+  </body>
+</html>

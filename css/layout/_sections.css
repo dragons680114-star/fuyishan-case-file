@@ -1,0 +1,56 @@
+/* 所有長篇章節共用的節奏、容器與滾動對齊規則。 */
+.case-section {
+  position: relative;
+  min-height: 100svh;
+  overflow: clip;
+  padding: clamp(6rem, 13vw, 12rem) 0;
+  scroll-snap-align: start;
+}
+
+.section-intro {
+  position: relative;
+  z-index: 2;
+  max-width: 52rem;
+}
+
+.section-intro--split {
+  display: grid;
+  max-width: var(--content-max-width);
+  grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+  align-items: end;
+  gap: clamp(2rem, 8vw, 8rem);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-4);
+  color: var(--color-accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.section-title {
+  max-width: 47rem;
+  font-size: clamp(2.25rem, 6vw, 5.75rem);
+  font-weight: 650;
+}
+
+.section-intro__copy {
+  max-width: 29rem;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.8;
+}
+
+@media (max-width: 47.99rem) {
+  .case-section {
+    min-height: auto;
+    padding: 6rem 0;
+  }
+
+  .section-intro--split {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

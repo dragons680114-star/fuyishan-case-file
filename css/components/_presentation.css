@@ -1,0 +1,323 @@
+/* 16:9 展示模式：把網站變成可操作的互動式簡報舞台。 */
+
+.presentation-toggle {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: border-color var(--duration-fast) ease, background var(--duration-fast) ease,
+    color var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+
+.presentation-toggle:hover,
+.presentation-toggle:focus-visible,
+html[data-presentation-mode="deck"] .presentation-toggle {
+  border-color: var(--color-accent-strong);
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+}
+
+.presentation-toggle:active {
+  transform: scale(0.97);
+}
+
+/* 展示模式使用固定舞台，讓每一個章節都像一張 16:9 投影片。 */
+html[data-presentation-mode="deck"],
+html[data-presentation-mode="deck"] body {
+  overflow: hidden;
+}
+
+html[data-presentation-mode="deck"] .case-shell {
+  min-height: 100svh;
+}
+
+html[data-presentation-mode="deck"] .site-header {
+  position: fixed;
+  top: clamp(0.75rem, 2vw, 1.5rem);
+  left: 50%;
+  z-index: calc(var(--z-header) + 10);
+  width: min(calc(100% - 2rem), var(--content-max-width));
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+html[data-presentation-mode="deck"] .site-main {
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+html[data-presentation-mode="deck"] .case-section {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: clamp(5.25rem, 11vh, 7rem) 0 clamp(2rem, 5vh, 3.5rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(3rem, 0, 0) scale(0.985);
+  pointer-events: none;
+  transition: none;
+}
+
+html[data-presentation-mode="deck"] .case-section.is-presentation-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}
+
+html[data-presentation-mode="deck"] .case-section.is-presentation-leaving {
+  visibility: visible;
+  pointer-events: none;
+}
+
+html[data-presentation-mode="deck"] .site-footer {
+  display: none;
+}
+
+/* 16:9 內容密度：讓原本的長頁內容在寬螢幕中清楚而不擁擠。 */
+html[data-presentation-mode="deck"] .section-intro {
+  max-width: 47rem;
+}
+
+html[data-presentation-mode="deck"] .section-intro--split {
+  grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.9fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+}
+
+html[data-presentation-mode="deck"] .section-title {
+  font-size: clamp(2rem, 4.25vw, 4.5rem);
+  line-height: 1.05;
+}
+
+html[data-presentation-mode="deck"] .section-intro__copy {
+  font-size: clamp(0.9rem, 1.15vw, 1.1rem);
+  line-height: 1.65;
+}
+
+html[data-presentation-mode="deck"] .section-scene {
+  height: clamp(11rem, 23vh, 17rem);
+  margin-top: clamp(1rem, 2.5vh, 2rem);
+  margin-bottom: clamp(1rem, 2.5vh, 2rem);
+}
+
+html[data-presentation-mode="deck"] .section-scene__caption {
+  max-width: min(40rem, 64%);
+  padding: clamp(1rem, 2.2vw, 2rem);
+}
+
+html[data-presentation-mode="deck"] .section-scene__caption strong {
+  font-size: clamp(1rem, 1.7vw, 1.5rem);
+}
+
+html[data-presentation-mode="deck"] .section-scene__caption p:not(.eyebrow) {
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  line-height: 1.55;
+}
+
+html[data-presentation-mode="deck"] .story-section__sequence,
+html[data-presentation-mode="deck"] .evidence-stack,
+html[data-presentation-mode="deck"] .dashboard-grid {
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+html[data-presentation-mode="deck"] .story-section__sequence {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0;
+}
+
+html[data-presentation-mode="deck"] .story-beat {
+  min-height: 10rem;
+  padding: clamp(0.9rem, 1.5vw, 1.5rem);
+}
+
+html[data-presentation-mode="deck"] .story-beat h3 {
+  font-size: clamp(1rem, 1.45vw, 1.35rem);
+}
+
+html[data-presentation-mode="deck"] .story-beat p:not(.story-beat__label) {
+  font-size: clamp(0.78rem, 0.95vw, 0.95rem);
+  line-height: 1.55;
+}
+
+html[data-presentation-mode="deck"] .evidence-stack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+html[data-presentation-mode="deck"] .evidence-card {
+  min-height: 16rem;
+}
+
+html[data-presentation-mode="deck"] .evidence-card__visual {
+  min-height: 8rem;
+}
+
+html[data-presentation-mode="deck"] .evidence-card__content {
+  padding: clamp(0.85rem, 1.3vw, 1.25rem);
+}
+
+html[data-presentation-mode="deck"] .evidence-card__description {
+  font-size: clamp(0.78rem, 0.92vw, 0.92rem);
+  line-height: 1.5;
+}
+
+html[data-presentation-mode="deck"] .compare-board,
+html[data-presentation-mode="deck"] .action-timeline,
+html[data-presentation-mode="deck"] .dashboard-grid {
+  margin-top: 0;
+}
+
+html[data-presentation-mode="deck"] .action-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+html[data-presentation-mode="deck"] .timeline-item {
+  min-height: 10rem;
+  padding: clamp(0.9rem, 1.35vw, 1.25rem);
+}
+
+html[data-presentation-mode="deck"] .timeline-item__body h3 {
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+}
+
+html[data-presentation-mode="deck"] .timeline-item__body > p:not(.eyebrow) {
+  font-size: clamp(0.76rem, 0.9vw, 0.9rem);
+  line-height: 1.5;
+}
+
+/* 展示模式的導覽控制列：上一頁、頁碼、下一頁與每頁圓點。 */
+.presentation-controls {
+  position: fixed;
+  right: max(1rem, calc((100vw - var(--content-max-width)) / 2));
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  z-index: calc(var(--z-progress) + 10);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: 0 1rem 3rem var(--color-shadow);
+  -webkit-backdrop-filter: blur(1.25rem) saturate(130%);
+  backdrop-filter: blur(1.25rem) saturate(130%);
+}
+
+.presentation-controls[hidden] {
+  display: none;
+}
+
+.presentation-controls__button,
+.presentation-controls__fullscreen {
+  display: inline-grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.presentation-controls__button:hover,
+.presentation-controls__button:focus-visible,
+.presentation-controls__fullscreen:hover,
+.presentation-controls__fullscreen:focus-visible {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+}
+
+.presentation-controls__counter {
+  min-width: 4.25rem;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.presentation-controls__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-inline: 0.15rem;
+}
+
+.presentation-controls__dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  transition: width var(--duration-standard) var(--ease-standard), background var(--duration-standard) ease;
+}
+
+.presentation-controls__dot[aria-current="true"] {
+  width: 1.35rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-strong);
+}
+
+html[data-presentation-mode="deck"] .progress-navigation {
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 0.25rem;
+}
+
+/* 直式螢幕維持一般網頁閱讀，避免 16:9 舞台把內容裁切掉。 */
+@media (min-width: 48rem) {
+  .site-header__inner {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .site-header__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .presentation-toggle {
+    display: none;
+  }
+
+  .presentation-controls {
+    right: 1rem;
+    left: 1rem;
+    justify-content: center;
+  }
+
+  .presentation-controls__dots {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presentation-toggle,
+  .presentation-controls__dot {
+    transition: none;
+  }
+}

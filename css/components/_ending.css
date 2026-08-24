@@ -1,0 +1,50 @@
+/* Ending 回應 Hero 的疑問，保持文字與未來背景影像分離。 */
+.ending-section {
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  isolation: isolate;
+}
+
+[data-theme="light"] .ending-section {
+  --color-text: #f4f7ff;
+  --color-text-muted: #a4afc8;
+  --color-accent-strong: #b1c0ff;
+  --color-overlay: rgba(8, 11, 20, 0.74);
+}
+
+.ending-section__background {
+  z-index: 0;
+  background-color: #0b1020;
+}
+
+.ending-section__veil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(110deg, var(--color-overlay), rgba(8, 11, 20, 0.18));
+}
+
+.ending-section__content {
+  position: relative;
+  z-index: 2;
+  max-width: 52rem;
+}
+
+.ending-section__title {
+  max-width: 48rem;
+  font-size: clamp(3rem, 8vw, 8.5rem);
+  letter-spacing: -0.07em;
+  line-height: 0.98;
+}
+
+.ending-section__copy {
+  max-width: 35rem;
+  margin-top: var(--space-6);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.8;
+}
+
+.ending-section .button {
+  margin-top: var(--space-7);
+}

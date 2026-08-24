@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="福義軒案件標誌">
+  <rect width="64" height="64" rx="14" fill="#080b14" />
+  <path d="m32 10 22 22-22 22L10 32 32 10Z" fill="#f4ba5a" />
+  <path d="m32 20 12 12-12 12-12-12 12-12Z" fill="#080b14" />
+</svg>

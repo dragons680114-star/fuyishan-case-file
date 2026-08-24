@@ -1,0 +1,15 @@
+/* Glassmorphism 基礎元件：可套用在任何需半透明層次的容器。 */
+.glass-panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: 0 1rem 3rem var(--color-shadow);
+  -webkit-backdrop-filter: blur(1.25rem) saturate(130%);
+  backdrop-filter: blur(1.25rem) saturate(130%);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1rem)) or (backdrop-filter: blur(1rem))) {
+  .glass-panel {
+    background: var(--color-surface-strong);
+  }
+}

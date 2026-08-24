@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102b4d" />
+  <title>嘉義水上福匯案場｜太陽能光電建置評估</title>
+  <style>
+    :root {
+      --navy: #102b4d;
+      --navy-2: #1b466f;
+      --ink: #172333;
+      --muted: #64748b;
+      --line: #d9e3ec;
+      --paper: #ffffff;
+      --soft: #f2f6f9;
+      --sky: #d9eff9;
+      --sky-2: #eef8fc;
+      --orange: #eb7a17;
+      --gold: #e6a521;
+      --green: #168052;
+      --red: #c9362b;
+      --shadow: 0 16px 36px rgba(16, 43, 77, 0.10);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #eaf0f4; }
+    body { color: var(--ink); font-family: "Noto Sans TC", "Microsoft JhengHei", "Segoe UI", Arial, sans-serif; overflow: hidden; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    .deck { width: 100vw; height: 100svh; min-height: 650px; overflow: hidden; position: relative; background: #fff; }
+    .slide { position: absolute; inset: 0; padding: clamp(28px, 4.4vw, 64px) clamp(92px, 8vw, 132px) 30px; background: var(--paper); display: grid; grid-template-rows: auto 1fr auto; opacity: 0; transform: translateX(24px) scale(.985); pointer-events: none; transition: opacity .38s ease, transform .38s ease; overflow: auto; }
+    .slide.active { opacity: 1; transform: none; pointer-events: auto; }
+    .shell { width: min(1480px, 100%); min-height: 100%; margin: 0 auto; display: flex; flex-direction: column; }
+    .body { flex: 1; min-height: 0; }
+    .eyebrow { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: clamp(13px, 1.05vw, 18px); font-weight: 800; letter-spacing: .09em; }
+    .eyebrow .brand { color: var(--navy); letter-spacing: .04em; }
+    h1, h2, h3, p { margin-top: 0; }
+    .title { margin: 18px 0 10px; color: var(--navy); font-size: clamp(34px, 4.4vw, 68px); line-height: 1.12; letter-spacing: -.055em; font-weight: 900; }
+    .subtitle { margin: 0; color: var(--muted); font-size: clamp(18px, 1.55vw, 25px); line-height: 1.6; }
+    .footer { display: flex; justify-content: space-between; gap: 22px; padding-top: 18px; color: var(--muted); font-size: clamp(14px, 1vw, 17px); line-height: 1.45; }
+    .footer span:last-child { text-align: right; }
+
+    .cover { padding: 0; background: linear-gradient(135deg, #ffffff 0%, #ffffff 58%, var(--sky) 58%, var(--sky) 100%); }
+    .cover .shell { max-width: none; display: grid; grid-template-columns: 1.1fr .9fr; }
+    .cover-copy { padding: clamp(38px, 7vw, 108px) clamp(34px, 7vw, 108px) 30px; display: flex; flex-direction: column; justify-content: space-between; }
+    .cover-mark { color: var(--muted); font-size: clamp(15px, 1.2vw, 21px); font-weight: 900; letter-spacing: .08em; }
+    .cover h1 { max-width: 920px; margin: 0; color: var(--navy); font-size: clamp(44px, 6.2vw, 100px); line-height: 1.07; letter-spacing: -.065em; font-weight: 900; }
+    .cover .lead { max-width: 820px; margin: 0; color: var(--muted); font-size: clamp(20px, 2vw, 32px); line-height: 1.5; }
+    .cover .date { margin: 0; color: var(--muted); font-size: clamp(14px, 1.1vw, 18px); }
+    .cover-panel { padding: clamp(36px, 5vw, 80px) clamp(28px, 4.5vw, 70px); display: flex; flex-direction: column; justify-content: center; gap: 24px; }
+    .cover-decision { background: rgba(255,255,255,.76); border: 1px solid rgba(16,43,77,.12); border-radius: var(--radius); padding: 28px 30px; box-shadow: var(--shadow); }
+    .cover-decision .tag { color: var(--green); font-size: clamp(16px, 1.35vw, 22px); font-weight: 900; }
+    .cover-decision strong { display: block; margin-top: 8px; color: var(--navy); font-size: clamp(29px, 3.1vw, 50px); line-height: 1.15; letter-spacing: -.05em; }
+    .cover-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cover-stat { padding: 22px 20px; border-radius: 15px; background: rgba(255,255,255,.86); border: 1px solid rgba(16,43,77,.10); }
+    .cover-stat b { display: block; color: var(--orange); font-size: clamp(32px, 3.4vw, 56px); line-height: 1; letter-spacing: -.06em; }
+    .cover-stat span { display: block; margin-top: 8px; font-size: clamp(15px, 1.15vw, 19px); line-height: 1.4; }
+
+    .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: clamp(30px, 6vh, 72px) 0 24px; }
+    .metric-card { padding: 26px 24px; border-radius: var(--radius); background: var(--soft); min-height: 170px; display: flex; flex-direction: column; justify-content: space-between; }
+    .metric-card b { color: var(--navy); font-size: clamp(34px, 3.4vw, 56px); line-height: .98; letter-spacing: -.06em; }
+    .metric-card span { color: var(--muted); font-size: clamp(16px, 1.28vw, 21px); line-height: 1.45; font-weight: 700; }
+    .metric-card.recommend { background: var(--sky); }
+    .metric-card.recommend b { color: var(--green); }
+    .decision-strip { margin-top: 20px; padding: 20px 24px; background: var(--navy); color: #fff; border-radius: 14px; font-size: clamp(18px, 1.55vw, 25px); line-height: 1.55; }
+    .decision-strip strong { color: #b9f1d3; }
+
+    .two-col { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .85fr); gap: clamp(22px, 3vw, 52px); align-items: stretch; margin-top: clamp(25px, 4vh, 48px); }
+    .panel { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); padding: clamp(20px, 2.2vw, 34px); }
+    .panel.soft { background: var(--soft); box-shadow: none; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fact { padding: 22px 20px; background: var(--soft); border-radius: 14px; }
+    .fact .label { color: var(--muted); font-size: clamp(14px, 1.05vw, 17px); font-weight: 800; }
+    .fact .value { margin-top: 8px; color: var(--navy); font-size: clamp(25px, 2.35vw, 39px); line-height: 1.18; font-weight: 900; letter-spacing: -.04em; }
+    .fact .note { margin-top: 7px; color: var(--muted); font-size: clamp(14px, 1.05vw, 17px); line-height: 1.45; }
+    .panel h3 { margin-bottom: 14px; color: var(--navy); font-size: clamp(24px, 2vw, 33px); letter-spacing: -.04em; }
+    .panel p, .panel li { font-size: clamp(17px, 1.32vw, 22px); line-height: 1.6; }
+    .list { margin: 0; padding-left: 1.35em; }
+    .list li + li { margin-top: 8px; }
+
+    .formula { margin-top: 28px; padding: 24px 26px; border-left: 6px solid var(--orange); background: #fff8e7; border-radius: 0 14px 14px 0; font-size: clamp(21px, 1.85vw, 31px); line-height: 1.65; font-weight: 800; }
+    .formula .label { display: block; margin-bottom: 8px; color: #9b6100; font-size: .7em; letter-spacing: .05em; }
+    .formula .result { color: var(--green); }
+    .add-on-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .add-on { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+    .add-on button { width: 100%; min-height: 78px; padding: 16px; border: 0; background: var(--soft); text-align: left; cursor: pointer; font-weight: 900; font-size: clamp(16px, 1.18vw, 20px); }
+    .add-on button:hover, .add-on button:focus-visible { background: var(--sky); outline: 3px solid rgba(42, 130, 185, .25); }
+    .add-on .detail { display: none; padding: 16px; color: var(--muted); font-size: clamp(15px, 1.1vw, 18px); line-height: 1.55; }
+    .add-on.open .detail { display: block; }
+    .rate-rail { position: relative; height: 68px; margin: 20px 12px 4px; border-bottom: 4px solid var(--line); }
+    .rate-node { position: absolute; bottom: -13px; transform: translateX(-50%); text-align: center; }
+    .rate-node::after { content: ""; display: block; width: 22px; height: 22px; margin: 9px auto 0; border-radius: 50%; background: var(--orange); border: 4px solid #fff; box-shadow: 0 0 0 2px var(--orange); }
+    .rate-node span { display: block; color: var(--muted); font-size: clamp(14px, 1.05vw, 17px); white-space: nowrap; }
+    .rate-node strong { display: block; color: var(--navy); font-size: clamp(20px, 1.75vw, 29px); }
+
+    .compare-tabs, .scenario-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
+    .tab-btn { min-height: 48px; padding: 12px 20px; border: 1px solid var(--line); border-radius: 999px; background: #fff; cursor: pointer; font-size: clamp(16px, 1.2vw, 20px); font-weight: 900; }
+    .tab-btn.active { border-color: var(--navy); background: var(--navy); color: #fff; }
+    .compare-table, .scenario-table { width: 100%; border-collapse: collapse; font-size: clamp(16px, 1.2vw, 19px); }
+    .compare-table th, .compare-table td, .scenario-table th, .scenario-table td { padding: 15px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; line-height: 1.45; }
+    .compare-table th, .scenario-table th { background: var(--navy); color: #fff; }
+    .compare-table tr.highlight td { background: var(--sky-2); }
+    .compare-table td strong, .scenario-table td strong { color: var(--navy); }
+    .source-badge { display: inline-block; margin-left: 8px; padding: 3px 8px; border-radius: 999px; color: var(--navy-2); background: var(--sky); font-size: .72em; font-weight: 900; }
+
+    .scenario-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: 34px; align-items: center; margin-top: 32px; }
+    .scenario-card { padding: 28px; border-radius: var(--radius); background: var(--sky-2); border: 1px solid #b9dceb; }
+    .scenario-card h3 { margin: 0 0 8px; color: var(--navy); font-size: clamp(25px, 2.25vw, 39px); letter-spacing: -.045em; }
+    .scenario-card .scenario-lead { color: var(--muted); font-size: clamp(17px, 1.3vw, 22px); line-height: 1.55; }
+    .scenario-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+    .scenario-stat { padding: 18px; border-radius: 12px; background: #fff; }
+    .scenario-stat b { display: block; color: var(--green); font-size: clamp(28px, 2.8vw, 46px); line-height: 1; letter-spacing: -.05em; }
+    .scenario-stat span { display: block; margin-top: 8px; color: var(--muted); font-size: clamp(14px, 1.05vw, 17px); line-height: 1.4; }
+    .bar-chart { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); }
+    .bar-chart svg { width: 100%; height: auto; display: block; }
+    .chart-legend { display: flex; gap: 18px; justify-content: center; margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .legend { display: inline-flex; gap: 7px; align-items: center; }
+    .legend i { display: inline-block; width: 13px; height: 13px; border-radius: 3px; background: var(--green); }
+    .legend i.orange { background: var(--orange); } .legend i.blue { background: var(--navy-2); }
+
+    .faq-list { display: grid; gap: 14px; margin-top: 28px; }
+    .faq { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+    .faq button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 68px; padding: 18px 22px; border: 0; background: var(--soft); text-align: left; cursor: pointer; font-size: clamp(17px, 1.35vw, 23px); font-weight: 900; }
+    .faq button:hover, .faq button:focus-visible { background: var(--sky); outline: 3px solid rgba(42, 130, 185, .25); }
+    .faq .answer { display: none; padding: 20px 24px; font-size: clamp(17px, 1.32vw, 22px); line-height: 1.65; }
+    .faq.open .answer { display: block; }
+    .faq .answer strong { color: var(--green); }
+
+    .checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
+    .check { min-height: 152px; padding: 22px 24px 22px 70px; border: 1px solid var(--line); border-radius: 15px; position: relative; background: #fff; }
+    .check::before { content: "?"; position: absolute; left: 22px; top: 22px; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--orange); color: #fff; font-size: 21px; font-weight: 900; }
+    .check.done::before { content: "✓"; background: var(--green); }
+    .check h3 { margin: 0 0 8px; color: var(--navy); font-size: clamp(20px, 1.65vw, 28px); }
+    .check p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.15vw, 19px); line-height: 1.55; }
+    .closing { margin-top: 28px; padding: 24px 28px; border-radius: var(--radius); background: var(--navy); color: #fff; font-size: clamp(20px, 1.75vw, 29px); line-height: 1.55; }
+    .closing strong { color: #b9f1d3; }
+    .slide[data-slide="10"] { padding-top: 30px; padding-bottom: 18px; }
+    .slide[data-slide="10"] .title { margin-top: 10px; margin-bottom: 6px; font-size: clamp(31px, 3.55vw, 55px); }
+    .slide[data-slide="10"] .subtitle { font-size: clamp(16px, 1.25vw, 21px); }
+    .slide[data-slide="10"] .checklist { gap: 12px; margin-top: 20px; }
+    .slide[data-slide="10"] .check { min-height: 128px; padding: 18px 18px 18px 60px; }
+    .slide[data-slide="10"] .check::before { top: 18px; left: 18px; }
+    .slide[data-slide="10"] .check h3 { margin-bottom: 4px; font-size: clamp(19px, 1.45vw, 24px); }
+    .slide[data-slide="10"] .check p { font-size: clamp(15px, 1.05vw, 17px); line-height: 1.4; }
+    .slide[data-slide="10"] .closing { margin-top: 16px; padding: 18px 22px; font-size: clamp(18px, 1.45vw, 24px); }
+
+    @media (min-width: 981px) and (max-height: 800px) {
+      .slide { padding-top: 28px; padding-bottom: 18px; }
+      .slide[data-slide="5"] .title, .slide[data-slide="6"] .title, .slide[data-slide="7"] .title, .slide[data-slide="8"] .title { font-size: clamp(31px, 3.45vw, 53px); margin-top: 10px; margin-bottom: 6px; }
+      .slide[data-slide="5"] .subtitle, .slide[data-slide="6"] .subtitle, .slide[data-slide="7"] .subtitle, .slide[data-slide="8"] .subtitle { font-size: 16px; line-height: 1.35; }
+      .slide[data-slide="5"] .panel, .slide[data-slide="6"] .panel, .slide[data-slide="8"] .panel { padding: 15px; }
+      .slide[data-slide="5"] .two-col, .slide[data-slide="8"] .two-col { margin-top: 18px; }
+      .slide[data-slide="5"] .compare-table, .slide[data-slide="6"] .compare-table { font-size: 14px; }
+      .slide[data-slide="5"] .compare-table th, .slide[data-slide="5"] .compare-table td, .slide[data-slide="6"] .compare-table th, .slide[data-slide="6"] .compare-table td { padding: 8px 10px; }
+      .slide[data-slide="5"] .decision-strip, .slide[data-slide="6"] .decision-strip { margin-top: 10px; padding: 12px 16px; font-size: 17px; }
+      .slide[data-slide="6"] .compare-tabs { margin: 12px 0; }
+      .slide[data-slide="6"] .tab-btn { min-height: 40px; padding: 8px 16px; font-size: 15px; }
+      .slide[data-slide="7"] .scenario-tabs { margin: 12px 0; }
+      .slide[data-slide="7"] .scenario-layout { margin-top: 16px; gap: 22px; }
+      .slide[data-slide="7"] .scenario-card { padding: 18px; }
+      .slide[data-slide="7"] .scenario-card h3 { font-size: 28px; }
+      .slide[data-slide="7"] .scenario-card .scenario-lead { font-size: 16px; }
+      .slide[data-slide="7"] .scenario-stat { padding: 12px; }
+      .slide[data-slide="7"] .scenario-stat b { font-size: 29px; }
+      .slide[data-slide="7"] .scenario-stat span { font-size: 14px; }
+      .slide[data-slide="7"] .bar-chart { padding: 16px; }
+      .slide[data-slide="8"] .panel h3 { font-size: 24px; }
+      .slide[data-slide="8"] .checklist { gap: 10px; margin-top: 16px; }
+      .slide[data-slide="8"] .check { min-height: 114px; padding: 15px 15px 15px 54px; }
+      .slide[data-slide="8"] .check::before { top: 15px; left: 15px; }
+      .slide[data-slide="8"] .check h3 { font-size: 19px; margin-bottom: 4px; }
+      .slide[data-slide="8"] .check p { font-size: 14px; line-height: 1.35; }
+      .slide[data-slide="8"] .formula { margin-top: 16px !important; padding: 15px 16px; font-size: 20px !important; }
+      .slide[data-slide="8"] .footer { padding-top: 10px; }
+    }
+
+    .side-nav { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; pointer-events: none; }
+    .side-nav button { pointer-events: auto; width: 58px; height: 112px; border: 1px solid rgba(16,43,77,.16); border-radius: 18px; background: rgba(255,255,255,.9); box-shadow: 0 8px 24px rgba(16,43,77,.14); backdrop-filter: blur(10px); cursor: pointer; color: var(--navy); font-size: 44px; line-height: 1; transition: transform .16s ease, background .16s ease, opacity .16s ease; touch-action: manipulation; }
+    .side-nav button:hover, .side-nav button:focus-visible { background: var(--sky); transform: scale(1.04); outline: 3px solid rgba(42,130,185,.3); outline-offset: 2px; }
+    .side-nav button:disabled { opacity: .22; cursor: default; box-shadow: none; transform: none; }
+
+    @media (max-width: 980px) {
+      body { overflow: auto; }
+      .deck { height: auto; min-height: 100svh; overflow: visible; }
+      .slide { position: relative; min-height: 100svh; height: auto; display: none; opacity: 1; transform: none; padding: 28px 62px 28px; }
+      .slide.active { display: block; }
+      .cover .shell { grid-template-columns: 1fr; }
+      .cover-panel { padding: 30px 34px 50px; }
+      .metric-grid, .two-col, .scenario-layout { grid-template-columns: 1fr 1fr; }
+      .metric-grid { gap: 12px; }
+      .add-on-grid { grid-template-columns: 1fr; }
+      .side-nav { padding: 0 5px; }
+      .side-nav button { width: 44px; height: 86px; border-radius: 14px; font-size: 34px; }
+    }
+    @media (max-width: 680px) {
+      .slide { padding-left: 54px; padding-right: 54px; }
+      .metric-grid, .two-col, .scenario-layout, .facts, .checklist, .scenario-stats { grid-template-columns: 1fr; }
+      .cover-copy { padding: 34px 28px 28px; }
+      .cover-panel { padding: 28px; }
+      .footer { font-size: 13px; }
+      .footer span:last-child { display: none; }
+      .compare-table, .scenario-table { min-width: 720px; }
+      .panel { padding: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck" aria-label="嘉義水上福匯案場太陽能光電建置評估互動簡報">
+    <section class="slide cover active" data-slide="1" aria-labelledby="cover-title">
+      <div class="shell">
+        <div class="cover-copy">
+          <div class="cover-mark">福匯股份有限公司｜管理決策版</div>
+          <h1 id="cover-title">嘉義水上福匯案場<br />太陽能光電建置評估</h1>
+          <p class="lead">把 231.5 kW 的投資案，轉成看得懂、問得到、能決策的財務與風險畫面。</p>
+          <p class="date">資料基礎：使用者提供之《嘉義水上福匯太陽能光電建置評估報告》｜報告日期 2026 年 8 月 12 日</p>
+        </div>
+        <div class="cover-panel">
+          <div class="cover-decision"><div class="tag">報告建議</div><strong>自建＋銀行貸款 75%</strong><div style="margin-top:12px;color:var(--muted);font-size:clamp(16px,1.2vw,20px);line-height:1.5;">以較低自備款換取較快回收，同時保有設備與屋頂的主導權。</div></div>
+          <div class="cover-stats"><div class="cover-stat"><b>約 174 萬</b><span>自備款</span></div><div class="cover-stat"><b>約 3 年</b><span>自備款回收</span></div><div class="cover-stat"><b>約 716 萬</b><span>20 年累積純利</span></div><div class="cover-stat"><b>4.8275 元</b><span>報告採用售電單價</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="2" aria-labelledby="title-2">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">先看結論｜管理決策</span><span>02</span></div><h2 class="title" id="title-2">這不是「要不要做」，而是「用哪種方式做」</h2><p class="subtitle">報告的結論偏向自建，但真正的決策關鍵在資金壓力、屋頂控制權與申請風險。</p></header>
+        <div class="body"><div class="metric-grid"><article class="metric-card recommend"><b>75%</b><span>建議由銀行貸款支應的建置資金</span></article><article class="metric-card"><b>約 174 萬</b><span>公司需準備的自備款</span></article><article class="metric-card"><b>約 3 年</b><span>報告估算的自備款回收年限</span></article><article class="metric-card"><b>約 716 萬</b><span>20 年累積總純利估算</span></article></div><div class="decision-strip"><strong>建議方向：</strong>先以「自建＋貸款 75%」作為主方案，並在簽約前把售電費率、特目審查、台電外線費與貸款條件逐項確認。</div></div>
+        <footer class="footer"><span>本頁數字均為來源報告採用值</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="3" aria-labelledby="title-3">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">案場基本盤</span><span>03</span></div><h2 class="title" id="title-3">231.5 kW，是一個完整的高壓併網投資案</h2><p class="subtitle">先掌握案場規模與報價邊界，再談回收年限。</p></header>
+        <div class="body"><div class="two-col"><div class="panel"><h3>案場資料</h3><div class="facts"><div class="fact"><div class="label">規劃容量</div><div class="value">231.5 kW</div><div class="note">高壓併網</div></div><div class="fact"><div class="label">報告建置總額</div><div class="value">694.5 萬元</div><div class="note">約 30,000 元／kW</div></div><div class="fact"><div class="label">核心模組</div><div class="value">463 片</div><div class="note">URE 500W VPC 模組</div></div><div class="fact"><div class="label">案場位置</div><div class="value">嘉義水上</div><div class="note">回歸村北回 65 號之 6 附 1</div></div></div></div><div class="panel soft"><h3>投資邏輯</h3><ul class="list"><li>售電收入由核定費率與發電量決定。</li><li>建置成本越低，報告假設下的投資報酬率越高。</li><li>高壓併網、特目用地與行政配合，是成本外的管理重點。</li></ul><div class="formula" style="margin-top:22px;font-size:clamp(20px,1.7vw,28px);"><span class="label">先記住這個關係</span><span class="result">設備成本 ≠ 售電單價</span><br />成本影響回收，費率影響收入。</div></div></div></div>
+        <footer class="footer"><span>互動提示：下一頁可點選費率加成拆解</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="4" aria-labelledby="title-4">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">售電費率拆解</span><span>04</span></div><h2 class="title" id="title-4">4.8275 元／度，是由基礎費率加上政策加成</h2><p class="subtitle">點選下方三個加成，查看報告中的計算邏輯；這些數字在正式送件前應重新核對。</p></header>
+        <div class="body"><div class="panel"><div class="rate-rail"><div class="rate-node" style="left:4%;"><span>基礎費率</span><strong>3.5037</strong></div><div class="rate-node" style="left:34%;"><span>高效模組 +6%</span><strong>+0.2102</strong></div><div class="rate-node" style="left:64%;"><span>原民區 +15%</span><strong>+0.5256</strong></div><div class="rate-node" style="left:94%;"><span>特目／綠能 +16.78%</span><strong>4.8275</strong></div></div><div class="formula"><span class="label">報告採用的躉購費率公式</span><span class="result">4.8275</span> = 3.5037 × [1 + 6% + 15% + 16.78%]</div><div class="add-on-grid"><article class="add-on"><button type="button" data-toggle="0">高效模組加成 +6% <span aria-hidden="true">＋</span></button><div class="detail">報告以 VPC 認證之國產高效能模組為前提，估算單價增加約 0.2102 元／度。</div></article><article class="add-on"><button type="button" data-toggle="1">平地原民區 +15% <span aria-hidden="true">＋</span></button><div class="detail">報告將嘉義縣水上鄉列為可享加成的平地原住民地區，估算單價增加約 0.5256 元／度。</div></article><article class="add-on"><button type="button" data-toggle="2">特目／綠能 +16.78% <span aria-hidden="true">＋</span></button><div class="detail">報告將特登轉特目與綠能設施政策加成納入，估算增加約 0.5880 元／度。</div></article></div></div></div>
+        <footer class="footer"><span>注意：本頁呈現報告採用值，不等同於正式核定費率</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="5" aria-labelledby="title-5">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">成本與責任邊界</span><span>05</span></div><h2 class="title" id="title-5">694.5 萬元報價，最重要的是問清楚「不包含什麼」</h2><p class="subtitle">報告已列出核心設備與基本工程，但台電外線、土木補強與特目圖說仍可能追加。</p></header>
+        <div class="body"><div class="panel"><table class="compare-table"><thead><tr><th>項目</th><th>報價已包含範疇</th><th>業主需額外確認／可能自付</th></tr></thead><tbody><tr><td><strong>核心設備</strong></td><td>URE 500W VPC 模組、PrimeVOLT 逆變器、直流／交流箱。</td><td>報告判斷無隱藏費用，但仍應核對品牌、保固與規格。</td></tr><tr><td><strong>高壓併網工程</strong></td><td>廠內高壓開關盤、變壓器及基本併網線路。</td><td><strong>台電外線擴充規費</strong>：若距離遠，可能另開據實報實銷。</td></tr><tr><td><strong>土木與結構</strong></td><td>屋頂浪板標準壓塊與金屬支架鎖固。</td><td><strong>鋼構加高棚架／水土保持</strong>：若特目審查要求，可能增加。</td></tr><tr><td><strong>特目行政配合</strong></td><td>再生能源設備備案與台電簽約代辦。</td><td><strong>特定目的事業用地計畫書</strong>：確認光電圖說是否免費繪製並配合審查。</td></tr></tbody></table></div><div class="decision-strip"><strong>建議：</strong>報價單要拆成「已含、可能追加、需業主自行處理」三欄，再進入議價。</div></div>
+        <footer class="footer"><span>管理重點：不要只比較每 kW 單價</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="6" aria-labelledby="title-6">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">模組選型比較</span><span>06</span></div><h2 class="title" id="title-6">URE 500W 與 Winaico 505W，差異小於決策焦點</h2><p class="subtitle">點選評估維度，查看兩種模組的差異。報告結論是：兩者均可接受，無須為了 5W 特別更換。</p></header>
+        <div class="body"><div class="compare-tabs" role="tablist"><button class="tab-btn active" data-compare="all" role="tab">全部比較</button><button class="tab-btn" data-compare="efficiency" role="tab">效率</button><button class="tab-btn" data-compare="heat" role="tab">高溫衰退</button><button class="tab-btn" data-compare="count" role="tab">片數與施工</button></div><div class="panel"><table class="compare-table" id="moduleTable"><thead><tr><th>評估維度</th><th>聯合再生 URE 500W<br /><span class="source-badge">簡報採用</span></th><th>元晶 Winaico 505W</th><th>綜合評估</th></tr></thead><tbody><tr data-dimension="efficiency"><td><strong>模組瓦數</strong></td><td>500 W</td><td>505 W</td><td>元晶單片多 5W，約高 1%。</td></tr><tr data-dimension="efficiency"><td><strong>模組轉換效率</strong></td><td>約 21.1%～21.3%</td><td>約 21.2%～21.5%</td><td>兩者轉換效率幾乎相同，均屬一線水準。</td></tr><tr data-dimension="heat"><td><strong>嘉義高溫衰退</strong></td><td>衰退控制佳，約 -0.34%／°C</td><td>抗高溫衰退表現優異</td><td>兩者抗高溫性能均優於業界平均。</td></tr><tr data-dimension="count"><td><strong>本案所需總片數</strong></td><td>463 片，總容量 231.5 kW</td><td>458 片，總容量 231.29 kW</td><td>元晶可少鋪 5 片，省下幅度有限。</td></tr><tr data-dimension="count"><td><strong>20 年發電效益</strong></td><td>非常穩定，本土龍頭企業</td><td>非常穩定，大廠品質保證</td><td><strong>總發電量差異低於 0.5%</strong>，對售電收入無實質影響。</td></tr></tbody></table></div><div class="decision-strip"><strong>報告結論：</strong>URE 500W 在料源供應與價格上已被優化，若報價與保固條件相當，無須特意更換。</div></div>
+        <footer class="footer"><span>互動提示：用上方按鈕聚焦主管最在意的比較項目</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="7" aria-labelledby="title-7">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">財務方案比較</span><span>07</span></div><h2 class="title" id="title-7">自建＋貸款 75%，回收速度與控制權取得平衡</h2><p class="subtitle">點選方案查看報告的資金需求、回收年限與 20 年累積純利。</p></header>
+        <div class="body"><div class="scenario-tabs" role="tablist"><button class="tab-btn active" data-scenario="A" role="tab">方案 A｜自建貸款 75%</button><button class="tab-btn" data-scenario="B" role="tab">方案 B｜全額現金</button><button class="tab-btn" data-scenario="C" role="tab">方案 C｜屋頂出租</button></div><div class="scenario-layout"><div class="scenario-card"><h3 id="scenarioTitle">方案 A：自建（貸款 75%）</h3><p class="scenario-lead" id="scenarioLead">報告列為最推薦：以約 25% 自備款取得完整設備控制權。</p><div class="scenario-stats"><div class="scenario-stat"><b id="scenarioInput">約 173.6 萬</b><span>初期自備資金</span></div><div class="scenario-stat"><b id="scenarioPayback">約 3 年</b><span>自備款回收年限</span></div><div class="scenario-stat"><b id="scenarioRevenue">約 139.7 萬</b><span>首年售電毛收入</span></div><div class="scenario-stat"><b id="scenarioProfit">約 716 萬</b><span>20 年累積總純利</span></div></div></div><div class="bar-chart"><svg id="scenarioChart" viewBox="0 0 560 360" role="img" aria-label="三種方案的20年累積純利比較圖"></svg><div class="chart-legend"><span class="legend"><i></i>20 年累積總純利</span></div></div></div></div>
+        <footer class="footer"><span>財務數字依報告假設：年發電量 1,250 度／kW</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="8" aria-labelledby="title-8">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">報酬與風險</span><span>08</span></div><h2 class="title" id="title-8">數字很吸引人，但報酬成立有三個前提</h2><p class="subtitle">報告中的 3 年回本與 716 萬純利，是建立在費率、發電量與工程範圍都成立的情況下。</p></header>
+        <div class="body"><div class="two-col"><div class="panel"><h3>報告財務模型的三個前提</h3><div class="checklist"><article class="check done"><h3>售電單價</h3><p>以報告採用的 4.8275 元／度估算，正式核定前需確認適用資格與年度公告。</p></article><article class="check done"><h3>發電量</h3><p>以嘉義水上年發電量 1,250 度／kW 試算，實際仍受遮蔭、設備衰退與維運影響。</p></article><article class="check"><h3>工程追加</h3><p>台電外線、土木補強、特目圖說與審查要求，需在報價與合約中定義上限。</p></article></div></div><div class="panel soft"><h3>管理者要看什麼？</h3><ul class="list"><li>先看合約能否鎖定收入條件。</li><li>再看工程是否會超出 694.5 萬元。</li><li>最後才是比較 URE 與 Winaico 的 5W 差異。</li></ul><div class="formula" style="margin-top:28px;font-size:clamp(20px,1.65vw,28px);"><span class="label">一條判斷原則</span><span class="result">收入條件先確認，成本邊界再談。</span></div></div></div></div>
+        <footer class="footer"><span>把「高報酬」拆成可驗證的條件</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="9" aria-labelledby="title-9">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">老闆疑慮｜互動問答</span><span>09</span></div><h2 class="title" id="title-9">先回答最可能被問的三個問題</h2><p class="subtitle">點選問題展開回答；簡報現場可依主管提問順序使用。</p></header>
+        <div class="body"><div class="faq-list"><article class="faq open"><button type="button" data-faq="0">建置費用越低，台電收購電價會變低嗎？<span aria-hidden="true">−</span></button><div class="answer"><strong>不會，依報告邏輯兩者分開。</strong> 台電收購費率是依公告標準、案場容量級距、設置類型與法定獎勵核定；工程造價主要影響投資報酬率與回收年限。正式簽約前仍要確認費率核定文件。</div></article><article class="faq"><button type="button" data-faq="1">URE 500W 和元晶 505W，哪一個比較好？<span aria-hidden="true">＋</span></button><div class="answer">報告判斷兩者均屬優質選項，效率與 20 年發電效益差異小；比較時應把保固、料源、價格、交期與施工責任一起看，不宜只看單片 5W。</div></article><article class="faq"><button type="button" data-faq="2">如果不想投入資金，屋頂出租是不是更簡單？<span aria-hidden="true">＋</span></button><div class="answer">出租的優點是零初期投入、首年即有租金；但報告估算 20 年累積純利約 455 萬元，低於方案 A 的約 716 萬元，且設備主導權不在公司。這是資金壓力與長期收益的取捨。</div></article></div></div>
+        <footer class="footer"><span>現場用法：先問「收入能不能鎖定」，再問「成本會不會追加」</span></footer>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="10" aria-labelledby="title-10">
+      <div class="shell">
+        <header><div class="eyebrow"><span class="brand">決策前檢核</span><span>10</span></div><h2 class="title" id="title-10">會議可先拍板方向，但簽約前還要補齊四份資料</h2><p class="subtitle">把報告建議轉成可執行的下一步，避免只看試算表上的高報酬。</p></header>
+        <div class="body"><div class="checklist"><article class="check"><h3>費率適用證明</h3><p>確認 4.8275 元／度的正式適用資格、加成條件與核定方式。</p></article><article class="check"><h3>台電併網估價</h3><p>取得外線擴充規費與高壓併網工程的正式估價，設定追加上限。</p></article><article class="check"><h3>特目審查範圍</h3><p>確認特定目的事業用地計畫書、光電圖說與土木補強由誰負責。</p></article><article class="check"><h3>貸款正式條件</h3><p>確認利率、寬限期、還款年限與是否影響 3 年回收估算。</p></article></div><div class="closing"><strong>建議決策：</strong>以「自建＋銀行貸款 75%」作為主方案，先取得上述四份資料，再進入正式簽約與執行。</div></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="side-nav" aria-label="簡報導覽"><button id="prev" aria-label="上一頁" title="上一頁">‹</button><button id="next" aria-label="下一頁" title="下一頁">›</button></nav>
+
+  <script>
+    (() => {
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+      const slides = $$('.slide');
+      let current = 0;
+      const total = slides.length;
+
+      function goTo(index, updateHash = true) {
+        current = Math.max(0, Math.min(total - 1, index));
+        slides.forEach((slide, i) => { slide.classList.toggle('active', i === current); slide.setAttribute('aria-hidden', i === current ? 'false' : 'true'); });
+        $('#prev').disabled = current === 0;
+        $('#next').disabled = current === total - 1;
+        if (updateHash) history.replaceState(null, '', `#slide-${current + 1}`);
+      }
+      const next = () => goTo(current + 1);
+      const prev = () => goTo(current - 1);
+      $('#next').addEventListener('click', next);
+      $('#prev').addEventListener('click', prev);
+      window.addEventListener('keydown', (event) => {
+        if (['INPUT', 'BUTTON'].includes(document.activeElement.tagName) && event.key !== 'Escape') return;
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); next(); }
+        if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); prev(); }
+        if (event.key === 'Home') { event.preventDefault(); goTo(0); }
+        if (event.key === 'End') { event.preventDefault(); goTo(total - 1); }
+      });
+
+      $$('.add-on button').forEach((button) => button.addEventListener('click', () => {
+        const card = button.closest('.add-on');
+        card.classList.toggle('open');
+        button.querySelector('span').textContent = card.classList.contains('open') ? '－' : '＋';
+      }));
+
+      $$('.tab-btn[data-compare]').forEach((button) => button.addEventListener('click', () => {
+        const key = button.dataset.compare;
+        $$('.tab-btn[data-compare]').forEach((item) => item.classList.toggle('active', item === button));
+        $$('#moduleTable tbody tr').forEach((row) => { row.classList.toggle('highlight', key === 'all' || row.dataset.dimension === key); });
+      }));
+
+      const scenarios = {
+        A: { title: '方案 A：自建（貸款 75%）', lead: '報告列為最推薦：以約 25% 自備款取得完整設備控制權。', input: '約 173.6 萬', payback: '約 3 年', revenue: '約 139.7 萬', profit: '約 716 萬' },
+        B: { title: '方案 B：自建（100% 現金全額）', lead: '不承擔貸款，但一次投入 694.5 萬元，資金占用較高。', input: '694.5 萬', payback: '約 7 年', revenue: '約 139.7 萬', profit: '約 1,416 萬' },
+        C: { title: '方案 C：屋頂出租（0 投資）', lead: '首年即有租金，但設備與長期收益主導權交給承租方。', input: '0 元', payback: '無回收問題', revenue: '約 25.1 萬', profit: '約 455 萬' }
+      };
+      function updateScenario(key) {
+        const data = scenarios[key];
+        $('#scenarioTitle').textContent = data.title; $('#scenarioLead').textContent = data.lead; $('#scenarioInput').textContent = data.input; $('#scenarioPayback').textContent = data.payback; $('#scenarioRevenue').textContent = data.revenue; $('#scenarioProfit').textContent = data.profit;
+        $$('.tab-btn[data-scenario]').forEach((button) => button.classList.toggle('active', button.dataset.scenario === key));
+      }
+      $$('.tab-btn[data-scenario]').forEach((button) => button.addEventListener('click', () => updateScenario(button.dataset.scenario)));
+
+      function svgEl(tag, attrs = {}) { const el = document.createElementNS('http://www.w3.org/2000/svg', tag); Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value)); return el; }
+      function drawScenarioChart() {
+        const chart = $('#scenarioChart'); chart.replaceChildren();
+        const W = 560, H = 360, left = 58, right = 18, top = 24, bottom = 58, max = 1500, innerH = H - top - bottom, innerW = W - left - right;
+        for (let tick = 0; tick <= 1500; tick += 300) { const y = top + innerH - tick / max * innerH; chart.appendChild(svgEl('line', { x1: left, y1: y, x2: W - right, y2: y, stroke: '#dbe4eb', 'stroke-width': 1 })); const label = svgEl('text', { x: left - 10, y: y + 5, 'text-anchor': 'end', fill: '#64748b', 'font-size': 13 }); label.textContent = tick; chart.appendChild(label); }
+        const data = [{ label: '貸款75%', value: 716, color: '#168052' }, { label: '全額現金', value: 1416, color: '#1b466f' }, { label: '屋頂出租', value: 455, color: '#eb7a17' }];
+        const barW = 82, gap = 46, start = left + 40;
+        data.forEach((item, index) => { const x = start + index * (barW + gap); const y = top + innerH - item.value / max * innerH; chart.appendChild(svgEl('rect', { x, y, width: barW, height: top + innerH - y, rx: 4, fill: item.color })); const value = svgEl('text', { x: x + barW / 2, y: y - 10, 'text-anchor': 'middle', fill: '#172333', 'font-size': 14, 'font-weight': 800 }); value.textContent = `${item.value}萬`; chart.appendChild(value); const label = svgEl('text', { x: x + barW / 2, y: H - 24, 'text-anchor': 'middle', fill: '#172333', 'font-size': 14 }); label.textContent = item.label; chart.appendChild(label); });
+        chart.appendChild(svgEl('line', { x1: left, y1: top + innerH, x2: W - right, y2: top + innerH, stroke: '#aebdca', 'stroke-width': 1.3 }));
+      }
+      drawScenarioChart();
+
+      $$('.faq button').forEach((button) => button.addEventListener('click', () => { const faq = button.closest('.faq'); faq.classList.toggle('open'); button.querySelector('span').textContent = faq.classList.contains('open') ? '－' : '＋'; }));
+      const hash = location.hash.match(/slide-(\d+)/); goTo(hash ? Number(hash[1]) - 1 : 0, false);
+    })();
+  </script>
+</body>
+</html>

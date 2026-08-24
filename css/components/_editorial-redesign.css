@@ -1,0 +1,1578 @@
+/* 第二版視覺系統：以食品工廠場景做章節舞台，資料以易讀浮卡呈現。 */
+:root {
+  --editorial-ink: #07101e;
+  --editorial-paper: #fff9ef;
+  --editorial-gold: #f3b84d;
+  --editorial-gold-soft: #ffd889;
+  --editorial-blue: #10243f;
+  --content-max-width: 76rem;
+}
+
+body {
+  background: #091322;
+}
+
+.site-header {
+  width: min(100% - 2rem, 76rem);
+  border-color: rgba(255, 222, 160, 0.18);
+  background: rgba(7, 16, 30, 0.76);
+  box-shadow: 0 1rem 2.75rem rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(1.25rem) saturate(130%);
+  backdrop-filter: blur(1.25rem) saturate(130%);
+}
+
+.brand-mark__symbol {
+  border-color: rgba(255, 226, 167, 0.48);
+  background: linear-gradient(135deg, #ffd880, #dc8d2e);
+  color: #172339;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: var(--editorial-gold-soft);
+}
+
+/* 每個章節使用完整情境，避免「標題 + 框框圖片」造成的冗長感。 */
+.story-section,
+.evidence-section,
+.compare-section,
+.timeline-section,
+.dashboard-section {
+  --scene-x: 72%;
+  --scene-y: 45%;
+  --scene-glow: 0;
+  isolation: isolate;
+  min-height: max(49rem, 100svh);
+  padding: clamp(7rem, 11vh, 9rem) 0 clamp(5rem, 8vh, 7rem);
+  background: #091322;
+}
+
+.story-section::before,
+.evidence-section::before,
+.compare-section::before,
+.timeline-section::before,
+.dashboard-section::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  content: "";
+  transform: scale(1.015);
+}
+
+.story-section::after,
+.evidence-section::after,
+.compare-section::after,
+.timeline-section::after,
+.dashboard-section::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(circle 28rem at var(--scene-x) var(--scene-y), rgba(255, 210, 123, calc(var(--scene-glow) * 0.16)), transparent 66%),
+    linear-gradient(90deg, rgba(7, 16, 30, 0.89) 0%, rgba(7, 16, 30, 0.74) 33%, rgba(7, 16, 30, 0.22) 72%, rgba(7, 16, 30, 0.08) 100%),
+    linear-gradient(0deg, rgba(7, 16, 30, 0.68), transparent 48%, rgba(7, 16, 30, 0.28));
+  content: "";
+}
+
+.story-section::before {
+  background-image: url("../../assets/background/story-eggroll-cookie-2p5d-v2.png");
+}
+
+.evidence-section::before {
+  background-image: url("../../assets/background/evidence-warehouse-2p5d-v2.png");
+}
+
+.compare-section::before {
+  background-image: url("../../assets/background/compare-flow-2p5d-v2.png");
+}
+
+.timeline-section::before {
+  background-image: url("../../assets/background/timeline-action-2p5d-v2.png");
+}
+
+.dashboard-section::before {
+  background-image: url("../../assets/background/dashboard-outcome-2p5d-v2.png");
+}
+
+.story-section > *,
+.evidence-section > *,
+.compare-section > *,
+.timeline-section > *,
+.dashboard-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.story-section .section-scene,
+.compare-section .section-scene,
+.timeline-section .section-scene,
+.dashboard-section .section-scene {
+  display: none;
+}
+
+.section-intro {
+  max-width: 44rem;
+}
+
+.section-intro--split {
+  display: block;
+  max-width: 46rem;
+}
+
+.section-intro--split .section-intro__copy {
+  margin-top: 1.25rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid rgba(255, 216, 137, 0.32);
+  border-radius: 999px;
+  background: rgba(243, 184, 77, 0.1);
+  color: var(--editorial-gold-soft);
+  font-size: 0.7rem;
+  letter-spacing: 0.11em;
+}
+
+.section-title {
+  max-width: 41rem;
+  color: var(--editorial-paper);
+  font-size: clamp(2.55rem, 5.2vw, 5.4rem);
+  font-weight: 740;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.section-intro__copy {
+  max-width: 36rem;
+  margin-top: 1.4rem;
+  color: rgba(255, 249, 239, 0.78);
+  font-size: clamp(1.05rem, 1.4vw, 1.24rem);
+  line-height: 1.85;
+}
+
+/* Story：用三張簡短論點卡取代資訊密集的長條。 */
+.story-section__sequence {
+  display: grid;
+  max-width: 60rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: clamp(3rem, 6vh, 4.5rem) 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+.story-beat {
+  min-height: 13.75rem;
+  border: 1px solid rgba(255, 238, 198, 0.2);
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(8, 19, 34, 0.5), rgba(8, 19, 34, 0.25));
+  box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.15);
+  -webkit-backdrop-filter: blur(0.45rem);
+  backdrop-filter: blur(0.45rem);
+  transition: transform var(--duration-standard) var(--ease-standard), background var(--duration-standard) ease, border-color var(--duration-standard) ease;
+}
+
+.story-beat:hover,
+.story-beat:focus-within {
+  border-color: rgba(255, 216, 137, 0.62);
+  background: linear-gradient(135deg, rgba(8, 19, 34, 0.64), rgba(8, 19, 34, 0.3));
+  transform: translateY(-0.45rem);
+}
+
+.story-beat__index {
+  color: var(--editorial-gold);
+  font-size: 1.2rem;
+}
+
+.story-beat h3,
+.evidence-card h3,
+.timeline-item__body h3 {
+  color: var(--editorial-paper);
+  font-size: clamp(1.24rem, 1.7vw, 1.62rem);
+  line-height: 1.35;
+}
+
+.story-beat p:not(.story-beat__label),
+.evidence-card__description,
+.timeline-item__body > p:not(.eyebrow) {
+  color: rgba(255, 249, 239, 0.73);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+
+.story-beat__stat {
+  border-top-color: rgba(255, 238, 198, 0.18);
+}
+
+.story-beat__stat strong {
+  color: var(--editorial-gold-soft);
+}
+
+/* Evidence：大圖先建立氛圍，三條線索採可展開的清楚卡片。 */
+.evidence-stack {
+  display: grid;
+  max-width: 72rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: clamp(2.25rem, 5vh, 3.5rem) auto 0;
+}
+
+.evidence-lens {
+  display: flex;
+  width: min(100% - 2rem, 72rem);
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: clamp(2rem, 4vh, 3.25rem) auto 0;
+}
+
+.evidence-lens__button {
+  display: inline-flex;
+  min-height: 2.8rem;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 238, 198, 0.2);
+  border-radius: 999px;
+  background: rgba(7, 16, 30, 0.3);
+  color: rgba(255, 249, 239, 0.78);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 650;
+  transition: border-color var(--duration-fast) ease, background var(--duration-fast) ease, color var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+
+.evidence-lens__button span {
+  color: var(--editorial-gold-soft);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.evidence-lens__button:hover,
+.evidence-lens__button:focus-visible,
+.evidence-lens__button[aria-selected="true"] {
+  border-color: rgba(255, 216, 137, 0.7);
+  background: rgba(243, 184, 77, 0.16);
+  color: var(--editorial-paper);
+  transform: translateY(-0.15rem);
+}
+
+.evidence-card {
+  display: block;
+  min-height: 0;
+  grid-template-columns: none;
+  border: 1px solid rgba(255, 238, 198, 0.18);
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(8, 19, 34, 0.52), rgba(8, 19, 34, 0.18));
+  box-shadow: 0 1.2rem 2.7rem rgba(0, 0, 0, 0.16);
+  -webkit-backdrop-filter: blur(0.35rem);
+  backdrop-filter: blur(0.35rem);
+  transition: border-color var(--duration-standard) ease, background var(--duration-standard) ease, box-shadow var(--duration-standard) ease, filter var(--duration-standard) ease;
+}
+
+.evidence-card:nth-child(even) {
+  grid-template-columns: none;
+}
+
+.evidence-card:nth-child(even) .evidence-card__visual {
+  order: initial;
+}
+
+.evidence-card__visual {
+  display: none;
+}
+
+.evidence-card__content {
+  display: flex;
+  min-height: 16.25rem;
+  flex-direction: column;
+  padding: clamp(1.35rem, 2.1vw, 2rem);
+}
+
+.evidence-card.is-focused {
+  border-color: rgba(255, 216, 137, 0.72);
+  background: linear-gradient(135deg, rgba(8, 19, 34, 0.64), rgba(8, 19, 34, 0.22));
+  box-shadow: 0 1.75rem 3.25rem rgba(0, 0, 0, 0.22);
+}
+
+.evidence-card.is-muted {
+  filter: saturate(0.72) brightness(0.82);
+}
+
+.evidence-card:has(.evidence-card__details[open]) {
+  background: rgba(8, 19, 34, 0.78);
+}
+
+.evidence-card .eyebrow {
+  font-size: 0.6rem;
+}
+
+.evidence-card__description {
+  margin-top: 1rem;
+}
+
+.evidence-card__details {
+  margin-top: auto;
+}
+
+.evidence-card__toggle {
+  color: var(--editorial-gold-soft);
+}
+
+/* Compare：資料本身成為主角，對比集中、數字清楚。 */
+.compare-board {
+  max-width: 57rem;
+  margin: clamp(3rem, 7vh, 5rem) 0 0 max(1rem, calc((100% - 76rem) / 2));
+  padding: clamp(1.35rem, 3vw, 2.75rem);
+  border: 1px solid rgba(255, 238, 198, 0.2);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(7, 16, 30, 0.62), rgba(7, 16, 30, 0.22));
+  box-shadow: 0 1.4rem 3.2rem rgba(0, 0, 0, 0.18);
+  -webkit-backdrop-filter: blur(0.5rem);
+  backdrop-filter: blur(0.5rem);
+}
+
+.compare-board__axis,
+.comparison-column__label,
+.comparison-column__detail,
+.compare-board__conclusion {
+  color: rgba(255, 249, 239, 0.7);
+}
+
+.comparison-column__value {
+  color: var(--editorial-paper);
+  font-size: clamp(3.25rem, 6vw, 5.5rem);
+}
+
+.comparison-column--cost .comparison-column__value {
+  color: #9ee6c3;
+}
+
+.comparison-column--inventory .comparison-column__value {
+  color: var(--editorial-gold-soft);
+}
+
+.compare-board__conclusion {
+  margin-top: 1.65rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid var(--editorial-gold);
+  background: rgba(243, 184, 77, 0.08);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+/* Timeline：一眼看懂現在該先做哪一步。 */
+.timeline-controls {
+  width: min(100% - 2rem, 61rem);
+  margin: clamp(2.7rem, 6vh, 4rem) auto 0;
+  padding: 0;
+}
+
+.timeline-controls__button {
+  border-color: rgba(255, 238, 198, 0.2);
+  background: rgba(7, 16, 30, 0.7);
+  color: rgba(255, 249, 239, 0.68);
+  font-size: 0.93rem;
+  -webkit-backdrop-filter: blur(0.75rem);
+  backdrop-filter: blur(0.75rem);
+}
+
+.timeline-controls__button[aria-selected="true"] {
+  background: linear-gradient(135deg, #f0b24c, #cc7e2b);
+  color: #152038;
+}
+
+.action-timeline {
+  max-width: 61rem;
+  display: grid;
+  gap: 1rem;
+  margin: 1.35rem auto 0;
+  padding-left: 0;
+}
+
+.action-timeline::before,
+.action-timeline__progress {
+  display: none;
+}
+
+.timeline-item {
+  display: block;
+  border-color: rgba(255, 238, 198, 0.16);
+  border-radius: 1.4rem;
+  background: linear-gradient(135deg, rgba(7, 16, 30, 0.6), rgba(7, 16, 30, 0.22));
+  box-shadow: 0 1.25rem 2.8rem rgba(0, 0, 0, 0.16);
+  padding: clamp(1.5rem, 2.6vw, 2.4rem) clamp(1.5rem, 3.2vw, 3rem) clamp(1.5rem, 2.6vw, 2.4rem) clamp(4.5rem, 7vw, 6.25rem);
+  -webkit-backdrop-filter: blur(0.45rem);
+  backdrop-filter: blur(0.45rem);
+}
+
+.timeline-item__marker {
+  top: clamp(1.6rem, 2.7vw, 2.5rem);
+  left: clamp(1.45rem, 2.6vw, 2.5rem);
+  background: transparent;
+}
+
+.timeline-item--active .timeline-item__marker {
+  border: 0;
+  background: transparent;
+}
+
+.timeline-item__marker span {
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  background: linear-gradient(135deg, #ffd988, #da8b32);
+  color: #192338;
+}
+
+.timeline-item__tags span {
+  border-color: rgba(255, 215, 135, 0.3);
+  color: var(--editorial-gold-soft);
+}
+
+/* Dashboard：三個成果卡保持大字、高對比，讓經營者不用尋找資訊。 */
+.dashboard-grid {
+  max-width: 65rem;
+  margin: clamp(3rem, 7vh, 5rem) 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+.dashboard-stat {
+  border-color: rgba(255, 238, 198, 0.17);
+  border-radius: 1.35rem;
+  min-height: 18rem;
+  background: linear-gradient(135deg, rgba(7, 16, 30, 0.56), rgba(7, 16, 30, 0.2));
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.15);
+  -webkit-backdrop-filter: blur(0.45rem);
+  backdrop-filter: blur(0.45rem);
+}
+
+.dashboard-stat--primary {
+  background: linear-gradient(135deg, rgba(241, 180, 71, 0.28), rgba(7, 16, 30, 0.32));
+}
+
+.dashboard-stat__label,
+.dashboard-stat__description {
+  color: rgba(255, 249, 239, 0.72);
+}
+
+.dashboard-stat__value {
+  color: var(--editorial-gold-soft);
+  font-size: clamp(3.1rem, 5vw, 5.4rem);
+}
+
+/* 第 2 頁：左側是可聚焦的案件清單，右側完整保留倉庫偵探視覺。 */
+@media (min-width: 48rem) {
+  .evidence-section .section-intro,
+  .evidence-section .evidence-lens,
+  .evidence-section .evidence-stack {
+    width: min(calc(100% - 2rem), 38rem);
+    margin-right: 0;
+    margin-left: max(1rem, calc((100% - 76rem) / 2));
+  }
+
+  .evidence-section .section-intro {
+    max-width: 38rem;
+  }
+
+  .evidence-section .evidence-lens {
+    margin-top: clamp(1.75rem, 3vh, 2.35rem);
+  }
+
+  .evidence-section .evidence-stack {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .evidence-section .evidence-card__content {
+    min-height: 0;
+    padding: 1.15rem 1.35rem 1.1rem;
+  }
+
+  .evidence-section .evidence-card h3 {
+    max-width: 28rem;
+    font-size: clamp(1.16rem, 1.45vw, 1.42rem);
+  }
+
+  .evidence-section .evidence-card__description {
+    max-width: 34rem;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.58;
+  }
+
+  .evidence-section .evidence-card__toggle {
+    min-height: 2.6rem;
+    margin-top: 0.55rem;
+    border-top-color: rgba(255, 238, 198, 0.14);
+    font-size: 0.92rem;
+  }
+
+  .evidence-section .evidence-card.is-focused {
+    background: linear-gradient(100deg, rgba(8, 19, 34, 0.78), rgba(8, 19, 34, 0.3));
+  }
+}
+
+/* 第 5 頁：去除厚重儀表板外框，改讓戰果數字漂浮在出貨場景上。 */
+.dashboard-section .section-intro {
+  max-width: 48rem;
+}
+
+.dashboard-section .dashboard-grid {
+  display: grid;
+  max-width: 68rem;
+  gap: 0;
+  margin-top: clamp(2.6rem, 5vh, 4rem);
+  border: 0;
+  background: transparent;
+}
+
+.dashboard-section .dashboard-stat {
+  min-height: 0;
+  padding: clamp(1rem, 2vw, 1.7rem) clamp(1.25rem, 2.4vw, 2.3rem);
+  border: 0;
+  border-left: 1px solid rgba(255, 238, 198, 0.28);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.dashboard-section .dashboard-stat:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.dashboard-section .dashboard-stat--primary {
+  background: transparent;
+}
+
+.dashboard-section .dashboard-stat__label {
+  color: rgba(255, 249, 239, 0.84);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-section .dashboard-stat__value {
+  margin-top: clamp(0.7rem, 1.6vw, 1.25rem);
+  color: var(--editorial-gold-soft);
+  font-size: clamp(3.6rem, 6.2vw, 6.6rem);
+  text-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.28);
+}
+
+.dashboard-section .dashboard-stat--primary .dashboard-stat__value {
+  color: #e8b84f;
+}
+
+.dashboard-section .dashboard-stat__description {
+  max-width: 16rem;
+  margin-top: 1rem;
+  color: rgba(255, 249, 239, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.62;
+  text-shadow: 0 0.15rem 0.85rem rgba(0, 0, 0, 0.5);
+}
+
+/* 16:9 展示模式：讓操作鈕與資料卡保留更多畫面呼吸感。 */
+html[data-presentation-mode="deck"] .timeline-controls {
+  width: min(calc(100% - 2rem), 61rem);
+  margin-top: 0;
+}
+
+html[data-presentation-mode="deck"] .timeline-controls__button {
+  min-height: 2.45rem;
+  padding: 0.48rem 0.82rem;
+  border-color: rgba(255, 238, 198, 0.22);
+  background: rgba(7, 16, 30, 0.64);
+  color: rgba(255, 249, 239, 0.76);
+}
+
+/* 選取狀態改為金色描邊，不用整塊亮黃色搶走焦點。 */
+html[data-presentation-mode="deck"] .timeline-controls__button[aria-selected="true"] {
+  border-color: rgba(255, 211, 119, 0.82);
+  background: rgba(243, 184, 77, 0.12);
+  box-shadow: inset 0 -0.18rem 0 rgba(243, 184, 77, 0.86);
+  color: var(--editorial-gold-soft);
+}
+
+/* 線索頁一次只顯示選中的一張卡，展開資料時可完整閱讀。 */
+html[data-presentation-mode="deck"] .evidence-section .evidence-stack {
+  display: block;
+  width: min(calc(100% - 2rem), 39rem);
+  margin: 0 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card {
+  display: none;
+  min-height: 0;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card.is-focused {
+  display: block;
+  width: 100%;
+  filter: none;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card__content {
+  min-height: 0;
+  padding: clamp(1.3rem, 2.25vw, 2rem);
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-card__details-body {
+  padding: 1rem 0 0.35rem;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-inline-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(255, 238, 198, 0.14);
+  border-bottom: 1px solid rgba(255, 238, 198, 0.14);
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-inline-data span {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.35;
+}
+
+html[data-presentation-mode="deck"] .evidence-section .evidence-metric-row {
+  gap: 0.85rem;
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* 行動卡的編號改放進卡內，文字從左緣開始，不再浪費左側空白。 */
+html[data-presentation-mode="deck"] .timeline-section .action-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(calc(100% - 2rem), 68rem);
+  margin: 1.25rem 0 0 max(1rem, calc((100% - 76rem) / 2));
+  padding-left: 0;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item {
+  display: block;
+  min-height: 0;
+  padding: clamp(1.15rem, 1.8vw, 1.65rem);
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__marker {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__marker span {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__body > p:not(.eyebrow) {
+  margin-top: 0.75rem;
+}
+
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__tags {
+  margin-top: 1rem;
+}
+
+/* 一般閱讀模式同步採用同一套資訊層級，避免兩種模式看起來像兩個網站。 */
+.timeline-controls__button[aria-selected="true"] {
+  border-color: rgba(255, 211, 119, 0.82);
+  background: rgba(243, 184, 77, 0.12);
+  box-shadow: inset 0 -0.18rem 0 rgba(243, 184, 77, 0.86);
+  color: var(--editorial-gold-soft);
+}
+
+.evidence-section .evidence-stack {
+  display: block;
+  width: min(calc(100% - 2rem), 39rem);
+  margin: 1rem 0 0 max(1rem, calc((100% - 76rem) / 2));
+}
+
+.evidence-section .evidence-card {
+  display: none;
+}
+
+.evidence-section .evidence-card.is-focused {
+  display: block;
+  width: 100%;
+  filter: none;
+}
+
+.evidence-section .evidence-card:has(.evidence-card__details[open]) {
+  background: linear-gradient(135deg, rgba(7, 16, 30, 0.96), rgba(7, 16, 30, 0.82));
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.26);
+}
+
+.evidence-section .evidence-card__details-body {
+  padding: 1rem 0 0.45rem;
+}
+
+.evidence-section .evidence-inline-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(255, 238, 198, 0.16);
+  border-bottom: 1px solid rgba(255, 238, 198, 0.16);
+  color: rgba(255, 249, 239, 0.78);
+}
+
+.evidence-section .evidence-inline-data span {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.35;
+}
+
+.evidence-section .evidence-inline-data strong,
+.evidence-section .evidence-metric strong {
+  color: var(--editorial-paper);
+}
+
+.evidence-section .evidence-metric-row {
+  gap: 0.85rem;
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.action-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(calc(100% - 2rem), 68rem);
+  max-width: none;
+  margin: 1.25rem 0 0 max(1rem, calc((100% - 76rem) / 2));
+  padding-left: 0;
+}
+
+.timeline-item {
+  display: block;
+  min-height: 0;
+  padding: clamp(1.15rem, 1.8vw, 1.65rem);
+}
+
+.timeline-item__marker {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.timeline-item__marker span {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.timeline-item__body > p:not(.eyebrow) {
+  margin-top: 0.75rem;
+}
+
+.timeline-item__tags {
+  margin-top: 1rem;
+}
+
+/* 故事卡不再保留舊時間軸的空欄；編號改為正文上方的閱讀提示。 */
+.story-section__sequence {
+  border-left: 0;
+}
+
+.story-beat {
+  display: block;
+  padding: clamp(1.25rem, 2vw, 1.9rem);
+}
+
+.story-beat:last-child {
+  padding-bottom: clamp(1.25rem, 2vw, 1.9rem);
+}
+
+.story-beat::before {
+  display: none;
+}
+
+.story-beat__index {
+  display: inline-grid;
+  min-width: 2.1rem;
+  min-height: 2.1rem;
+  place-items: center;
+  margin-bottom: 0.85rem;
+  border: 1px solid rgba(255, 216, 137, 0.35);
+  border-radius: 50%;
+  background: rgba(243, 184, 77, 0.1);
+}
+
+.story-beat__label {
+  margin-bottom: 0.55rem;
+}
+
+/* 戰果維持清楚大字，但縮小到不壓住右側工廠角色。 */
+.dashboard-section .dashboard-grid {
+  max-width: 64rem;
+  grid-template-columns: 0.95fr 1fr 1.08fr;
+}
+
+.dashboard-section .dashboard-stat__value {
+  font-size: clamp(3.25rem, 5.45vw, 5.9rem);
+}
+
+/* 戰果數字固定字寬，計數時不擠壓版面；每個數字可獨立彈跳。 */
+.dashboard-section .dashboard-stat__value [data-counter] {
+  display: inline-block;
+  min-width: 1ch;
+  font-variant-numeric: tabular-nums;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+
+/* 桌面版改以左側開始鋪陳文字，讓標題、內容與工廠畫面共同填滿全螢幕。 */
+@media (min-width: 48rem) {
+  .story-section .section-intro,
+  .compare-section .section-intro,
+  .timeline-section .section-intro,
+  .dashboard-section .section-intro {
+    width: min(calc(100% - 4rem), 62rem);
+    max-width: 62rem;
+    margin-right: 0;
+    margin-left: max(2rem, calc((100% - 76rem) / 2));
+  }
+
+  .story-section .section-title,
+  .compare-section .section-title,
+  .timeline-section .section-title,
+  .dashboard-section .section-title {
+    max-width: 54rem;
+  }
+
+  .story-section .section-intro__copy,
+  .compare-section .section-intro__copy,
+  .timeline-section .section-intro__copy,
+  .dashboard-section .section-intro__copy {
+    max-width: 46rem;
+  }
+
+  .story-section .story-section__sequence {
+    width: min(calc(100% - 4rem), 72rem);
+    max-width: 72rem;
+    margin-left: clamp(2rem, 6vw, 7rem);
+  }
+
+  /* 大螢幕不再把內容鎖在中央窄欄，左側與背景一起延展使用。 */
+  .story-section .section-intro,
+  .compare-section .section-intro,
+  .timeline-section .section-intro,
+  .dashboard-section .section-intro,
+  .evidence-section .section-intro,
+  .evidence-section .evidence-lens,
+  .evidence-section .evidence-stack {
+    margin-left: clamp(2rem, 6vw, 7rem);
+  }
+
+  .compare-board,
+  .dashboard-grid,
+  .action-timeline {
+    margin-left: clamp(2rem, 6vw, 7rem);
+  }
+}
+
+/* 首尾兩張全螢幕圖統一視覺方向。 */
+.hero-section__background {
+  background-position: center;
+}
+
+.hero-section__title {
+  max-width: 47rem;
+  font-size: clamp(3.25rem, 7.5vw, 7.8rem);
+  letter-spacing: -0.065em;
+}
+
+.hero-section__lead {
+  max-width: 34rem;
+  color: rgba(255, 249, 239, 0.8);
+  font-size: clamp(1.08rem, 1.55vw, 1.35rem);
+}
+
+.hero-section__veil,
+.ending-section__veil {
+  background: linear-gradient(90deg, rgba(7, 16, 30, 0.96) 0%, rgba(7, 16, 30, 0.74) 38%, rgba(7, 16, 30, 0.18) 78%), linear-gradient(0deg, #07101e 0%, transparent 46%);
+}
+
+.ending-section__background {
+  background-position: center;
+}
+
+.ending-section__title {
+  max-width: 44rem;
+  color: var(--editorial-paper);
+  font-size: clamp(2.8rem, 6.2vw, 6.4rem);
+  letter-spacing: -0.06em;
+}
+
+.ending-section__copy {
+  max-width: 36rem;
+  color: rgba(255, 249, 239, 0.78);
+  font-size: 1.13rem;
+  line-height: 1.85;
+}
+
+/* 結案頁：以左側文字、右側角色與出貨場景完成真正的全版收尾。 */
+.ending-section {
+  min-height: 100svh;
+  height: 100svh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ending-section .ending-section__content {
+  width: min(calc(100% - 4rem), 45rem);
+  max-width: 45rem;
+  margin-right: 0;
+  margin-left: clamp(2rem, 8vw, 9rem);
+  padding: clamp(6rem, 12vh, 9rem) 0 clamp(3rem, 8vh, 6rem);
+}
+
+.ending-section__title {
+  max-width: 43rem;
+  font-size: clamp(3rem, 5.55vw, 6.1rem);
+  line-height: 1.04;
+}
+
+.ending-section__copy {
+  max-width: 38rem;
+  font-size: clamp(1.08rem, 1.35vw, 1.28rem);
+}
+
+/* 最後一張展示頁移除懸浮頁首，讓舞台從第一個像素到最後一個像素都屬於結案畫面。 */
+html[data-presentation-mode="deck"]:has(.ending-section.is-presentation-active) .site-header {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -1.5rem);
+}
+
+html[data-presentation-mode="deck"] .ending-section {
+  display: flex;
+  min-height: 100svh;
+  height: 100svh;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+html[data-presentation-mode="deck"] .ending-section .ending-section__content {
+  align-self: center;
+  padding: clamp(4rem, 9vh, 6.5rem) 0;
+}
+
+@media (max-width: 74rem) {
+  .story-section__sequence,
+  .compare-board,
+  .dashboard-grid {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .site-header {
+    width: calc(100% - 1rem);
+  }
+
+  .story-section,
+  .evidence-section,
+  .compare-section,
+  .timeline-section,
+  .dashboard-section {
+    min-height: auto;
+    padding: 6.5rem 0 5rem;
+  }
+
+  .story-section::before,
+  .evidence-section::before,
+  .compare-section::before,
+  .timeline-section::before,
+  .dashboard-section::before {
+    background-position: 68% center;
+  }
+
+  .story-section::after,
+  .evidence-section::after,
+  .compare-section::after,
+  .timeline-section::after,
+  .dashboard-section::after {
+    background: linear-gradient(180deg, rgba(7, 16, 30, 0.86), rgba(7, 16, 30, 0.54) 48%, rgba(7, 16, 30, 0.85));
+  }
+
+  .section-title {
+    font-size: clamp(2.45rem, 12vw, 4.4rem);
+  }
+
+  .story-section__sequence,
+  .evidence-stack,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    width: calc(100% - 2rem);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .evidence-lens {
+    width: calc(100% - 2rem);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 88%, transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black 88%, transparent 100%);
+  }
+
+  .evidence-lens::-webkit-scrollbar {
+    display: none;
+  }
+
+  .evidence-lens__button {
+    flex: 0 0 auto;
+  }
+
+  .evidence-card.is-muted {
+    filter: none;
+  }
+
+  .dashboard-section .dashboard-grid {
+    width: calc(100% - 2rem);
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .dashboard-section .dashboard-stat,
+  .dashboard-section .dashboard-stat:first-child {
+    padding: 1.45rem 0;
+    border-top: 1px solid rgba(255, 238, 198, 0.22);
+    border-left: 0;
+  }
+
+  .dashboard-section .dashboard-stat:first-child {
+    border-top: 0;
+  }
+
+  .story-section__sequence,
+  .evidence-stack {
+    margin-top: 2.5rem;
+  }
+
+  .story-beat,
+  .evidence-card__content {
+    min-height: auto;
+  }
+
+  .compare-board {
+    width: calc(100% - 2rem);
+    margin: 2.5rem auto 0;
+  }
+
+  .timeline-controls {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .timeline-controls__button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .action-timeline {
+    width: calc(100% - 2rem);
+    padding-left: 0;
+  }
+
+  .timeline-item {
+    padding: 1.35rem 1.35rem 1.5rem 4.2rem;
+  }
+
+  .timeline-item__marker {
+    top: 1.35rem;
+    left: 1.2rem;
+  }
+
+  .dashboard-grid {
+    margin-top: 2.5rem;
+  }
+
+  .hero-section__title,
+  .ending-section__title {
+    font-size: clamp(3rem, 14vw, 5.1rem);
+  }
+
+  .hero-section__veil,
+  .ending-section__veil {
+    background: linear-gradient(180deg, rgba(7, 16, 30, 0.8), rgba(7, 16, 30, 0.25) 45%, #07101e 100%);
+  }
+
+  .story-beat,
+  .story-beat:last-child {
+    display: block;
+    padding: 1.3rem;
+  }
+
+  .story-beat__index {
+    margin-bottom: 0.7rem;
+  }
+}
+
+/* 行動頁先只展示三個步驟；點選後才展開一張大型說明卡，讓簡報者掌握節奏。 */
+.timeline-section .timeline-controls {
+  display: grid;
+  width: min(calc(100% - 2rem), 38rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: clamp(1.8rem, 4vh, 2.75rem) 0 0 clamp(2rem, 6vw, 7rem);
+}
+
+.timeline-section .timeline-controls__button {
+  min-height: 3.55rem;
+  padding: 0.6rem;
+  border-radius: 0.95rem;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.3;
+  text-align: center;
+}
+
+.timeline-section .action-timeline {
+  display: none;
+  width: min(calc(100% - 2rem), 48rem);
+  margin: 1.4rem 0 0 clamp(2rem, 6vw, 7rem);
+  padding: 0;
+}
+
+.timeline-section[data-timeline-state="active"] .action-timeline {
+  display: block;
+}
+
+.timeline-section .timeline-item,
+html[data-presentation-mode="deck"] .timeline-section .timeline-item {
+  display: none;
+  min-height: 0;
+  padding: clamp(1.45rem, 2.7vw, 2.4rem);
+  border: 1px solid rgba(255, 216, 137, 0.38);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(7, 16, 30, 0.84), rgba(7, 16, 30, 0.4));
+  box-shadow: 0 1.5rem 3.2rem rgba(0, 0, 0, 0.22);
+  -webkit-backdrop-filter: blur(0.7rem);
+  backdrop-filter: blur(0.7rem);
+}
+
+.timeline-section .timeline-item.timeline-item--active,
+html[data-presentation-mode="deck"] .timeline-section .timeline-item.timeline-item--active {
+  display: block;
+}
+
+.timeline-section .timeline-item__marker,
+html[data-presentation-mode="deck"] .timeline-section .timeline-item__marker {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 0 0.9rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.timeline-section .timeline-item__marker span {
+  display: inline-grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.timeline-section .timeline-item__body h3 {
+  font-size: clamp(1.7rem, 3vw, 2.9rem);
+}
+
+.timeline-section .timeline-item__body > p:not(.eyebrow) {
+  max-width: 42rem;
+  margin-top: 0.8rem;
+  font-size: clamp(1.08rem, 1.35vw, 1.24rem);
+  line-height: 1.75;
+}
+
+.timeline-section .timeline-item__tags {
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 47.99rem) {
+  .timeline-section .timeline-controls,
+  .timeline-section .action-timeline {
+    width: calc(100% - 2rem);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .timeline-section .timeline-controls__button {
+    min-height: 3.8rem;
+    font-size: 0.86rem;
+  }
+}
+
+/* 全版簡報規格：放大閱讀區、善用左側主舞台，同時保留右側食品工廠場景。 */
+@media (min-width: 48rem) {
+  :root {
+    --content-max-width: 88rem;
+    --editorial-frame-left: clamp(2.5rem, 7vw, 10rem);
+  }
+
+  .story-section,
+  .evidence-section,
+  .compare-section,
+  .timeline-section,
+  .dashboard-section {
+    min-height: 100svh;
+    padding-top: clamp(6rem, 10vh, 8.5rem);
+    padding-bottom: clamp(3.5rem, 6vh, 5.5rem);
+  }
+
+  .story-section .section-intro,
+  .evidence-section .section-intro,
+  .compare-section .section-intro,
+  .timeline-section .section-intro,
+  .dashboard-section .section-intro {
+    width: min(calc(100% - 5rem), 68rem);
+    max-width: 68rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .story-section .section-title,
+  .evidence-section .section-title,
+  .compare-section .section-title,
+  .timeline-section .section-title,
+  .dashboard-section .section-title {
+    max-width: 64rem;
+    font-size: clamp(3.2rem, 5.35vw, 6.45rem);
+    line-height: 1.04;
+  }
+
+  .story-section .section-intro__copy,
+  .evidence-section .section-intro__copy,
+  .compare-section .section-intro__copy,
+  .timeline-section .section-intro__copy,
+  .dashboard-section .section-intro__copy {
+    max-width: 55rem;
+    font-size: clamp(1.18rem, 1.55vw, 1.42rem);
+    line-height: 1.76;
+  }
+
+  .story-section .story-section__sequence {
+    width: min(calc(100% - 5rem), 78rem);
+    max-width: 78rem;
+    gap: clamp(1rem, 1.8vw, 1.6rem);
+    margin-top: clamp(2.25rem, 4.5vh, 3.5rem);
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .story-section .story-beat {
+    min-height: clamp(15.5rem, 31vh, 20rem);
+    padding: clamp(1.4rem, 2.1vw, 2.1rem);
+  }
+
+  .story-section .story-beat h3 {
+    font-size: clamp(1.35rem, 1.8vw, 1.8rem);
+  }
+
+  .story-section .story-beat p:not(.story-beat__label) {
+    font-size: clamp(1.02rem, 1.18vw, 1.16rem);
+    line-height: 1.68;
+  }
+
+  .evidence-section .evidence-lens,
+  .evidence-section .evidence-stack {
+    width: min(calc(100% - 5rem), 64rem);
+    max-width: 64rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .evidence-section .evidence-card__content {
+    min-height: clamp(11.5rem, 20vh, 14rem);
+    padding: clamp(1.3rem, 2vw, 2rem);
+  }
+
+  .evidence-section .evidence-card h3 {
+    font-size: clamp(1.3rem, 1.7vw, 1.72rem);
+  }
+
+  .evidence-section .evidence-card__description {
+    font-size: clamp(1rem, 1.16vw, 1.13rem);
+    line-height: 1.62;
+  }
+
+  .compare-board {
+    width: min(calc(100% - 5rem), 76rem);
+    max-width: 76rem;
+    margin-left: var(--editorial-frame-left);
+    padding: clamp(1.8rem, 3.2vw, 3rem);
+  }
+
+  .comparison-column__value {
+    font-size: clamp(4rem, 6.25vw, 6.7rem);
+  }
+
+  .compare-board__conclusion {
+    max-width: 62rem;
+    font-size: clamp(1.08rem, 1.3vw, 1.25rem);
+  }
+
+  .timeline-section .timeline-controls {
+    width: min(calc(100% - 5rem), 52rem);
+    max-width: 52rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .timeline-section .timeline-controls__button {
+    min-height: 4.25rem;
+    padding: 0.75rem 0.9rem;
+    font-size: clamp(0.98rem, 1.15vw, 1.14rem);
+  }
+
+  .timeline-section .action-timeline {
+    width: min(calc(100% - 5rem), 66rem);
+    max-width: 66rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .timeline-section .timeline-item {
+    min-height: clamp(16rem, 31vh, 22rem);
+    padding: clamp(1.8rem, 3vw, 3.1rem);
+  }
+
+  .timeline-section .timeline-item__body h3 {
+    font-size: clamp(2rem, 3.3vw, 3.3rem);
+  }
+
+  .timeline-section .timeline-item__body > p:not(.eyebrow) {
+    max-width: 56rem;
+    font-size: clamp(1.14rem, 1.45vw, 1.35rem);
+    line-height: 1.78;
+  }
+
+  .dashboard-section .dashboard-grid {
+    width: min(calc(100% - 5rem), 82rem);
+    max-width: 82rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .dashboard-section .dashboard-stat {
+    min-height: clamp(17rem, 34vh, 23rem);
+    padding: clamp(1.7rem, 2.7vw, 2.75rem);
+  }
+
+  .dashboard-section .dashboard-stat__value {
+    font-size: clamp(4.4rem, 7.2vw, 7.6rem);
+  }
+
+  .dashboard-section .dashboard-stat__description {
+    max-width: 27rem;
+    font-size: clamp(1.05rem, 1.23vw, 1.2rem);
+    line-height: 1.68;
+  }
+}
+
+/* 手機也保留清楚的年長閱讀字級，避免卡片文字過小。 */
+@media (max-width: 47.99rem) {
+  .section-intro__copy,
+  .story-beat p:not(.story-beat__label),
+  .evidence-card__description,
+  .timeline-item__body > p:not(.eyebrow),
+  .dashboard-stat__description {
+    font-size: 1.04rem;
+    line-height: 1.7;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 11.5vw, 3.65rem);
+    line-height: 1.1;
+  }
+}
+
+/* 簡報展示模式沿用同一組大字與寬幅規格，避免被舊的投影片縮排規則壓小。 */
+@media (min-width: 48rem) {
+  html[data-presentation-mode="deck"] .case-section:not(.ending-section) {
+    padding-top: clamp(5.75rem, 10vh, 7.5rem);
+    padding-bottom: clamp(2.5rem, 5vh, 4.25rem);
+  }
+
+  html[data-presentation-mode="deck"] .story-section .section-intro,
+  html[data-presentation-mode="deck"] .evidence-section .section-intro,
+  html[data-presentation-mode="deck"] .compare-section .section-intro,
+  html[data-presentation-mode="deck"] .timeline-section .section-intro,
+  html[data-presentation-mode="deck"] .dashboard-section .section-intro {
+    width: min(calc(100% - 5rem), 68rem);
+    max-width: 68rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .story-section .section-title,
+  html[data-presentation-mode="deck"] .evidence-section .section-title,
+  html[data-presentation-mode="deck"] .compare-section .section-title,
+  html[data-presentation-mode="deck"] .timeline-section .section-title,
+  html[data-presentation-mode="deck"] .dashboard-section .section-title {
+    max-width: 64rem;
+    font-size: clamp(3.15rem, 5.2vw, 6.25rem);
+    line-height: 1.04;
+  }
+
+  html[data-presentation-mode="deck"] .story-section .section-intro__copy,
+  html[data-presentation-mode="deck"] .evidence-section .section-intro__copy,
+  html[data-presentation-mode="deck"] .compare-section .section-intro__copy,
+  html[data-presentation-mode="deck"] .timeline-section .section-intro__copy,
+  html[data-presentation-mode="deck"] .dashboard-section .section-intro__copy {
+    max-width: 55rem;
+    font-size: clamp(1.12rem, 1.42vw, 1.32rem);
+    line-height: 1.72;
+  }
+
+  html[data-presentation-mode="deck"] .story-section .story-section__sequence {
+    width: min(calc(100% - 5rem), 78rem);
+    max-width: 78rem;
+    gap: clamp(1rem, 1.8vw, 1.6rem);
+    margin-top: clamp(1.6rem, 3vh, 2.6rem);
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .story-section .story-beat {
+    min-height: clamp(13.5rem, 28vh, 18rem);
+    padding: clamp(1.25rem, 1.9vw, 1.8rem);
+  }
+
+  html[data-presentation-mode="deck"] .story-section .story-beat h3 {
+    font-size: clamp(1.25rem, 1.65vw, 1.62rem);
+  }
+
+  html[data-presentation-mode="deck"] .story-section .story-beat p:not(.story-beat__label) {
+    font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+    line-height: 1.62;
+  }
+
+  html[data-presentation-mode="deck"] .evidence-section .evidence-lens,
+  html[data-presentation-mode="deck"] .evidence-section .evidence-stack {
+    width: min(calc(100% - 5rem), 64rem);
+    max-width: 64rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .compare-board {
+    width: min(calc(100% - 5rem), 76rem);
+    max-width: 76rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .timeline-section .timeline-controls {
+    width: min(calc(100% - 5rem), 52rem);
+    max-width: 52rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .timeline-section .action-timeline {
+    width: min(calc(100% - 5rem), 66rem);
+    max-width: 66rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .dashboard-section .dashboard-grid {
+    width: min(calc(100% - 5rem), 82rem);
+    max-width: 82rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  html[data-presentation-mode="deck"] .dashboard-section .dashboard-stat__value {
+    font-size: clamp(4rem, 6.65vw, 7rem);
+  }
+}
+
+/* 行動頁的展開內容改為左側大舞台：控制鈕與內容卡同寬，保留右側工廠人物。 */
+@media (min-width: 48rem) {
+  .timeline-section .timeline-controls,
+  html[data-presentation-mode="deck"] .timeline-section .timeline-controls {
+    width: min(76vw, 64rem);
+    max-width: 64rem;
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .timeline-section .action-timeline,
+  html[data-presentation-mode="deck"] .timeline-section .action-timeline {
+    width: min(72vw, 60rem);
+    max-width: 60rem;
+    margin-top: clamp(1.5rem, 3.5vh, 2.75rem);
+    margin-left: var(--editorial-frame-left);
+  }
+
+  .timeline-section[data-timeline-state="active"] .action-timeline,
+  html[data-presentation-mode="deck"] .timeline-section[data-timeline-state="active"] .action-timeline {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .timeline-section .timeline-item,
+  html[data-presentation-mode="deck"] .timeline-section .timeline-item {
+    width: 100%;
+    min-height: clamp(20rem, 50vh, 28rem);
+    padding: clamp(2rem, 3.6vw, 3.7rem);
+    border-radius: clamp(1.5rem, 2vw, 2.2rem);
+  }
+
+  .timeline-section .timeline-item__body {
+    display: grid;
+    min-height: 100%;
+    align-content: center;
+    justify-items: start;
+  }
+
+  .timeline-section .timeline-item__marker {
+    margin-bottom: 1.25rem;
+  }
+
+  .timeline-section .timeline-item__body h3 {
+    max-width: 48rem;
+    font-size: clamp(2.25rem, 3.8vw, 3.75rem);
+  }
+
+  .timeline-section .timeline-item__body > p:not(.eyebrow) {
+    max-width: 49rem;
+    font-size: clamp(1.18rem, 1.5vw, 1.4rem);
+    line-height: 1.82;
+  }
+
+  .timeline-section .timeline-item__tags {
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+  }
+
+  .timeline-section .timeline-item__tags span {
+    padding: 0.7rem 1.05rem;
+    font-size: clamp(1rem, 1.15vw, 1.14rem);
+  }
+}

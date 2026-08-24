@@ -1,0 +1,82 @@
+/* 全站設計 token：集中管理色彩、間距、層級與動態參數。 */
+:root {
+  color-scheme: dark;
+
+  --color-bg: #080b14;
+  --color-bg-elevated: #101626;
+  --color-surface: rgba(18, 25, 43, 0.64);
+  --color-surface-strong: rgba(27, 36, 61, 0.84);
+  --color-text: #f4f7ff;
+  --color-text-muted: #a4afc8;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-accent: #8aa4ff;
+  --color-accent-strong: #b1c0ff;
+  --color-accent-contrast: #09102b;
+  --color-success: #70e2b3;
+  --color-danger: #ff8b9a;
+  --color-shadow: rgba(0, 0, 0, 0.34);
+  --color-overlay: rgba(8, 11, 20, 0.72);
+
+  --gradient-page:
+    radial-gradient(circle at 18% 8%, rgba(104, 139, 255, 0.18), transparent 30rem),
+    radial-gradient(circle at 88% 18%, rgba(141, 93, 255, 0.14), transparent 24rem),
+    linear-gradient(135deg, #080b14 0%, #0b1020 48%, #0b0e19 100%);
+  --gradient-accent: linear-gradient(135deg, #8aa4ff 0%, #b48bff 100%);
+
+  --font-sans: Inter, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-pill: 999px;
+
+  --header-height: 4.5rem;
+  --content-max-width: 80rem;
+  --z-loader: 1000;
+  --z-transition: 900;
+  --z-header: 100;
+  --z-progress: 80;
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-standard: 360ms;
+  --duration-slow: 700ms;
+}
+
+/* 顯式亮色模式，保留與深色模式一致的語意 token。 */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #f4f6fb;
+  --color-bg-elevated: #ffffff;
+  --color-surface: rgba(255, 255, 255, 0.72);
+  --color-surface-strong: rgba(255, 255, 255, 0.92);
+  --color-text: #172039;
+  --color-text-muted: #5f6b85;
+  --color-border: rgba(23, 32, 57, 0.12);
+  --color-border-strong: rgba(23, 32, 57, 0.24);
+  --color-accent: #526ed8;
+  --color-accent-strong: #3d58bc;
+  --color-accent-contrast: #ffffff;
+  --color-shadow: rgba(63, 75, 116, 0.16);
+  --color-overlay: rgba(244, 246, 251, 0.72);
+  --gradient-page:
+    radial-gradient(circle at 18% 8%, rgba(126, 153, 255, 0.26), transparent 30rem),
+    radial-gradient(circle at 88% 18%, rgba(201, 165, 255, 0.24), transparent 24rem),
+    linear-gradient(135deg, #f4f6fb 0%, #edf1fb 48%, #f7f8fc 100%);
+  --gradient-accent: linear-gradient(135deg, #526ed8 0%, #8661d9 100%);
+}

@@ -1,0 +1,300 @@
+/* Evidence 卡片保留雜誌式的內容層級，不模擬投影片卡片網格。 */
+.evidence-section {
+  background: var(--gradient-page);
+}
+
+.evidence-stack {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(4rem, 9vw, 8rem);
+}
+
+.evidence-card {
+  display: grid;
+  min-height: 30rem;
+  grid-template-columns: minmax(16rem, 0.82fr) minmax(0, 1.18fr);
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 2rem 6rem var(--color-shadow);
+  transform-style: preserve-3d;
+}
+
+/* 展開線索後保留明確的「正在查看」狀態，降低年長使用者的操作迷失感。 */
+.evidence-card.is-inspected {
+  border-color: var(--color-accent-strong);
+  box-shadow: 0 2rem 6rem rgba(88, 116, 220, 0.26);
+}
+
+/* 即使 CDN 動畫尚未載入，原生 details 展開也要立即給出清楚的視覺回饋。 */
+.evidence-card:has(.evidence-card__details[open]) {
+  border-color: var(--color-accent-strong);
+  box-shadow: 0 2rem 6rem rgba(88, 116, 220, 0.26);
+}
+
+.evidence-card:nth-child(even) {
+  grid-template-columns: minmax(0, 1.18fr) minmax(16rem, 0.82fr);
+}
+
+.evidence-card:nth-child(even) .evidence-card__visual {
+  order: 2;
+}
+
+.evidence-card__visual {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  background-color: #101626;
+  background-image: var(--ai-evidence-image, none);
+  background-position: center;
+  background-size: cover;
+}
+
+.evidence-visual::before,
+.evidence-visual::after {
+  position: absolute;
+  content: "";
+}
+
+.evidence-visual::before {
+  inset: 12%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.evidence-visual::after {
+  right: -20%;
+  bottom: -50%;
+  left: -20%;
+  height: 90%;
+  background: radial-gradient(ellipse, rgba(138, 164, 255, 0.35), transparent 65%);
+}
+
+.evidence-visual--butter {
+  background-image:
+    linear-gradient(135deg, rgba(244, 186, 90, 0.24), transparent 54%),
+    var(--ai-evidence-image, none);
+}
+
+.evidence-visual--packaging {
+  background-image:
+    linear-gradient(135deg, rgba(110, 207, 176, 0.2), transparent 54%),
+    var(--ai-evidence-image, none);
+}
+
+.evidence-visual--ghost {
+  background-image:
+    linear-gradient(135deg, rgba(190, 137, 255, 0.24), transparent 54%),
+    var(--ai-evidence-image, none);
+}
+
+/* 2.5D 證據角色：用微小景深與飽和度變化增加趣味，但不影響閱讀。 */
+.evidence-visual--character {
+  background-position: center;
+  background-size: cover;
+  transform-origin: center center;
+  transition: filter 0.45s ease, background-size 0.45s ease;
+}
+
+.evidence-card:hover .evidence-visual--character,
+.evidence-card:focus-within .evidence-visual--character {
+  background-size: 106% auto;
+  filter: saturate(1.08) contrast(1.03);
+}
+
+.evidence-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem);
+}
+
+.evidence-card__content h3 {
+  max-width: 34rem;
+  font-size: clamp(2rem, 4vw, 4.25rem);
+}
+
+.evidence-card__description {
+  max-width: 35rem;
+  margin-top: var(--space-5);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
+}
+
+.evidence-card__details {
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.evidence-card__toggle {
+  display: flex;
+  min-height: 4.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 0.25rem 0.15rem;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  list-style: none;
+}
+
+.evidence-card__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.evidence-card__toggle i {
+  color: var(--color-accent-strong);
+  font-size: 1.05rem;
+}
+
+.evidence-card__details[open] .evidence-card__toggle i {
+  transform: rotate(45deg);
+}
+
+.evidence-card__details-body {
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-5);
+}
+
+.evidence-inline-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: var(--space-5);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.evidence-inline-data span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.evidence-inline-data strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.evidence-metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.evidence-metric {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.evidence-metric strong {
+  color: var(--color-text);
+  font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+}
+
+.evidence-metric span {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.evidence-card__warning {
+  display: flex;
+  max-width: 34rem;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-accent-strong);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.evidence-card__warning i {
+  margin-top: 0.25rem;
+}
+
+.compare-strip {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.compare-strip__item {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.8fr) minmax(9rem, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.compare-strip__item > span {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.compare-strip__item strong {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.compare-strip__item strong small {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.compare-strip__item i {
+  grid-column: 1 / -1;
+  display: block;
+  height: 0.3rem;
+  background: var(--color-border);
+}
+
+.compare-strip__item i::before {
+  display: block;
+  width: var(--bar-scale);
+  height: 100%;
+  background: var(--color-text-muted);
+  content: "";
+}
+
+.compare-strip__item--accent i::before {
+  background: var(--gradient-accent);
+}
+
+@media (max-width: 47.99rem) {
+  .evidence-card,
+  .evidence-card:nth-child(even) {
+    display: block;
+  }
+
+  .evidence-card:nth-child(even) .evidence-card__visual {
+    order: initial;
+  }
+
+  .evidence-card__visual {
+    min-height: 17rem;
+  }
+
+  .evidence-card__content {
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .evidence-card__toggle {
+    font-size: 1.05rem;
+  }
+
+  .evidence-metric-row {
+    grid-template-columns: 1fr;
+  }
+}
