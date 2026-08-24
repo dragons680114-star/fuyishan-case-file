@@ -316,7 +316,13 @@
 
       function goTo(index, updateHash = true) {
         current = Math.max(0, Math.min(total - 1, index));
-        slides.forEach((slide, i) => { slide.classList.toggle('active', i === current); slide.setAttribute('aria-hidden', i === current ? 'false' : 'true'); });
+        slides.forEach((slide, i) => {
+          const active = i === current;
+          slide.classList.toggle('active', active);
+          slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+          // 隱藏投影片不應被鍵盤逐一走訪，避免焦點落在看不見的控制項上。
+          slide.inert = !active;
+        });
         $('#prev').disabled = current === 0;
         $('#next').disabled = current === total - 1;
         if (updateHash) history.replaceState(null, '', `#slide-${current + 1}`);
@@ -333,11 +339,18 @@
         if (event.key === 'End') { event.preventDefault(); goTo(total - 1); }
       });
 
-      $$('.add-on button').forEach((button) => button.addEventListener('click', () => {
+      $$('.add-on button').forEach((button, index) => {
+        const detail = button.closest('.add-on').querySelector('.detail');
+        detail.id = `add-on-detail-${index}`;
+        button.setAttribute('aria-controls', detail.id);
+        button.setAttribute('aria-expanded', String(button.closest('.add-on').classList.contains('open')));
+        button.addEventListener('click', () => {
         const card = button.closest('.add-on');
         card.classList.toggle('open');
         button.querySelector('span').textContent = card.classList.contains('open') ? '－' : '＋';
-      }));
+        button.setAttribute('aria-expanded', String(card.classList.contains('open')));
+        });
+      });
 
       $$('.tab-btn[data-compare]').forEach((button) => button.addEventListener('click', () => {
         const key = button.dataset.compare;
@@ -369,7 +382,20 @@
       }
       drawScenarioChart();
 
-      $$('.faq button').forEach((button) => button.addEventListener('click', () => { const faq = button.closest('.faq'); faq.classList.toggle('open'); button.querySelector('span').textContent = faq.classList.contains('open') ? '－' : '＋'; }));
+      $$('.faq button').forEach((button, index) => {
+        const answer = button.closest('.faq').querySelector('.answer');
+        answer.id = `faq-answer-${index}`;
+        button.setAttribute('aria-controls', answer.id);
+        button.setAttribute('aria-expanded', String(button.closest('.faq').classList.contains('open')));
+        answer.hidden = !button.closest('.faq').classList.contains('open');
+        button.addEventListener('click', () => {
+          const faq = button.closest('.faq');
+          const isOpen = faq.classList.toggle('open');
+          button.querySelector('span').textContent = isOpen ? '－' : '＋';
+          button.setAttribute('aria-expanded', String(isOpen));
+          answer.hidden = !isOpen;
+        });
+      });
       const hash = location.hash.match(/slide-(\d+)/); goTo(hash ? Number(hash[1]) - 1 : 0, false);
     })();
   </script>

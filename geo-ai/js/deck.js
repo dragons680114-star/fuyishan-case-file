@@ -68,6 +68,8 @@
       const active = index === current;
       slide.classList.toggle("is-active", active);
       slide.setAttribute("aria-hidden", String(!active));
+      // 隱藏投影片不應被鍵盤逐一走訪，避免焦點落在看不見的控制項上。
+      slide.inert = !active;
     });
     dots.forEach((dot, index) => dot.classList.toggle("is-current", index === current));
     pageLabel.textContent = String(current + 1).padStart(2, "0");

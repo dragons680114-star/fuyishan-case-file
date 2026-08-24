@@ -58,7 +58,13 @@ function renderDots() {
 
 function goTo(index) {
   activeIndex = (index + slides.length) % slides.length;
-  slides.forEach((slide, position) => slide.classList.toggle("is-active", position === activeIndex));
+  slides.forEach((slide, position) => {
+    const active = position === activeIndex;
+    slide.classList.toggle("is-active", active);
+    slide.setAttribute("aria-hidden", String(!active));
+    // 隱藏投影片不應被鍵盤逐一走訪，避免焦點落在看不見的控制項上。
+    slide.inert = !active;
+  });
   indexLabel.textContent = String(activeIndex + 1).padStart(2, "0");
   renderDots();
 }
