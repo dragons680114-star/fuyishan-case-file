@@ -71,7 +71,11 @@
       // 隱藏投影片不應被鍵盤逐一走訪，避免焦點落在看不見的控制項上。
       slide.inert = !active;
     });
-    dots.forEach((dot, index) => dot.classList.toggle("is-current", index === current));
+    dots.forEach((dot, index) => {
+      const isCurrent = index === current;
+      dot.classList.toggle("is-current", isCurrent);
+      dot.setAttribute("aria-current", isCurrent ? "page" : "false");
+    });
     pageLabel.textContent = String(current + 1).padStart(2, "0");
   }
 
