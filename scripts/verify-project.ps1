@@ -15,6 +15,8 @@ $sourceFiles = Get-ChildItem -LiteralPath $ProjectRoot -Recurse -File |
 
 $htmlFiles = $sourceFiles | Where-Object Extension -eq '.html'
 $cssFiles = $sourceFiles | Where-Object Extension -eq '.css'
+$jsFiles = Get-ChildItem -LiteralPath $ProjectRoot -Recurse -File -Filter '*.js' |
+  Where-Object { $_.FullName -notmatch '\\node_modules\\|\\dist\\|\\vendor\\' }
 
 $htmlFiles = $htmlFiles |
   Where-Object { $_.FullName -notmatch '\\node_modules\\|\\dist\\' }
@@ -49,6 +51,19 @@ foreach ($file in $sourceFiles) {
     $candidate = Join-Path $file.DirectoryName ($reference -replace '/', '\\')
     if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
       Add-Failure "$relativeFile references missing resource: $reference"
+    }
+  }
+}
+
+# 驗證 JavaScript ES module 的相對 import，避免部署後才發現模組路徑錯誤。
+foreach ($file in $jsFiles) {
+  $content = Get-Content -LiteralPath $file.FullName -Raw
+  $relativeFile = $file.FullName.Substring($ProjectRoot.Length + 1)
+  foreach ($match in [regex]::Matches($content, '(?:from|import\s*\()\s*["''](\.{1,2}/[^"'']+)["'']')) {
+    $reference = $match.Groups[1].Value.Split('?')[0].Split('#')[0]
+    $candidate = Join-Path $file.DirectoryName ($reference -replace '/', '\\')
+    if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+      Add-Failure "$relativeFile imports missing module: $reference"
     }
   }
 }
@@ -102,6 +117,7 @@ foreach ($group in $duplicateGroups) {
 
 Write-Host "Project: $ProjectRoot"
 Write-Host "HTML files checked: $($htmlFiles.Count)"
+Write-Host "JavaScript modules checked: $($jsFiles.Count)"
 Write-Host "Assets checked: $($assetFiles.Count)"
 if ($warnings.Count) {
   Write-Host "Warnings: $($warnings.Count)"
