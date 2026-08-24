@@ -7,7 +7,8 @@ $root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $server = $null
 
 try {
-    $server = Start-Process -FilePath 'python' -ArgumentList @('-m', 'http.server', $Port, '--bind', '127.0.0.1') -WorkingDirectory $root -PassThru -WindowStyle Hidden
+    # GitHub Actions 使用 Linux runner；不要使用 Windows 專用的 WindowStyle 參數。
+    $server = Start-Process -FilePath 'python' -ArgumentList @('-m', 'http.server', $Port, '--bind', '127.0.0.1') -WorkingDirectory $root -PassThru
     $baseUrl = "http://127.0.0.1:$Port"
 
     $ready = $false
