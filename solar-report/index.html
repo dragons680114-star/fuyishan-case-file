@@ -225,6 +225,7 @@
 </head>
 <body>
   <a class="skip-link" href="#deck">跳至主要內容</a>
+  <p id="slide-status" class="sr-only" aria-live="polite"></p>
   <noscript><div class="no-script-note" role="status">此互動簡報需要開啟 JavaScript，才能切換投影片與使用按鈕。</div></noscript>
   <main class="deck" id="deck" aria-label="嘉義水上福匯案場太陽能光電建置評估互動簡報">
     <section class="slide cover active" data-slide="1" aria-labelledby="cover-title">
@@ -335,6 +336,7 @@
         });
         $('#prev').disabled = current === 0;
         $('#next').disabled = current === total - 1;
+        $('#slide-status').textContent = `第 ${current + 1} 頁，共 ${total} 頁`;
         if (updateHash) history.replaceState(null, '', `#slide-${current + 1}`);
       }
       const next = () => goTo(current + 1);
