@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dragons680114-star.github.io/fuyishan-case-file/sitemap.xml
