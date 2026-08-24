@@ -9,4 +9,4 @@
 | `ScrollToPlugin.min.js` | GSAP 3.12.5 | https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js | GreenSock Standard License |
 | `lenis.min.js` | Lenis 1.1.20 | https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js | MIT |
 
-Font Awesome 目前仍透過 CDN 載入，僅提供裝飾性圖示；即使圖示服務暫時不可用，也不會影響主要文字、數字或操作內容。
+Font Awesome 已另行放在 `css/vendor/fontawesome/` 與 `css/vendor/webfonts/`，僅提供裝飾性圖示；網站執行時不需要連線到外部 CDN。

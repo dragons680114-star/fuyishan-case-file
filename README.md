@@ -76,7 +76,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify-project.ps1
 - Timeline Controls：三階段作戰計畫可點擊跳轉並標示目前階段。
 - Hero Pointer Depth：桌面滑鼠移動會改變文字與背景的景深位置。
 - Product Scene Motion：蛋捲與餅乾場景會使用 GSAP 做慢速推近、滑入分層與滑鼠靠近鏡頭效果，讓背景像紀錄片鏡頭。
-- 核心互動依賴：GSAP、ScrollTrigger、ScrollToPlugin 與 Lenis 已固定版本並放在 `js/vendor/`，避免核心動畫依賴 CDN；Font Awesome 仍僅作為裝飾圖示 CDN。
+- 本地第三方資產：GSAP、ScrollTrigger、ScrollToPlugin 與 Lenis 放在 `js/vendor/`；Font Awesome CSS 與字型放在 `css/vendor/`，網站執行時不依賴外部 CDN。
 - 2.5D Product Cast：六張主要場景以同一套擬人化蛋捲、餅乾、包材與經營者角色串起故事，數字與簡報內容仍保留為 HTML。
 - RWD：Desktop、Tablet、Mobile 皆有獨立斷點與排版調整。
 
