@@ -30,7 +30,7 @@
 
 - 任何背景圖都不可放入標題、數據、字幕、Logo 或其他必要文字。
 - 影像僅作為氣氛與空間；所有訊息由 HTML 提供。
-- Hero 與 Ending 使用 `[data-ai-background]` 掛載點，現有素材位於 `assets/background/hero-production.png` 與 `assets/background/ending-release.png`。
+- Hero 與 Ending 使用 `[data-ai-background]` 掛載點，現有素材位於 `assets/background/hero-production.webp` 與 `assets/background/ending-release.webp`。
 - Evidence 視覺可使用 `.evidence-visual--butter`、`.evidence-visual--packaging`、`.evidence-visual--ghost`，但新影像需放入 `assets/background/` 或 `assets/images/`，並於文件記錄來源。
 
 ## PPT 轉網站建議流程

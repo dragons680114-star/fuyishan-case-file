@@ -43,3 +43,13 @@ body:not(.is-loading) .app-loader {
   opacity: 0;
   pointer-events: none;
 }
+
+/* JavaScript 完全停用時，不讓載入遮罩蓋住 HTML 靜態內容。 */
+.no-js .app-loader {
+  display: none;
+}
+
+.no-js [data-scroll-reveal] {
+  opacity: 1;
+  transform: none;
+}

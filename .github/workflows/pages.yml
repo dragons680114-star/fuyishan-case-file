@@ -2,7 +2,9 @@ name: Deploy static website to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify HTML, CSS and asset contracts
+        shell: pwsh
+        run: ./scripts/verify-project.ps1
+
   deploy:
+    needs: quality
+    if: github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -19,6 +19,23 @@ $cssFiles = $sourceFiles | Where-Object Extension -eq '.css'
 $htmlFiles = $htmlFiles |
   Where-Object { $_.FullName -notmatch '\\node_modules\\|\\dist\\' }
 
+$mainHtml = Join-Path $ProjectRoot 'index.html'
+if (Test-Path -LiteralPath $mainHtml -PathType Leaf) {
+  $mainContent = Get-Content -LiteralPath $mainHtml -Raw
+  $sections = [regex]::Matches($mainContent, '<section\b[^>]*data-section="([^"]+)"[^>]*>')
+  foreach ($section in $sections) {
+    if ($section.Value -notmatch '\bdata-section-name(?:\s|=|>)') {
+      Add-Failure "index.html section '$($section.Groups[1].Value)' is missing data-section-name"
+    }
+  }
+
+  foreach ($counter in [regex]::Matches($mainContent, '<[^>]*data-counter[^>]*>')) {
+    if ($counter.Value -notmatch '\bdata-target="[^"]+"') {
+      Add-Failure "index.html counter is missing data-target: $($counter.Value)"
+    }
+  }
+}
+
 foreach ($file in $sourceFiles) {
   $content = Get-Content -LiteralPath $file.FullName -Raw
   $relativeFile = $file.FullName.Substring($ProjectRoot.Length + 1)

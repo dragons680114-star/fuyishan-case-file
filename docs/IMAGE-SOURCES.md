@@ -6,18 +6,18 @@
 
 | 檔案 | 使用位置 | 視覺任務 |
 | --- | --- | --- |
-| `assets/background/hero-eggroll-cookie-2p5d.png` | Hero | 2.5D 蛋捲偵探與餅乾角色站在烤箱與產線旁，左側留白承接 HTML 標題 |
-| `assets/background/evidence-butter.png` | Evidence / Clue 01 | 冷藏庫中的奶油與高價原料凍結感 |
-| `assets/background/evidence-packaging.png` | Evidence / Clue 02 | 少量外箱與大量內袋的快慢失同步 |
-| `assets/background/evidence-ghost-inventory.png` | Evidence / Clue 03 | 深倉、長尾、幽靈庫存的空間感 |
-| `assets/background/character-butter-detective.png` | Evidence / Clue 01 角色層 | 2.5D 奶油偵探，將高價原料與凍結資金具象化 |
-| `assets/background/character-packaging-race.png` | Evidence / Clue 02 角色層 | 2.5D 快跑外箱與慢走內袋，將週轉落差具象化 |
-| `assets/background/character-ghost-inventory.png` | Evidence / Clue 03 角色層 | 2.5D 幽靈包材，將長尾庫存與空間代價具象化 |
-| `assets/background/story-eggroll-cookie-line-2p5d.png` | Story | 2.5D 蛋捲與餅乾食品廠員工在冷卻線上協作 |
-| `assets/background/compare-eggroll-cookie-inventory-2p5d.png` | Compare | 2.5D 成品角色快速流動，包材角色在倉庫裡停滯 |
-| `assets/background/timeline-eggroll-cookie-packaging-2p5d.png` | Timeline | 2.5D 蛋捲、餅乾與包裝角色在掃描與裝箱線同步交接 |
-| `assets/background/dashboard-eggroll-cookie-factory-2p5d.png` | Dashboard | 2.5D 經營者觀察蛋捲與餅乾生產現場，回到管理決策 |
-| `assets/background/ending-eggroll-cookie-dispatch-2p5d.png` | Ending | 2.5D 蛋捲與餅乾角色推著成品走向出貨，資金流重新向前 |
+| `assets/background/hero-eggroll-cookie-2p5d.webp` | Hero | 2.5D 蛋捲偵探與餅乾角色站在烤箱與產線旁，左側留白承接 HTML 標題 |
+| `assets/background/evidence-butter.webp` | Evidence / Clue 01 | 冷藏庫中的奶油與高價原料凍結感 |
+| `assets/background/evidence-packaging.webp` | Evidence / Clue 02 | 少量外箱與大量內袋的快慢失同步 |
+| `assets/background/evidence-ghost-inventory.webp` | Evidence / Clue 03 | 深倉、長尾、幽靈庫存的空間感 |
+| `assets/background/character-butter-detective.webp` | Evidence / Clue 01 角色層 | 2.5D 奶油偵探，將高價原料與凍結資金具象化 |
+| `assets/background/character-packaging-race.webp` | Evidence / Clue 02 角色層 | 2.5D 快跑外箱與慢走內袋，將週轉落差具象化 |
+| `assets/background/character-ghost-inventory.webp` | Evidence / Clue 03 角色層 | 2.5D 幽靈包材，將長尾庫存與空間代價具象化 |
+| `assets/background/story-eggroll-cookie-line-2p5d.webp` | Story | 2.5D 蛋捲與餅乾食品廠員工在冷卻線上協作 |
+| `assets/background/compare-eggroll-cookie-inventory-2p5d.webp` | Compare | 2.5D 成品角色快速流動，包材角色在倉庫裡停滯 |
+| `assets/background/timeline-eggroll-cookie-packaging-2p5d.webp` | Timeline | 2.5D 蛋捲、餅乾與包裝角色在掃描與裝箱線同步交接 |
+| `assets/background/dashboard-eggroll-cookie-factory-2p5d.webp` | Dashboard | 2.5D 經營者觀察蛋捲與餅乾生產現場，回到管理決策 |
+| `assets/background/ending-eggroll-cookie-dispatch-2p5d.webp` | Ending | 2.5D 蛋捲與餅乾角色推著成品走向出貨，資金流重新向前 |
 
 ## Prompt 共通約束
 

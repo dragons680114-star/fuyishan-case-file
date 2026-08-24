@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant" data-theme="dark">
+<html lang="zh-Hant" class="no-js" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +8,31 @@
       content="績效謎案：福義軒資金失蹤事件簿。以資料、線索與行動計畫重新拆解供應鏈資金流。"
     />
     <meta name="theme-color" content="#080b14" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="績效謎案｜福義軒資金失蹤事件簿" />
+    <meta
+      property="og:description"
+      content="以資料、線索與行動計畫重新拆解福義軒供應鏈資金流。"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/background/hero-eggroll-cookie-2p5d-v2.webp"
+      fetchpriority="high"
+    />
     <title>績效謎案｜福義軒資金失蹤事件簿</title>
+
+    <!-- 若模組載入失敗，仍在短時間後解除遮罩，保留 HTML 靜態閱讀內容。 -->
+    <script>
+      document.documentElement.classList.replace("no-js", "js");
+      window.setTimeout(() => {
+        const loader = document.querySelector("[data-loader]");
+        document.body?.classList.remove("is-loading");
+        loader?.setAttribute("aria-hidden", "true");
+      }, 5000);
+    </script>
 
     <!-- 預先建立第三方資源連線，降低首屏載入延遲。 -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -85,11 +108,11 @@
 
       <main id="main-content" class="site-main" data-scroll-container tabindex="-1">
         <!-- Hero：背景影像只提供掛載位，所有可讀文字均由 HTML 控制。 -->
-        <section id="hero" class="case-section hero-section" data-section="hero" data-hero>
+        <section id="hero" class="case-section hero-section" data-section="hero" data-section-name data-hero>
           <div
             class="hero-section__background ai-background-slot"
             data-ai-background
-            style="background-image: url('./assets/background/hero-eggroll-cookie-2p5d-v2.png')"
+            style="background-image: url('./assets/background/hero-eggroll-cookie-2p5d-v2.webp')"
             aria-hidden="true"
           ></div>
           <div class="hero-section__veil" aria-hidden="true"></div>
@@ -117,7 +140,7 @@
         </section>
 
         <!-- Story：將簡報的背景、反差與核心問題重組為滾動敘事。 -->
-        <section id="story" class="case-section story-section" data-section="story" data-story data-scene-interactive>
+        <section id="story" class="case-section story-section" data-section="story" data-section-name data-story data-scene-interactive>
           <div class="layout-container section-intro">
             <p class="eyebrow" data-scroll-reveal>01／故事起點</p>
             <h2 class="section-title" data-scroll-reveal>表面上，生產線是一部印鈔機。</h2>
@@ -130,7 +153,7 @@
             <div
               class="section-scene__image"
               data-parallax="6"
-              style="background-image: url('./assets/background/story-eggroll-cookie-line-2p5d.png')"
+              style="background-image: url('./assets/background/story-eggroll-cookie-line-2p5d.webp')"
               aria-hidden="true"
             ></div>
             <div class="section-scene__shade" aria-hidden="true"></div>
@@ -172,7 +195,7 @@
         </section>
 
         <!-- Evidence：三個線索均來自來源簡報，沒有補入來源之外的案件資料。 -->
-        <section id="evidence" class="case-section evidence-section" data-section="evidence" data-evidence data-scene-interactive>
+        <section id="evidence" class="case-section evidence-section" data-section="evidence" data-section-name data-evidence data-scene-interactive>
           <div class="layout-container section-intro section-intro--split">
             <div>
               <p class="eyebrow" data-scroll-reveal>02／三條線索</p>
@@ -200,7 +223,7 @@
               <div
                 class="evidence-card__visual evidence-visual evidence-visual--butter evidence-visual--character"
                 data-parallax="8"
-                style="background-image: linear-gradient(135deg, rgba(244, 186, 90, 0.24), transparent 54%), url('./assets/background/character-butter-detective.png')"
+                style="background-image: linear-gradient(135deg, rgba(244, 186, 90, 0.24), transparent 54%), url('./assets/background/character-butter-detective.webp')"
                 aria-hidden="true"
               ></div>
               <div class="evidence-card__content">
@@ -241,7 +264,7 @@
               <div
                 class="evidence-card__visual evidence-visual evidence-visual--packaging evidence-visual--character"
                 data-parallax="-7"
-                style="background-image: linear-gradient(135deg, rgba(110, 207, 176, 0.2), transparent 54%), url('./assets/background/character-packaging-race.png')"
+                style="background-image: linear-gradient(135deg, rgba(110, 207, 176, 0.2), transparent 54%), url('./assets/background/character-packaging-race.webp')"
                 aria-hidden="true"
               ></div>
               <div class="evidence-card__content">
@@ -275,7 +298,7 @@
               <div
                 class="evidence-card__visual evidence-visual evidence-visual--ghost evidence-visual--character"
                 data-parallax="10"
-                style="background-image: linear-gradient(135deg, rgba(190, 137, 255, 0.24), transparent 54%), url('./assets/background/character-ghost-inventory.png')"
+                style="background-image: linear-gradient(135deg, rgba(190, 137, 255, 0.24), transparent 54%), url('./assets/background/character-ghost-inventory.webp')"
                 aria-hidden="true"
               ></div>
               <div class="evidence-card__content">
@@ -300,7 +323,7 @@
         </section>
 
         <!-- Compare：把來源中的負向背離與快慢包材轉成可讀的比較視圖。 -->
-        <section id="compare" class="case-section compare-section" data-section="compare" data-compare data-scene-interactive>
+        <section id="compare" class="case-section compare-section" data-section="compare" data-section-name data-compare data-scene-interactive>
           <div class="layout-container section-intro">
             <p class="eyebrow" data-scroll-reveal>03／資金對照</p>
             <h2 class="section-title" data-scroll-reveal>成本下降，不代表資金回來了。</h2>
@@ -313,7 +336,7 @@
             <div
               class="section-scene__image"
               data-parallax="-5"
-              style="background-image: url('./assets/background/compare-eggroll-cookie-inventory-2p5d.png')"
+              style="background-image: url('./assets/background/compare-eggroll-cookie-inventory-2p5d.webp')"
               aria-hidden="true"
             ></div>
             <div class="section-scene__shade" aria-hidden="true"></div>
@@ -350,7 +373,7 @@
         </section>
 
         <!-- Timeline：三階段作戰計畫，以時間線取代投影片逐頁排列。 -->
-        <section id="timeline" class="case-section timeline-section" data-section="timeline" data-timeline data-timeline-state="idle" data-scene-interactive>
+        <section id="timeline" class="case-section timeline-section" data-section="timeline" data-section-name data-timeline data-timeline-state="idle" data-scene-interactive>
           <div class="layout-container section-intro section-intro--split">
             <div>
               <p class="eyebrow" data-scroll-reveal>04／奪還行動</p>
@@ -365,7 +388,7 @@
             <div
               class="section-scene__image"
               data-parallax="7"
-              style="background-image: url('./assets/background/timeline-eggroll-cookie-packaging-2p5d.png')"
+              style="background-image: url('./assets/background/timeline-eggroll-cookie-packaging-2p5d.webp')"
               aria-hidden="true"
             ></div>
             <div class="section-scene__shade" aria-hidden="true"></div>
@@ -421,7 +444,7 @@
         </section>
 
         <!-- Dashboard：只呈現來源簡報的預期戰果，不擴寫成未驗證的承諾。 -->
-        <section id="dashboard" class="case-section dashboard-section" data-section="dashboard" data-dashboard data-scene-interactive>
+        <section id="dashboard" class="case-section dashboard-section" data-section="dashboard" data-section-name data-dashboard data-scene-interactive>
           <div class="layout-container section-intro">
             <p class="eyebrow" data-scroll-reveal>05／預期戰果</p>
             <h2 class="section-title" data-scroll-reveal>預期戰果：一次成功的千萬資金奪還行動。</h2>
@@ -432,7 +455,7 @@
             <div
               class="section-scene__image"
               data-parallax="-6"
-              style="background-image: url('./assets/background/dashboard-eggroll-cookie-factory-2p5d.png')"
+              style="background-image: url('./assets/background/dashboard-eggroll-cookie-factory-2p5d.webp')"
               aria-hidden="true"
             ></div>
             <div class="section-scene__shade" aria-hidden="true"></div>
@@ -464,11 +487,11 @@
         </section>
 
         <!-- Ending：回應 Hero 的疑問，留下可執行的主張與回到開頭的出口。 -->
-        <section id="ending" class="case-section ending-section" data-section="ending" data-ending>
+        <section id="ending" class="case-section ending-section" data-section="ending" data-section-name data-ending>
           <div
             class="ending-section__background ai-background-slot"
             data-ai-background
-            style="background-image: url('./assets/background/ending-dispatch-2p5d-v2.png')"
+            style="background-image: url('./assets/background/ending-dispatch-2p5d-v2.webp')"
             aria-hidden="true"
           ></div>
           <div class="ending-section__veil" aria-hidden="true"></div>

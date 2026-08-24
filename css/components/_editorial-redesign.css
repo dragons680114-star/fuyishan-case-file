@@ -77,23 +77,23 @@ body {
 }
 
 .story-section::before {
-  background-image: url("../../assets/background/story-eggroll-cookie-2p5d-v2.png");
+  background-image: url("../../assets/background/story-eggroll-cookie-2p5d-v2.webp");
 }
 
 .evidence-section::before {
-  background-image: url("../../assets/background/evidence-warehouse-2p5d-v2.png");
+  background-image: url("../../assets/background/evidence-warehouse-2p5d-v2.webp");
 }
 
 .compare-section::before {
-  background-image: url("../../assets/background/compare-flow-2p5d-v2.png");
+  background-image: url("../../assets/background/compare-flow-2p5d-v2.webp");
 }
 
 .timeline-section::before {
-  background-image: url("../../assets/background/timeline-action-2p5d-v2.png");
+  background-image: url("../../assets/background/timeline-action-2p5d-v2.webp");
 }
 
 .dashboard-section::before {
-  background-image: url("../../assets/background/dashboard-outcome-2p5d-v2.png");
+  background-image: url("../../assets/background/dashboard-outcome-2p5d-v2.webp");
 }
 
 .story-section > *,
