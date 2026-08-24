@@ -27,6 +27,10 @@ jobs:
         shell: pwsh
         run: ./scripts/verify-project.ps1
 
+      - name: Run local HTTP smoke test
+        shell: pwsh
+        run: ./scripts/smoke-test.ps1
+
   deploy:
     needs: quality
     if: github.event_name == 'push'

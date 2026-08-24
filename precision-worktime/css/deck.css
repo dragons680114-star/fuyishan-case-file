@@ -13,20 +13,20 @@ button { font:inherit; }
 .slide.is-active .slide__image { transform:scale(1.06); }
 .slide__veil { z-index:-1; background:linear-gradient(90deg,rgba(4,15,28,.98),rgba(4,15,28,.89) 41%,rgba(4,15,28,.38) 72%,rgba(4,15,28,.12)); }
 .slide__veil--light { background:linear-gradient(90deg,rgba(255,248,233,.98),rgba(255,248,233,.91) 41%,rgba(255,248,233,.26) 67%,rgba(255,248,233,0) 84%); }
-.slide__image--cover { background-image:url("../assets/images/cover-worktime-factory.png"); }
-.slide__image--observation { background-image:url("../assets/images/scene-observation.png"); }
-.slide__image--data { background-image:url("../assets/images/scene-data.png"); }
-.slide__image--action { background-image:url("../assets/images/scene-action.png"); }
+.slide__image--cover { background-image:url("../assets/images/cover-worktime-factory.webp"); }
+.slide__image--observation { background-image:url("../assets/images/scene-observation.webp"); }
+.slide__image--data { background-image:url("../assets/images/scene-data.webp"); }
+.slide__image--action { background-image:url("../assets/images/scene-action.webp"); }
 /* 各單元採用對應工廠情境，讓圖像協助理解，而不是重複裝飾。 */
-.slide__image--planning { background-image:url("../assets/images/scene-planning.png"); }
-.slide__image--timing { background-image:url("../assets/images/scene-timing.png"); }
-.slide__image--sop { background-image:url("../assets/images/scene-sop.png"); }
-.slide__image--units { background-image:url("../assets/images/scene-units.png"); }
-.slide__image--speed { background-image:url("../assets/images/scene-speed.png"); }
-.slide__image--allowance { background-image:url("../assets/images/scene-allowance.png"); }
-.slide__image--abnormal { background-image:url("../assets/images/scene-abnormal.png"); }
-.slide__image--iot { background-image:url("../assets/images/scene-iot.png"); }
-.slide__image--schedule { background-image:url("../assets/images/scene-schedule.png"); }
+.slide__image--planning { background-image:url("../assets/images/scene-planning.webp"); }
+.slide__image--timing { background-image:url("../assets/images/scene-timing.webp"); }
+.slide__image--sop { background-image:url("../assets/images/scene-sop.webp"); }
+.slide__image--units { background-image:url("../assets/images/scene-units.webp"); }
+.slide__image--speed { background-image:url("../assets/images/scene-speed.webp"); }
+.slide__image--allowance { background-image:url("../assets/images/scene-allowance.webp"); }
+.slide__image--abnormal { background-image:url("../assets/images/scene-abnormal.webp"); }
+.slide__image--iot { background-image:url("../assets/images/scene-iot.webp"); }
+.slide__image--schedule { background-image:url("../assets/images/scene-schedule.webp"); }
 .slide__content { width:min(72vw,71rem); padding:clamp(5.75rem,11vh,8rem) 0 clamp(5rem,10vh,7rem) var(--frame-left); }
 .slide__content--cover { width:min(54vw,59rem); color:#281b13; }
 .brand { margin:0 0 clamp(1.2rem,3vw,2.6rem); color:var(--red); font-size:clamp(.94rem,1.15vw,1.18rem); font-weight:850; letter-spacing:.1em; }

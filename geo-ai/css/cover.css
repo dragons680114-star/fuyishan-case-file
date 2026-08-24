@@ -30,7 +30,7 @@ body {
 
 .cover__image {
   z-index: -2;
-  background: center / cover no-repeat url("../assets/images/geo-cover-ai-search.png");
+  background: center / cover no-repeat url("../assets/images/geo-cover-ai-search.webp");
   animation: cover-breathe 9s ease-in-out infinite alternate;
 }
 
