@@ -1,7 +1,8 @@
 import { getDependencies } from "../../core/dependencies.js";
 import { qs, qsa, prefersReducedMotion } from "../../core/dom.js";
 
-function startCounterPulse(element, gsap, delay) {
+function startCounterPulse(element, gsap, delay, reducedMotion) {
+  if (reducedMotion) return;
   element._dashboardPulseTween?.kill();
   // 數字完成後保留低頻率的微彈跳，晚進入這一頁也能感受到互動，不會干擾閱讀。
   element._dashboardPulseTween = gsap.timeline({ repeat: -1, repeatDelay: 2.7, delay })
@@ -9,7 +10,7 @@ function startCounterPulse(element, gsap, delay) {
     .to(element, { y: 0, scale: 1, duration: 0.34, ease: "sine.in" });
 }
 
-function animateCounter(element, gsap, onComplete, delay = 0) {
+function animateCounter(element, gsap, onComplete, delay = 0, reducedMotion = false) {
   const target = Number(element.dataset.target);
   const decimals = Number(element.dataset.decimals ?? 0);
   const state = { value: 0 };
@@ -17,23 +18,27 @@ function animateCounter(element, gsap, onComplete, delay = 0) {
   element._dashboardCounterTween?.kill();
   element._dashboardPulseTween?.kill();
   element.textContent = (0).toFixed(decimals);
-  // 讓每個數字先輕輕彈入，再開始計數；閱讀時仍能清楚追蹤數值變化。
-  gsap.fromTo(
-    element,
-    { autoAlpha: 0.45, scale: 0.82, y: "0.18em" },
-    { autoAlpha: 1, scale: 1, y: 0, duration: 0.52, delay, ease: "back.out(2.1)", overwrite: true },
-  );
+  // 減少動態效果時略過位移與縮放，但保留數字累加，避免目標值突然出現。
+  if (reducedMotion) {
+    gsap.set(element, { autoAlpha: 1, clearProps: "transform" });
+  } else {
+    gsap.fromTo(
+      element,
+      { autoAlpha: 0.45, scale: 0.82, y: "0.18em" },
+      { autoAlpha: 1, scale: 1, y: 0, duration: 0.52, delay, ease: "back.out(2.1)", overwrite: true },
+    );
+  }
   element._dashboardCounterTween = gsap.to(state, {
     value: target,
-    // 放慢節奏，讓經營者能實際看見每個目標值被累加，而非一閃即逝。
-    duration: 3.8,
+    // 即使減少動態效果，仍保留平穩的數字累加；只有空間位移與彈跳會停用。
+    duration: reducedMotion ? 2.2 : 3.8,
     delay,
-    ease: "power1.out",
+    ease: reducedMotion ? "none" : "power1.out",
     onUpdate: () => {
       element.textContent = state.value.toFixed(decimals);
     },
     onComplete: () => {
-      startCounterPulse(element, gsap, delay * 0.55);
+      startCounterPulse(element, gsap, delay * 0.55, reducedMotion);
       onComplete();
     },
   });
@@ -52,8 +57,9 @@ export function initDashboardSection() {
   if (!root) return { name: "dashboard", mode: "static" };
 
   const counters = qsa("[data-counter]", root);
-  if (!gsap || prefersReducedMotion()) {
-    // Reduced-motion 使用者仍應看到來源目標值，只略過數字累加動畫。
+  const reducedMotion = prefersReducedMotion();
+  if (!gsap) {
+    // 第三方動畫庫失效時仍顯示來源目標值，確保內容可讀。
     counters.forEach(setCounterValue);
     root.dataset.counterState = "complete";
     return { name: "dashboard", mode: "static" };
@@ -89,7 +95,7 @@ export function initDashboardSection() {
       completed += 1;
       if (completed === counters.length) root.dataset.counterState = "complete";
     };
-    counters.forEach((counter, index) => animateCounter(counter, gsap, finish, index * 0.12));
+    counters.forEach((counter, index) => animateCounter(counter, gsap, finish, index * 0.12, reducedMotion));
   };
 
   // 捲動閱讀時第一次進入頁面才播放；16:9 模式則每次跳到本頁重新從零開始。
