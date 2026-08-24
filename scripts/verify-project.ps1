@@ -111,6 +111,26 @@ if (-not (Test-Path -LiteralPath $sitemapFile -PathType Leaf)) {
   }
 }
 
+# Web App manifest 必須是有效 JSON，且宣告的啟動圖示要存在。
+$manifestFile = Join-Path $ProjectRoot 'site.webmanifest'
+if (-not (Test-Path -LiteralPath $manifestFile -PathType Leaf)) {
+  Add-Failure 'site.webmanifest is missing'
+} else {
+  try {
+    $manifest = Get-Content -LiteralPath $manifestFile -Raw | ConvertFrom-Json
+    if ([string]::IsNullOrWhiteSpace($manifest.name)) { Add-Failure 'site.webmanifest is missing name' }
+    if ([string]::IsNullOrWhiteSpace($manifest.start_url)) { Add-Failure 'site.webmanifest is missing start_url' }
+    foreach ($icon in @($manifest.icons)) {
+      $iconPath = Join-Path $ProjectRoot ($icon.src -replace '/', '\')
+      if (-not (Test-Path -LiteralPath $iconPath -PathType Leaf)) {
+        Add-Failure "site.webmanifest references missing icon: $($icon.src)"
+      }
+    }
+  } catch {
+    Add-Failure "site.webmanifest is not valid JSON: $($_.Exception.Message)"
+  }
+}
+
 $assetFiles = Get-ChildItem -LiteralPath (Join-Path $ProjectRoot 'assets') -Recurse -File -Force -ErrorAction SilentlyContinue |
   Where-Object { $_.Name -ne '.gitkeep' }
 $duplicateGroups = $assetFiles | Get-FileHash -Algorithm SHA256 | Group-Object Hash | Where-Object Count -gt 1
