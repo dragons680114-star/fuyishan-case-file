@@ -42,6 +42,10 @@ foreach ($file in $sourceFiles) {
   $content = Get-Content -LiteralPath $file.FullName -Raw
   $relativeFile = $file.FullName.Substring($ProjectRoot.Length + 1)
 
+  foreach ($cdn in [regex]::Matches($content, 'https?://(?:cdn\.jsdelivr\.net|unpkg\.com|cdnjs\.cloudflare\.com)/[^"''\s)]+')) {
+    Add-Failure "$relativeFile contains a CDN dependency: $($cdn.Value)"
+  }
+
   foreach ($match in [regex]::Matches($content, '(?:src|href)\s*=\s*["'']([^"'']+)["'']|url\(["'']?([^\)"'']+)["'']?\)')) {
     $reference = if ($match.Groups[1].Success) { $match.Groups[1].Value } else { $match.Groups[2].Value }
     if ($reference -match '^(https?:|data:|#|mailto:|tel:|javascript:)') { continue }
@@ -129,4 +133,4 @@ if ($failures.Count) {
   exit 1
 }
 
-Write-Host "PASS: all local HTML resource references resolve."
+Write-Host "PASS: local resources, SEO metadata and dependency rules resolve."
