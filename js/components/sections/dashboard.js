@@ -39,11 +39,25 @@ function animateCounter(element, gsap, onComplete, delay = 0) {
   });
 }
 
+function setCounterValue(element) {
+  const target = Number(element.dataset.target);
+  const decimals = Number(element.dataset.decimals ?? 0);
+  element.textContent = Number.isFinite(target) ? target.toFixed(decimals) : "0";
+}
+
 // Dashboard 只動畫化來源已提供的目標值，不自行創造新指標。
 export function initDashboardSection() {
   const root = qs("[data-dashboard]");
   const { gsap, scrollTrigger: ScrollTrigger } = getDependencies();
-  if (!root || !gsap || prefersReducedMotion()) return { name: "dashboard", mode: "static" };
+  if (!root) return { name: "dashboard", mode: "static" };
+
+  const counters = qsa("[data-counter]", root);
+  if (!gsap || prefersReducedMotion()) {
+    // Reduced-motion 使用者仍應看到來源目標值，只略過數字累加動畫。
+    counters.forEach(setCounterValue);
+    root.dataset.counterState = "complete";
+    return { name: "dashboard", mode: "static" };
+  }
 
   qsa("[data-dashboard-stat]", root).forEach((stat, index) => {
     gsap.fromTo(
@@ -60,7 +74,6 @@ export function initDashboardSection() {
     );
   });
 
-  const counters = qsa("[data-counter]", root);
   let lastPlayTime = 0;
   const playCounters = ({ replay = false } = {}) => {
     const state = root.dataset.counterState;
@@ -83,8 +96,8 @@ export function initDashboardSection() {
   if (ScrollTrigger) {
     ScrollTrigger.create({
       trigger: root,
-      // 章節貼齊畫面頂端才開始，使用導覽按鈕或捲動吸附時都能看到完整過程。
-      start: "top top",
+      // 放寬觸發區，手動捲動時不必剛好貼齊章節頂端也能開始。
+      start: "top 82%",
       onEnter: () => playCounters({ replay: true }),
       onEnterBack: () => playCounters({ replay: true }),
     });
