@@ -20,6 +20,7 @@
   <style>
     .skip-link { position: fixed; z-index: 20; left: 16px; top: 16px; padding: 10px 14px; border-radius: 8px; color: #172333; background: #e6a521; transform: translateY(-180%); }
     .skip-link:focus { transform: translateY(0); outline: 3px solid #fff; outline-offset: 3px; }
+    .no-script-note { position: fixed; z-index: 30; inset: 16px 16px auto; padding: 14px 18px; border: 1px solid var(--navy); border-radius: 10px; color: var(--navy); background: #e6a521; font-weight: 800; }
     :root {
       --navy: #102b4d;
       --navy-2: #1b466f;
@@ -224,6 +225,7 @@
 </head>
 <body>
   <a class="skip-link" href="#deck">跳至主要內容</a>
+  <noscript><div class="no-script-note" role="status">此互動簡報需要開啟 JavaScript，才能切換投影片與使用按鈕。</div></noscript>
   <main class="deck" id="deck" aria-label="嘉義水上福匯案場太陽能光電建置評估互動簡報">
     <section class="slide cover active" data-slide="1" aria-labelledby="cover-title">
       <div class="shell">
