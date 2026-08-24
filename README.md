@@ -26,6 +26,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify-project.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\smoke-test.ps1
 ```
 
+GitHub Actions 也會用 Chromium 實際開啟四個頁面，檢查圖片、GEO／精準工時／太陽能簡報互動、鍵盤切頁，以及手機寬度是否橫向溢出。
+
 這會檢查 HTML、CSS 與 JavaScript 模組的本機資源引用是否存在、各頁的標題／description／canonical 是否齊全、按鈕是否明確使用 `type="button"`、`sitemap.xml` 與 `site.webmanifest` 是否有效、HTML/CSS 是否重新引入 CDN，並列出 `assets/` 中內容完全重複的檔案。
 
 > 不建議直接雙擊 `index.html`：ES Module 的 `import` 在 `file://` 模式常被瀏覽器的安全政策阻擋。若沒有 Python，也可以用 VS Code 的 Live Server 擴充功能提供 HTTP 預覽。

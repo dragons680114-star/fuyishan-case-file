@@ -31,6 +31,21 @@ jobs:
         shell: pwsh
         run: ./scripts/smoke-test.ps1
 
+      - name: Set up Node.js for browser checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Chromium for browser checks
+        shell: bash
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run browser interaction and responsive checks
+        shell: bash
+        run: node scripts/browser-smoke.mjs
+
   deploy:
     needs: quality
     if: github.event_name == 'push'
