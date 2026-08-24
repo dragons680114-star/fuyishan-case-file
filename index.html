@@ -48,16 +48,8 @@
       }, 5000);
     </script>
 
-    <!-- 預先建立第三方資源連線，降低首屏載入延遲。 -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-
-    <!-- Font Awesome 只提供圖示，不承載任何內容文字。 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <!-- Font Awesome 固定版本放在專案內，只提供裝飾圖示，不承載任何內容文字。 -->
+    <link rel="stylesheet" href="./css/vendor/fontawesome/all.min.css" />
 
     <!-- CSS 入口會依序匯入 token、版面、元件與工具模組。 -->
     <link rel="stylesheet" href="./css/main.css?v=20260807-timelinestage2" />
