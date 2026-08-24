@@ -25,12 +25,12 @@
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; background: #eaf0f4; }
-    body { color: var(--ink); font-family: "Noto Sans TC", "Microsoft JhengHei", "Segoe UI", Arial, sans-serif; overflow: hidden; }
+    body { color: var(--ink); font-family: "Noto Sans TC", "Microsoft JhengHei", "Segoe UI", Arial, sans-serif; overflow: hidden; overflow-x: hidden; }
     button, input { font: inherit; }
     button { color: inherit; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-    .deck { width: 100vw; height: 100svh; min-height: 650px; overflow: hidden; position: relative; background: #fff; }
+    .deck { width: auto; height: 100svh; min-height: 650px; overflow: hidden; position: relative; background: #fff; }
     .slide { position: absolute; inset: 0; padding: clamp(28px, 4.4vw, 64px) clamp(92px, 8vw, 132px) 30px; background: var(--paper); display: grid; grid-template-rows: auto 1fr auto; opacity: 0; transform: translateX(24px) scale(.985); pointer-events: none; transition: opacity .38s ease, transform .38s ease; overflow: auto; }
     .slide.active { opacity: 1; transform: none; pointer-events: auto; }
     .shell { width: min(1480px, 100%); min-height: 100%; margin: 0 auto; display: flex; flex-direction: column; }
@@ -183,7 +183,7 @@
     .side-nav button:disabled { opacity: .22; cursor: default; box-shadow: none; transform: none; }
 
     @media (max-width: 980px) {
-      body { overflow: auto; }
+      body { overflow: auto; overflow-x: hidden; }
       .deck { height: auto; min-height: 100svh; overflow: visible; }
       .slide { position: relative; min-height: 100svh; height: auto; display: none; opacity: 1; transform: none; padding: 28px 62px 28px; }
       .slide.active { display: block; }
