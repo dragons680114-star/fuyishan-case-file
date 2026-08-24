@@ -1,0 +1,19 @@
+{
+  "name": "福義軒互動案例｜績效謎案",
+  "short_name": "福義軒案例",
+  "description": "福義軒食品工廠的資金、工時、GEO 與太陽能互動案例簡報。",
+  "lang": "zh-Hant",
+  "start_url": "/fuyishan-case-file/",
+  "scope": "/fuyishan-case-file/",
+  "display": "standalone",
+  "background_color": "#080b14",
+  "theme_color": "#080b14",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
