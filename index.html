@@ -48,11 +48,11 @@
     <!-- CSS 入口會依序匯入 token、版面、元件與工具模組。 -->
     <link rel="stylesheet" href="./css/main.css?v=20260807-timelinestage2" />
 
-    <!-- 固定版本的互動依賴；若 CDN 暫時不可用，網站仍維持可閱讀狀態。 -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
+    <!-- 核心互動依賴採用本地固定版本，避免動畫與計數器受 CDN 連線影響。 -->
+    <script src="./js/vendor/gsap.min.js" defer></script>
+    <script src="./js/vendor/ScrollTrigger.min.js" defer></script>
+    <script src="./js/vendor/ScrollToPlugin.min.js" defer></script>
+    <script src="./js/vendor/lenis.min.js" defer></script>
   </head>
 
   <body class="is-loading">
