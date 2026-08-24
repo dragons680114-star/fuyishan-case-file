@@ -53,6 +53,45 @@ foreach ($file in $sourceFiles) {
   }
 }
 
+# 每個公開頁面都要保有基本 SEO 語意，避免新增子頁時漏掉分享與索引資訊。
+foreach ($file in $htmlFiles) {
+  $content = Get-Content -LiteralPath $file.FullName -Raw
+  $relativeFile = $file.FullName.Substring($ProjectRoot.Length + 1)
+  if ($content -notmatch '<title>\s*[^<]+\s*</title>') {
+    Add-Failure "$relativeFile is missing a non-empty title"
+  }
+  if ($content -notmatch '<meta\s+[^>]*name=["'']description["''][^>]*content=["''][^"'']+["'']') {
+    Add-Failure "$relativeFile is missing a meta description"
+  }
+  if ($content -notmatch '<link\s+[^>]*rel=["'']canonical["''][^>]*href=["'']https://[^"'']+["'']') {
+    Add-Failure "$relativeFile is missing an absolute canonical URL"
+  }
+}
+
+# sitemap.xml 只列出專案內實際存在的頁面，避免搜尋引擎收到失效網址。
+$sitemapFile = Join-Path $ProjectRoot 'sitemap.xml'
+if (-not (Test-Path -LiteralPath $sitemapFile -PathType Leaf)) {
+  Add-Failure 'sitemap.xml is missing'
+} else {
+  try {
+    [xml]$sitemap = Get-Content -LiteralPath $sitemapFile -Raw
+    $locations = @($sitemap.urlset.url.loc)
+    if (-not $locations.Count) { Add-Failure 'sitemap.xml contains no URLs' }
+    foreach ($location in $locations) {
+      $uri = [Uri]$location
+      $path = $uri.AbsolutePath -replace '^/fuyishan-case-file/?', ''
+      if ([string]::IsNullOrWhiteSpace($path)) { $path = 'index.html' }
+      elseif ($path.EndsWith('/')) { $path = $path + 'index.html' }
+      $candidate = Join-Path $ProjectRoot ($path -replace '/', '\')
+      if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+        Add-Failure "sitemap.xml references missing page: $location"
+      }
+    }
+  } catch {
+    Add-Failure "sitemap.xml is not valid XML: $($_.Exception.Message)"
+  }
+}
+
 $assetFiles = Get-ChildItem -LiteralPath (Join-Path $ProjectRoot 'assets') -Recurse -File -Force -ErrorAction SilentlyContinue |
   Where-Object { $_.Name -ne '.gitkeep' }
 $duplicateGroups = $assetFiles | Get-FileHash -Algorithm SHA256 | Group-Object Hash | Where-Object Count -gt 1
