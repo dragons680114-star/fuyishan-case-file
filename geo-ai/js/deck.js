@@ -138,7 +138,10 @@
   const diagramPanel = document.querySelector(".geo-diagram-panel");
   const diagramClose = document.querySelector(".geo-diagram-close");
   if (diagramTrigger && diagramPanel && diagramClose) {
+    const diagramParent = diagramPanel.parentElement;
     const setDiagramOpen = (isOpen) => {
+      if (isOpen && diagramPanel.parentElement !== document.body) document.body.appendChild(diagramPanel);
+      if (!isOpen && diagramPanel.parentElement === document.body) diagramParent.appendChild(diagramPanel);
       diagramPanel.classList.toggle("is-open", isOpen);
       diagramPanel.setAttribute("aria-hidden", String(!isOpen));
       diagramTrigger.setAttribute("aria-expanded", String(isOpen));
