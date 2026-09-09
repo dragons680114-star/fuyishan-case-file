@@ -134,6 +134,21 @@
     });
   });
 
+  const diagramTrigger = document.querySelector(".geo-diagram-trigger");
+  const diagramPanel = document.querySelector(".geo-diagram-panel");
+  const diagramClose = document.querySelector(".geo-diagram-close");
+  if (diagramTrigger && diagramPanel && diagramClose) {
+    const setDiagramOpen = (isOpen) => {
+      diagramPanel.classList.toggle("is-open", isOpen);
+      diagramPanel.setAttribute("aria-hidden", String(!isOpen));
+      diagramTrigger.setAttribute("aria-expanded", String(isOpen));
+    };
+    diagramTrigger.addEventListener("click", () => setDiagramOpen(true));
+    diagramClose.addEventListener("click", () => setDiagramOpen(false));
+    diagramPanel.addEventListener("click", (event) => { if (event.target === diagramPanel) setDiagramOpen(false); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") setDiagramOpen(false); });
+  }
+
   document.querySelectorAll(".signal-button").forEach(button => {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.signal);
