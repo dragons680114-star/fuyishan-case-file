@@ -137,6 +137,7 @@
   const diagramTrigger = document.querySelector(".geo-diagram-trigger");
   const diagramPanel = document.querySelector(".geo-diagram-panel");
   const diagramClose = document.querySelector(".geo-diagram-close");
+  const diagramFullscreen = document.querySelector(".geo-diagram-fullscreen");
   if (diagramTrigger && diagramPanel && diagramClose) {
     const diagramParent = diagramPanel.parentElement;
     const setDiagramOpen = (isOpen) => {
@@ -148,6 +149,9 @@
     };
     diagramTrigger.addEventListener("click", () => setDiagramOpen(true));
     diagramClose.addEventListener("click", () => setDiagramOpen(false));
+    diagramFullscreen?.addEventListener("click", () => {
+      if (diagramPanel.requestFullscreen) diagramPanel.requestFullscreen();
+    });
     diagramPanel.addEventListener("click", (event) => { if (event.target === diagramPanel) setDiagramOpen(false); });
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") setDiagramOpen(false); });
   }
